@@ -1,0 +1,14 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,600&display=swap');
+@import "partials/materialicons";
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import 'partials/components';
+@import 'partials/elements';
+
+@import 'partials/card';

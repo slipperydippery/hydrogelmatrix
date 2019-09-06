@@ -1,0 +1,10 @@
+.newdeckbutton--fixed {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	&.active {
+		// border: 1px solid;
+		// border-radius: 2.5rem;
+		// line-height: 2.5rem;
+	}
+}
