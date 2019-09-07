@@ -5,10 +5,10 @@ namespace App;
 use App\Card;
 use Illuminate\Database\Eloquent\Model;
 
-class CardType extends Model
+class Cardtype extends Model
 {
     public function cards()
     {
-    	return $this->belongsToMany(Card::class);
+    	return $this->hasMany(Card::class);
     }
 }

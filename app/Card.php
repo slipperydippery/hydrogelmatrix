@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Card extends Model
 {
 	protected $guarded = [];
-	
+
     public function user()
     {
     	return $this->belongsTo(User::class);
@@ -23,6 +23,6 @@ class Card extends Model
 
     public function cardtype()
     {
-    	return $this->belongsToMany(CardType::class);
+    	return $this->belongsTo(Cardtype::class);
     }
 }

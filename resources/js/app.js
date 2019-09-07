@@ -31,7 +31,12 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('new-card-fixed-button', require('./components/NewCardFixedButton.vue').default);
 
 Vue.component('new-qa-card-modal', require('./components/NewQaCardModal.vue').default);
+Vue.component('qa-test-component', require('./components/QaTestComponent.vue').default);
+Vue.component('test-deck-component', require('./components/TestDeckComponent').default);
 
+
+
+// OLD
 Vue.component('new-deck-modal', require('./components/NewDeckModal').default);
 Vue.component('new-card-modal', require('./components/NewCardModal').default);
 Vue.component('new-card-block-modal', require('./components/NewCardBlockModal').default);

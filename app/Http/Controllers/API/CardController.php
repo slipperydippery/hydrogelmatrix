@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Card;
+use App\CardType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -27,11 +28,13 @@ class CardController extends Controller
     public function store(Request $request)
     {
         $user = auth('api')->user();
+        $cardtype = CardType::where('slug', $request['card']['cardtype'])->first();
         $deck = Card::create([
-            'front'     => $request['card']['sidea'],
-            'back'     => $request['card']['sideb'],
-            'user_id'   => $user->id,
-            'deck_id'   => $request['card']['deckid'],
+            'front'         => $request['card']['sidea'],
+            'back'          => $request['card']['sideb'],
+            'user_id'       => $user->id,
+            'deck_id'       => $request['card']['deckid'],
+            'cardtype_id'  => $cardtype->id,
         ]);
 
         return $deck;

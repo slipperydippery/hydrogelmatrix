@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCardTypesTable extends Migration
+class CreateCardtypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateCardTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('card_types', function (Blueprint $table) {
+        Schema::create('cardtypes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('slug');
             $table->string('name');
@@ -29,6 +29,6 @@ class CreateCardTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('card_types');
+        Schema::dropIfExists('cardtypes');
     }
 }

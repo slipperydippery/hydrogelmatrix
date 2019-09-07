@@ -26,6 +26,7 @@
         data() {
             return {
             	card: {
+            		cardtype: 'qa',
             		sidea: '',
             		sideb: '',
             	}

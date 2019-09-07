@@ -1,10 +1,10 @@
 <template>
 	<div class="newdeckbutton--fixed">
-        <i class="material-icons md-3 clickable" v-b-modal.modal-1>
+        <i class="material-icons md-3 clickable" v-b-modal.qamodal>
             add_circle_outline
         </i>
         <b-modal 
-        	id="modal-1" 
+        	id="qamodal" 
         	title="Create new Card"
             size="lg"
         	@ok="storeDeck"

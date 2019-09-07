@@ -21,6 +21,8 @@ class CreateCardsTable extends Migration
             $table->foreign('deck_id')->references('id')->on('decks')->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('cardtype_id')->unsigned()->nullable();
+            $table->foreign('cardtype_id')->references('id')->on('cardtypes')->onDelete('cascade');
             $table->timestamps();
         });
     }
