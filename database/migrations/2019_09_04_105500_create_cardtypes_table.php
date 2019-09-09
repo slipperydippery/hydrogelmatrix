@@ -17,6 +17,10 @@ class CreateCardtypesTable extends Migration
             $table->bigIncrements('id');
             $table->string('slug');
             $table->string('name');
+            $table->string('fronttext')->nullable();
+            $table->string('frontplaceholder')->nullable();
+            $table->string('backtext')->nullable();
+            $table->string('backplaceholder')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
         });

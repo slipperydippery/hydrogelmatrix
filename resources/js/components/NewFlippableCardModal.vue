@@ -1,17 +1,17 @@
 <template>
     <b-modal 
-    	id="qamodal" 
+    	id="flippablemodal" 
     	title="Create new Card"
         size="lg"
     	@ok="storeCard"
 	>
         <div class="form-group">
-            <label for="exampleInputEmail1">Question</label>
-            <textarea class="form-control" id="titleInput"  placeholder="What is the question..?" v-model="card.sidea"></textarea>
+            <label for="exampleInputEmail1">Side A</label>
+            <textarea class="form-control" id="titleInput"  placeholder="This is the native term" v-model="card.sidea"></textarea>
         </div>
         <div class="form-group">
-            <label for="exampleInputEmail1">Answer</label>
-            <textarea class="form-control" id="titleInput"  placeholder="This is the answer!" v-model="card.sideb"></textarea>
+            <label for="exampleInputEmail1">Side B</label>
+            <textarea class="form-control" id="titleInput"  placeholder="The foreign term is" v-model="card.sideb"></textarea>
         </div>
 	</b-modal>
 </template>
@@ -26,7 +26,7 @@
         data() {
             return {
             	card: {
-            		cardtype: 'qa',
+            		cardtype: 'flippable',
             		sidea: '',
             		sideb: '',
             	}

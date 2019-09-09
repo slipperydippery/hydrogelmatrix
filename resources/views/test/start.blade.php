@@ -8,3 +8,7 @@
 
 
 @endsection
+
+@section('additional-scripts')
+
+@endsection

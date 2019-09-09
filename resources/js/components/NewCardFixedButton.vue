@@ -8,36 +8,50 @@
             add_circle_outline
         </i>
 		<b-list-group v-if="active">
+			<b-list-group-item class="px-5 noselect"><b>New card</b></b-list-group-item>
 			<b-list-group-item 
 				href="#" 
+				class="px-5"
 				v-for="cardtype in cardtypes" 
-				@click="$bvModal.show(cardtype.slug + 'modal')"
+				@click="setAndShowCardmodal(cardtype)"
 			> 
 				{{ cardtype.name }} 
 			</b-list-group-item>
 		</b-list-group>
+		<new-card-modal
+	        :deckid="deckid"
+	        :activecardtype="activecardtype"
+		>
+		</new-card-modal>
     </div>
 </template>
 
 <script>
     export default {
         props: [
-        	'cardtypes'
+        	'cardtypes',
+        	'deckid'
         ],
 
         data() {
             return {
             	active: false,
+            	activecardtype: ''
             }
         },
 
         mounted() {
+        	this.activecardtype = this.cardtypes[0]
         },
 
         computed: {
         },
 
         methods: {
+        	setAndShowCardmodal(cardtype) {
+        		this.activecardtype = cardtype;
+        		this.$bvModal.show('newcardmodal');
+        	}
         }
     }
 </script>

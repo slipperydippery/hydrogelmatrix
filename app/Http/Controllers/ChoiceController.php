@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Deck;
-use App\CardType;
+use App\Choice;
 use Illuminate\Http\Request;
 
-class DeckController extends Controller
+class ChoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,24 +41,21 @@ class DeckController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Deck  $deck
+     * @param  \App\Choice  $choice
      * @return \Illuminate\Http\Response
      */
-    public function show(Deck $deck)
+    public function show(Choice $choice)
     {
-        $deck = Deck::with('cards')->find($deck->id);
-        $cards = Deck::find($deck->id)->cards;
-        $cardtypes = CardType::get();
-        return view('deck.show', compact('deck', 'cards', 'cardtypes'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Deck  $deck
+     * @param  \App\Choice  $choice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Deck $deck)
+    public function edit(Choice $choice)
     {
         //
     }
@@ -68,10 +64,10 @@ class DeckController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Deck  $deck
+     * @param  \App\Choice  $choice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Deck $deck)
+    public function update(Request $request, Choice $choice)
     {
         //
     }
@@ -79,10 +75,10 @@ class DeckController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Deck  $deck
+     * @param  \App\Choice  $choice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Deck $deck)
+    public function destroy(Choice $choice)
     {
         //
     }

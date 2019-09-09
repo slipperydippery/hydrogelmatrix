@@ -77,5 +77,8 @@
             @yield('content')
         </main>
     </div>
+
+    {{-- scripts  --}}
+    @yield('additional-scripts')
 </body>
 </html>

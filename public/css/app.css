@@ -10735,6 +10735,13 @@ main {
   cursor: pointer;
 }
 
+.noselect {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
 .hydrocard-container {
   perspective: 1000px;
   /* Remove this if you don't want the 3D effect */
@@ -10747,23 +10754,25 @@ main {
 }
 
 .hydrocard .face {
+  font-size: 5vw;
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-  border-radius: 10px;
   text-align: center;
 }
 
 .hydrocard .front {
-  background: #2dccb8;
+  color: #E6E4DE;
+  background: #272727;
   z-index: 20;
 }
 
 .hydrocard .back {
   transform: rotateY(180deg);
-  background: #53a3dc;
+  color: #272727;
+  background: #E6E4DE;
   z-index: 10;
 }
 
@@ -10869,5 +10878,12 @@ main {
   background-color: dodgerblue;
   color: white;
   transform: rotateY(180deg);
+}
+
+.testnav {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 

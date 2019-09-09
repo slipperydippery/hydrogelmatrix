@@ -27,11 +27,19 @@ Vue.use(PortalVue);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('cards-in-deck', require('./components/CardsInDeck.vue').default);
 Vue.component('new-card-fixed-button', require('./components/NewCardFixedButton.vue').default);
 
 Vue.component('new-qa-card-modal', require('./components/NewQaCardModal.vue').default);
 Vue.component('qa-test-component', require('./components/QaTestComponent.vue').default);
+Vue.component('new-flippable-card-modal', require('./components/NewFlippableCardModal').default);
+Vue.component('flippable-test-component', require('./components/FlippableTestComponent.vue').default);
+// Vue.component('new-multiplechoice-card-modal', require('./components/NewMultiplechoiceCardModal').default);
+// Vue.component('multiplechoice-test-component', require('./components/MultiplechoiceTestComponent.vue').default);
+Vue.component('new-doit-card-modal', require('./components/NewDoitCardModal').default);
+Vue.component('doit-test-component', require('./components/DoitTestComponent.vue').default);
+
+
 Vue.component('test-deck-component', require('./components/TestDeckComponent').default);
 
 
@@ -46,7 +54,7 @@ Vue.component('new-card-block-modal', require('./components/NewCardBlockModal').
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+Vue.prototype.$eventBus = new Vue(); 
 const app = new Vue({
     el: '#app',
 });

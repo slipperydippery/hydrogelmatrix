@@ -15,9 +15,13 @@ class CardtypeTableSeeder extends Seeder
         DB::table('cardtypes')->delete();
 
         $qa = new Cardtype([
-            'name' 			=> 'Question and Answer',
-            'slug' 			=> 'qa',
-            'description' 	=> 'A card with a question on the front and the answer on the back. Can be reversed in Jeopardy mode',
+            'name' 				=> 'Question and Answer',
+            'slug' 				=> 'qa',
+            'description' 		=> 'A card with a question on the front and the answer on the back. Can be reversed in Jeopardy mode',
+            'fronttext'			=> 'Question',
+            'frontplaceholder'	=> 'What is the question..?',
+            'backtext'			=> 'Answer',
+            'backplaceholder'	=> 'This is the answer!',
         ]);
         $qa->save();
 
@@ -25,6 +29,10 @@ class CardtypeTableSeeder extends Seeder
             'name' 			=> 'Flippable',
             'slug' 			=> 'flippable',
             'description' 	=> 'A card that can be tested both ways. Language cards can work like this. Can be tested in strict or priority mode, where preference is given to the front as question.',
+            'fronttext'			=> 'Side A',
+            'frontplaceholder'	=> 'The native term',
+            'backtext'			=> 'Side B',
+            'backplaceholder'	=> 'The foreign term',
         ]);
         $flippable->save();
 
@@ -32,6 +40,10 @@ class CardtypeTableSeeder extends Seeder
             'name' 			=> 'Multiple choice',
             'slug' 			=> 'multiplechoice',
             'description' 	=> 'A question with multiple answer options, of which one is the final answer.',
+            'fronttext'			=> 'Question',
+            'frontplaceholder'	=> 'What is the question..?',
+            'backtext'			=> 'Choice',
+            'backplaceholder'	=> 'A possible answer...',
         ]);
         $multiplechoice->save();
 
@@ -39,6 +51,10 @@ class CardtypeTableSeeder extends Seeder
             'name' 			=> 'Do it!',
             'slug' 			=> 'doit',
             'description' 	=> 'A card with a simple task - does not have an answer or backside.',
+            'fronttext'			=> 'Do it!',
+            'frontplaceholder'	=> 'The task is to...',
+            'backtext'			=> '',
+            'backplaceholder'	=> '',
         ]);
         $dothis->save();
     }

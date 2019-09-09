@@ -1,59 +1,115 @@
 <template>
-	<div class="newdeckbutton--fixed">
-        <i class="material-icons md-3 clickable" v-b-modal.qamodal>
-            add_circle_outline
-        </i>
-        <b-modal 
-        	id="qamodal" 
-        	title="Create new Card"
-            size="lg"
-        	@ok="storeDeck"
-    	>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Side A</label>
-                <textarea class="form-control" id="titleInput"  placeholder="Text side A" v-model="card.sidea"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Side A</label>
-                <textarea class="form-control" id="titleInput"  placeholder="Text side B" v-model="card.sideb"></textarea>
-            </div>
-		</b-modal>
-	</div>
-
+    <b-modal 
+        id="newcardmodal" 
+        title="Create new Card"
+        size="lg"
+        @ok="storeCard"
+    >
+        <div class="form-group">
+            <label for="exampleInputEmail1">{{ activecardtype.fronttext }}</label>
+            <textarea class="form-control" id="titleInput"  :placeholder="activecardtype.frontplaceholder" v-model="card.sidea"></textarea>
+        </div>
+        <div class="form-group" v-if="hasSideb">
+            <label for="exampleInputEmail1">{{ activecardtype.backtext }}</label>
+            <textarea class="form-control" id="titleInput"  :placeholder="activecardtype.backplaceholder" v-model="card.sideb"></textarea>
+        </div>
+        <div class="form-group" v-if="isMultipleChoice">
+            <b-list-group>
+                <b-list-group-item v-for="choice in choices" @click="setActiveChoice(choice)" :active="choice.active">
+                    {{ choice.choice }}
+                    <button type="button" class="close float-right" aria-label="Close" @click="removeChoice(choice)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </b-list-group-item>
+            </b-list-group>
+            <input type="text" class="form-control" :placeholder="activecardtype.backplaceholder" v-model="newChoice" @keydown.enter="saveChoice()">
+        </div>
+    </b-modal>
 </template>
 
 <script>
     export default {
         props: [
-            'deckid'
+            'deckid',
+            'activecardtype'
         ],
 
         data() {
             return {
-            	card: {
-            		sidea: '',
+                card: {
+                    cardtype: this.activecardtype.slug,
+                    deckid: this.deckid,
+                    sidea: '',
                     sideb: '',
-            	}
+                },
+                choices: [],
+                newChoice: '',
+            }
+        },
+ 
+        watch: { 
+            activecardtype: function(newVal, oldVal) { 
+                this.card.cardtype = newVal;
             }
         },
 
         mounted() {
-            this.card.deckid = this.deckid;
         },
 
         computed: {
+            hasSideb() {
+                if( 
+                    this.activecardtype.slug == 'multiplechoice' ||
+                    this.activecardtype.slug == 'doit'
+                ){
+                    return false;
+                };
+                return true;
+            },
+
+            isMultipleChoice() {
+                if( this.activecardtype.slug == 'multiplechoice' ) {
+                    return true;
+                }
+                return false;
+            }
         },
 
         methods: {
-        	storeDeck() {
-	        	var home = this;
-        		axios.post('/api/card', {
-        			card: home.card
-        		})
-        		.then( response => {
-        			console.log(response.data);
-        		});
-        	}
+            storeCard() {
+                var home = this;
+                axios.post('/api/card', {
+                    card: home.card,
+                })
+                .then( response => {
+                    home.card = {
+                        cardtype: this.activecardtype.slug,
+                        deckid: this.deckid,
+                        sidea: '',
+                        sideb: '',
+                    };
+                    this.$eventBus.$emit('addedCard', response.data);
+                });
+            },
+
+            saveChoice() {
+                this.choices.push({
+                    choice: this.newChoice,
+                    active: false
+                });
+                this.newChoice = '';
+            },
+
+            removeChoice(choice) {
+                this.choices.splice(this.choices.indexOf(choice), 1);
+            },
+
+            setActiveChoice(choice) {
+                this.choices.forEach( choice => {
+                    choice.active = false
+                } );
+                choice.active = true;
+            }
         }
     }
 </script>

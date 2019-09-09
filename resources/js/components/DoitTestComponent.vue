@@ -1,5 +1,5 @@
 <template>
-	<div class="hydrocard" :class="flipClass" @click="flipCard">
+	<div class="hydrocard" :class="flipClass">
 		<div class="front face d-flex align-items-center justify-content-center rounded shadow"> 
 			{{ card.front }} 
 		</div>
@@ -29,10 +29,6 @@
         },
 
         methods: {
-        	flipCard() {
-        		this.flipped = ! this.flipped;
-        		this.flipClass = this.flipped ? 'flip-vertical-right' : 'flip-vertical-left';
-        	}
         }
     }
 </script>

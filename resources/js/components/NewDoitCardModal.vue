@@ -1,17 +1,13 @@
 <template>
     <b-modal 
-    	id="qamodal" 
+    	id="doitmodal" 
     	title="Create new Card"
         size="lg"
     	@ok="storeCard"
 	>
         <div class="form-group">
-            <label for="exampleInputEmail1">Question</label>
-            <textarea class="form-control" id="titleInput"  placeholder="What is the question..?" v-model="card.sidea"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Answer</label>
-            <textarea class="form-control" id="titleInput"  placeholder="This is the answer!" v-model="card.sideb"></textarea>
+            <label for="exampleInputEmail1">Do it!</label>
+            <textarea class="form-control" id="titleInput"  placeholder="The task is to.." v-model="card.sidea"></textarea>
         </div>
 	</b-modal>
 </template>
@@ -26,9 +22,9 @@
         data() {
             return {
             	card: {
-            		cardtype: 'qa',
+            		cardtype: 'doit',
             		sidea: '',
-            		sideb: '',
+            		sideb: 'nothing',
             	}
             }
         },

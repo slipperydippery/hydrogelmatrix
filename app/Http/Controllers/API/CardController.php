@@ -28,13 +28,13 @@ class CardController extends Controller
     public function store(Request $request)
     {
         $user = auth('api')->user();
-        $cardtype = CardType::where('slug', $request['card']['cardtype'])->first();
+        // $cardtype = CardType::where('slug', $request['card']['cardtype'])->first();
         $deck = Card::create([
             'front'         => $request['card']['sidea'],
             'back'          => $request['card']['sideb'],
             'user_id'       => $user->id,
             'deck_id'       => $request['card']['deckid'],
-            'cardtype_id'  => $cardtype->id,
+            'cardtype_id'   => $request['card']['cardtype']['id'],
         ]);
 
         return $deck;
