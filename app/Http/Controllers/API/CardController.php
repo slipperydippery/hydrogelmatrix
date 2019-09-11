@@ -3,12 +3,21 @@
 namespace App\Http\Controllers\API;
 
 use App\Card;
+use App\Choice;
 use App\CardType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CardController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -28,16 +37,22 @@ class CardController extends Controller
     public function store(Request $request)
     {
         $user = auth('api')->user();
-        // $cardtype = CardType::where('slug', $request['card']['cardtype'])->first();
-        $deck = Card::create([
+        $card = Card::create([
             'front'         => $request['card']['sidea'],
             'back'          => $request['card']['sideb'],
             'user_id'       => $user->id,
             'deck_id'       => $request['card']['deckid'],
             'cardtype_id'   => $request['card']['cardtype']['id'],
         ]);
-
-        return $deck;
+        foreach ($request['choices'] as $choice) {
+            Choice::create([
+                'body'      => $choice['choice'],
+                'correct'   => $choice['active'],
+                'card_id'   => $card['id'],
+            ]);
+        };
+        $card = Card::with('cardtype')->find($card->id);
+        return $card;
     }
 
     /**
@@ -48,7 +63,6 @@ class CardController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -63,8 +77,9 @@ class CardController extends Controller
         //
     }
 
+
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

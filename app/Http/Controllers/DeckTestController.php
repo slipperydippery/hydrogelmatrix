@@ -9,7 +9,7 @@ class DeckTestController extends Controller
 {
     public function start(Deck $deck)
     {
-    	$deck = Deck::with('cards.cardtype')->find($deck->id);
+    	$deck = Deck::with('cards.cardtype', 'cards.choices')->find($deck->id);
     	return view('test.start', compact('deck'));
     }
 }

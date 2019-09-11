@@ -27,20 +27,22 @@ Vue.use(PortalVue);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
+Vue.component('decks-by-user', require('./components/DecksByUser.vue').default);
 Vue.component('cards-in-deck', require('./components/CardsInDeck.vue').default);
 Vue.component('new-card-fixed-button', require('./components/NewCardFixedButton.vue').default);
+Vue.component('new-card-card', require('./components/NewCardCard.vue').default);
 
 Vue.component('new-qa-card-modal', require('./components/NewQaCardModal.vue').default);
 Vue.component('qa-test-component', require('./components/QaTestComponent.vue').default);
 Vue.component('new-flippable-card-modal', require('./components/NewFlippableCardModal').default);
 Vue.component('flippable-test-component', require('./components/FlippableTestComponent.vue').default);
-// Vue.component('new-multiplechoice-card-modal', require('./components/NewMultiplechoiceCardModal').default);
-// Vue.component('multiplechoice-test-component', require('./components/MultiplechoiceTestComponent.vue').default);
+Vue.component('multiplechoice-test-component', require('./components/MultiplechoiceTestComponent.vue').default);
 Vue.component('new-doit-card-modal', require('./components/NewDoitCardModal').default);
 Vue.component('doit-test-component', require('./components/DoitTestComponent.vue').default);
 
 
 Vue.component('test-deck-component', require('./components/TestDeckComponent').default);
+Vue.component('manage-multiple-choices', require('./components/ManageMultipleChoices').default);
 
 
 

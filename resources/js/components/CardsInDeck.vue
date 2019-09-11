@@ -1,10 +1,18 @@
 <template>
     <div class="row no-gutters">
 		<div class="col-4" v-for="card in deck.cards" :key="card.id">
+			<i class="material-icons md-light md-2 abosolute-top-right">
+				{{ card.cardtype.materialicon }}
+			</i>
 		    <a href="#">
 		        <img :src="'https://dummyimage.com/600x400/c2c2c2/f2f2f2&text=' + card.front " alt="" class="img-fluid">
 		    </a>
 		</div>
+		<new-card-card
+			:deckid="deck.id"
+			:cardtypes="cardtypes"
+		>
+		</new-card-card>
 	</div>
 </template>
 
@@ -12,7 +20,8 @@
 
     export default {
         props: [
-        	'deck'
+        	'deck',
+        	'cardtypes'
         ],
 
         data() {

@@ -18,11 +18,6 @@
 				{{ cardtype.name }} 
 			</b-list-group-item>
 		</b-list-group>
-		<new-card-modal
-	        :deckid="deckid"
-	        :activecardtype="activecardtype"
-		>
-		</new-card-modal>
     </div>
 </template>
 
@@ -36,12 +31,11 @@
         data() {
             return {
             	active: false,
-            	activecardtype: ''
             }
         },
 
         mounted() {
-        	this.activecardtype = this.cardtypes[0]
+    		this.$eventBus.$emit('setNewCardType', this.cardtypes[0]);
         },
 
         computed: {
@@ -49,7 +43,7 @@
 
         methods: {
         	setAndShowCardmodal(cardtype) {
-        		this.activecardtype = cardtype;
+        		this.$eventBus.$emit('setNewCardType', cardtype);
         		this.$bvModal.show('newcardmodal');
         	}
         }

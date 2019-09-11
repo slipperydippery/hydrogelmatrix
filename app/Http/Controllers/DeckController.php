@@ -47,7 +47,7 @@ class DeckController extends Controller
      */
     public function show(Deck $deck)
     {
-        $deck = Deck::with('cards')->find($deck->id);
+        $deck = Deck::with('cards.cardtype')->find($deck->id);
         $cards = Deck::find($deck->id)->cards;
         $cardtypes = CardType::get();
         return view('deck.show', compact('deck', 'cards', 'cardtypes'));

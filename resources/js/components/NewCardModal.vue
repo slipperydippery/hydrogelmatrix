@@ -1,29 +1,25 @@
 <template>
     <b-modal 
         id="newcardmodal" 
-        title="Create new Card"
+        :title="'Create new ' + card.cardtype.name.toLowerCase() + ' Card'"
         size="lg"
         @ok="storeCard"
+        v-if="initialized"
+        @shown="focusMyElement"
     >
         <div class="form-group">
-            <label for="exampleInputEmail1">{{ activecardtype.fronttext }}</label>
-            <textarea class="form-control" id="titleInput"  :placeholder="activecardtype.frontplaceholder" v-model="card.sidea"></textarea>
+            <label for="exampleInputEmail1">{{ card.cardtype.fronttext }}</label>
+            <textarea class="form-control" id="titleInput" ref="titleInput"  :placeholder="card.cardtype.frontplaceholder" v-model="card.sidea"></textarea>
         </div>
         <div class="form-group" v-if="hasSideb">
-            <label for="exampleInputEmail1">{{ activecardtype.backtext }}</label>
-            <textarea class="form-control" id="titleInput"  :placeholder="activecardtype.backplaceholder" v-model="card.sideb"></textarea>
+            <label for="exampleInputEmail1">{{ card.cardtype.backtext }}</label>
+            <textarea class="form-control" id="titleInput"  :placeholder="card.cardtype.backplaceholder" v-model="card.sideb"></textarea>
         </div>
-        <div class="form-group" v-if="isMultipleChoice">
-            <b-list-group>
-                <b-list-group-item v-for="choice in choices" @click="setActiveChoice(choice)" :active="choice.active">
-                    {{ choice.choice }}
-                    <button type="button" class="close float-right" aria-label="Close" @click="removeChoice(choice)">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                </b-list-group-item>
-            </b-list-group>
-            <input type="text" class="form-control" :placeholder="activecardtype.backplaceholder" v-model="newChoice" @keydown.enter="saveChoice()">
-        </div>
+        <manage-multiple-choices 
+            v-model="choices"
+             v-if="isMultipleChoice"
+         >
+         </manage-multiple-choices>
     </b-modal>
 </template>
 
@@ -31,36 +27,33 @@
     export default {
         props: [
             'deckid',
-            'activecardtype'
         ],
 
         data() {
             return {
+                initialized: false,
                 card: {
-                    cardtype: this.activecardtype.slug,
+                    cardtype: '',
                     deckid: this.deckid,
                     sidea: '',
                     sideb: '',
                 },
                 choices: [],
-                newChoice: '',
             }
         },
  
         watch: { 
-            activecardtype: function(newVal, oldVal) { 
-                this.card.cardtype = newVal;
-            }
         },
 
         mounted() {
+            this.$eventBus.$on('setNewCardType', this.setActiveCardType);
         },
 
         computed: {
             hasSideb() {
                 if( 
-                    this.activecardtype.slug == 'multiplechoice' ||
-                    this.activecardtype.slug == 'doit'
+                    this.card.cardtype.slug == 'multiplechoice' ||
+                    this.card.cardtype.slug == 'doit'
                 ){
                     return false;
                 };
@@ -68,48 +61,55 @@
             },
 
             isMultipleChoice() {
-                if( this.activecardtype.slug == 'multiplechoice' ) {
+                if( this.card.cardtype.slug == 'multiplechoice' ) {
                     return true;
                 }
                 return false;
-            }
+            },
+
+            completeMultipleChoice() {
+                if(this.card.cardtype.slug == 'multiplechoice'){
+                    if(! this.choices.map(choice => choice.active).includes(true)){
+                        return false;
+                    }
+                    if(this.choices.length < 2){
+                        return false;
+                    }
+                }
+                return true;
+            },
         },
 
         methods: {
             storeCard() {
+                if(! this.completeMultipleChoice){
+                    return
+                }
                 var home = this;
                 axios.post('/api/card', {
                     card: home.card,
+                    choices: home.choices,
                 })
                 .then( response => {
                     home.card = {
-                        cardtype: this.activecardtype.slug,
+                        cardtype: this.card.cardtype.slug,
                         deckid: this.deckid,
                         sidea: '',
                         sideb: '',
                     };
+                    home.choices = [],
                     this.$eventBus.$emit('addedCard', response.data);
                 });
             },
 
-            saveChoice() {
-                this.choices.push({
-                    choice: this.newChoice,
-                    active: false
-                });
-                this.newChoice = '';
+            setActiveCardType(cardtype) { 
+                this.card.cardtype = cardtype;
+                this.initialized = true;
             },
 
-            removeChoice(choice) {
-                this.choices.splice(this.choices.indexOf(choice), 1);
+            focusMyElement(e) {
+                this.$refs.titleInput.focus()
             },
-
-            setActiveChoice(choice) {
-                this.choices.forEach( choice => {
-                    choice.active = false
-                } );
-                choice.active = true;
-            }
         }
     }
 </script>

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Deck;
 use App\User;
+use App\Choice;
 use App\CardType;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,5 +25,10 @@ class Card extends Model
     public function cardtype()
     {
     	return $this->belongsTo(Cardtype::class);
+    }
+
+    public function choices()
+    {
+    	return $this->hasMany(Choice::class);
     }
 }

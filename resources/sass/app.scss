@@ -3,6 +3,7 @@
 @import "partials/materialicons";
 
 // Variables
+@import "partials/themecolors";
 @import 'variables';
 
 // Bootstrap
@@ -13,5 +14,6 @@
 @import 'partials/components';
 @import 'partials/elements';
 
+@import 'partials/squares';
 @import 'partials/card';
 @import 'partials/test';

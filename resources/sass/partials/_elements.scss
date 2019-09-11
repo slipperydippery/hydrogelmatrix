@@ -5,3 +5,17 @@
 .noselect {
 	user-select: none;
 }
+
+.hoverchild {
+	opacity: 0;
+	transition: all .5s;
+}
+.hoverparent:hover .hoverchild {
+	opacity: 1;
+}
+
+.abosolute-top-right {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+}
