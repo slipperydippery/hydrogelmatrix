@@ -10770,6 +10770,8 @@ main {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
+  transition: transform 0.8s;
+  position: relative;
 }
 
 .hydrocard .face {
@@ -10777,9 +10779,9 @@ main {
   position: absolute;
   width: 100%;
   height: 100%;
+  text-align: center;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
-  text-align: center;
 }
 
 .hydrocard .face .list-group {
@@ -10789,7 +10791,7 @@ main {
 .hydrocard .front {
   color: #E6E4DE;
   background: #272727;
-  z-index: 20;
+  z-index: 10;
 }
 
 .hydrocard .back {

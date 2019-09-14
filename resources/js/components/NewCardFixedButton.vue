@@ -13,6 +13,7 @@
 				href="#" 
 				class="px-5"
 				v-for="cardtype in cardtypes" 
+                :key="cardtype.id"
 				@click="setAndShowCardmodal(cardtype)"
 			> 
 				{{ cardtype.name }} 
@@ -35,7 +36,7 @@
         },
 
         mounted() {
-    		this.$eventBus.$emit('setNewCardType', this.cardtypes[0]);
+    		// this.$eventBus.$emit('setNewCardType', this.cardtypes[0]);
         },
 
         computed: {
@@ -43,7 +44,14 @@
 
         methods: {
         	setAndShowCardmodal(cardtype) {
-        		this.$eventBus.$emit('setNewCardType', cardtype);
+                var carddata = {
+                        newCard: true,
+                        card: {
+                            cardtype: cardtype,
+                            deckid: this.deckid
+                        }
+                }
+        		this.$eventBus.$emit('setNewCardType', carddata);
         		this.$bvModal.show('newcardmodal');
         	}
         }

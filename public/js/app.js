@@ -1854,8 +1854,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['deck', 'cardtypes'],
   data: function data() {
@@ -1869,6 +1867,14 @@ __webpack_require__.r(__webpack_exports__);
     addCard: function addCard(card) {
       this.deck.cards.push(card);
       this.$forceUpdate();
+    },
+    setAndShowCardmodal: function setAndShowCardmodal(thiscard) {
+      var carddata = {
+        newCard: false,
+        card: thiscard
+      };
+      this.$eventBus.$emit('setNewCardType', carddata);
+      this.$bvModal.show('newcardmodal');
     }
   }
 });
@@ -1884,6 +1890,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -2038,25 +2047,30 @@ __webpack_require__.r(__webpack_exports__);
     saveChoice: function saveChoice() {
       var choices = this.value;
       choices.push({
-        choice: this.newChoice,
-        active: false
+        body: this.newChoice,
+        correct: false
       });
       this.newChoice = '';
       this.$emit('input', choices);
     },
     removeChoice: function removeChoice(choice) {
-      this.$emit('input', this.value.splice(this.value.indexOf(choice), 1));
+      var newValue = this.value.slice();
+      newValue.splice(newValue.indexOf(choice), 1);
+      this.$emit('input', newValue);
     },
-    setActiveChoice: function setActiveChoice(choice) {
+    setCorrectChoice: function setCorrectChoice(choice) {
       var choices = this.value;
       choices.forEach(function (thischoice) {
-        thischoice.active = false;
+        thischoice.correct = false;
 
         if (thischoice == choice) {
-          thischoice.active = true;
+          thischoice.correct = true;
         }
       });
       this.$emit('input', choices);
+    },
+    isCorrect: function isCorrect(choice) {
+      return choice.correct == 0 || choice.correct == false ? false : true;
     }
   }
 });
@@ -2222,6 +2236,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['cardtypes', 'deckid'],
   data: function data() {
@@ -2229,13 +2244,19 @@ __webpack_require__.r(__webpack_exports__);
       active: false
     };
   },
-  mounted: function mounted() {
-    this.$eventBus.$emit('setNewCardType', this.cardtypes[0]);
+  mounted: function mounted() {// this.$eventBus.$emit('setNewCardType', this.cardtypes[0]);
   },
   computed: {},
   methods: {
     setAndShowCardmodal: function setAndShowCardmodal(cardtype) {
-      this.$eventBus.$emit('setNewCardType', cardtype);
+      var carddata = {
+        newCard: true,
+        card: {
+          cardtype: cardtype,
+          deckid: this.deckid
+        }
+      };
+      this.$eventBus.$emit('setNewCardType', carddata);
       this.$bvModal.show('newcardmodal');
     }
   }
@@ -2275,6 +2296,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['cardtypes', 'deckid'],
   data: function data() {
@@ -2282,13 +2304,19 @@ __webpack_require__.r(__webpack_exports__);
       active: false
     };
   },
-  mounted: function mounted() {
-    this.$eventBus.$emit('setNewCardType', this.cardtypes[0]);
+  mounted: function mounted() {// this.$eventBus.$emit('setNewCardType', this.cardtypes[0]);
   },
   computed: {},
   methods: {
     setAndShowCardmodal: function setAndShowCardmodal(cardtype) {
-      this.$eventBus.$emit('setNewCardType', cardtype);
+      var carddata = {
+        newCard: true,
+        card: {
+          cardtype: cardtype,
+          deckid: this.deckid
+        }
+      };
+      this.$eventBus.$emit('setNewCardType', carddata);
       this.$bvModal.show('newcardmodal');
     }
   }
@@ -2330,23 +2358,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['deckid'],
   data: function data() {
     return {
-      initialized: false,
       card: {
-        cardtype: '',
+        cardtype: {
+          name: ''
+        },
         deckid: this.deckid,
-        sidea: '',
-        sideb: ''
+        front: '',
+        back: '',
+        choices: []
       },
-      choices: []
+      newCard: true,
+      errors: []
     };
   },
   watch: {},
   mounted: function mounted() {
-    this.$eventBus.$on('setNewCardType', this.setActiveCardType);
+    this.$eventBus.$on('setNewCardType', this.initializeCard);
   },
   computed: {
     hasSideb: function hasSideb() {
@@ -2358,55 +2390,162 @@ __webpack_require__.r(__webpack_exports__);
       return true;
     },
     isMultipleChoice: function isMultipleChoice() {
-      if (this.card.cardtype.slug == 'multiplechoice') {
-        return true;
-      }
-
-      return false;
+      return this.card.cardtype.slug == 'multiplechoice' ? true : false;
     },
-    completeMultipleChoice: function completeMultipleChoice() {
+    isValid: function isValid() {
+      switch (this.card.cardtype.slug) {
+        case 'multiplechoice':
+          return this.validMultipleChoice;
+          break;
+
+        case 'doit':
+          return this.validDoit;
+          break;
+
+        case 'qa':
+          return this.validQA;
+          break;
+
+        case 'flippable':
+          return this.validFlippable;
+          break;
+
+        default:
+      }
+    },
+    validMultipleChoice: function validMultipleChoice() {
+      var errorcount = 0;
+
       if (this.card.cardtype.slug == 'multiplechoice') {
-        if (!this.choices.map(function (choice) {
-          return choice.active;
-        }).includes(true)) {
-          return false;
+        if (this.card.choices.length < 2) {
+          this.errors.push('A multiplechoice question must have at least two answers.');
+          errorcount++;
         }
 
-        if (this.choices.length < 2) {
-          return false;
+        if (!this.card.choices.map(function (choice) {
+          return choice.correct;
+        }).includes(true)) {
+          this.errors.push('A multiplechoice question must have a correct answer selected.');
+          errorcount++;
         }
       }
 
-      return true;
+      return errorcount ? false : true;
+    },
+    validQA: function validQA() {
+      var errorcount = 0;
+
+      if (this.card.front.length == '') {
+        this.errors.push('You must have a question.');
+        errorcount++;
+      }
+
+      if (this.card.back.length == '') {
+        this.errors.push('You must have an answer.');
+        errorcount++;
+      }
+
+      return errorcount ? false : true;
+    },
+    validFlippable: function validFlippable() {
+      var errorcount = 0;
+
+      if (this.card.front.length == '') {
+        this.errors.push('You must have a native term.');
+        errorcount++;
+      }
+
+      if (this.card.back.length == '') {
+        this.errors.push('You must have a foreign term.');
+        errorcount++;
+      }
+
+      return errorcount ? false : true;
+    },
+    validDoit: function validDoit() {
+      var errorcount = 0;
+
+      if (this.card.front.length == '') {
+        this.errors.push('You must set a task.');
+        errorcount++;
+      }
+
+      return errorcount ? false : true;
     }
   },
   methods: {
-    storeCard: function storeCard() {
-      var _this = this;
+    storeCard: function storeCard(bvModalEvt) {
+      bvModalEvt.preventDefault();
+      this.errors = [];
 
-      if (!this.completeMultipleChoice) {
+      if (!this.isValid) {
         return;
       }
 
+      if (!this.newCard) {
+        this.updateCard();
+        return;
+      }
+
+      this.storeNewCard();
+    },
+    updateCard: function updateCard() {
+      var _this = this;
+
       var home = this;
-      axios.post('/api/card', {
-        card: home.card,
-        choices: home.choices
+      axios.patch('/api/card/' + this.card.id, {
+        card: home.card
       }).then(function (response) {
-        home.card = {
-          cardtype: _this.card.cardtype.slug,
-          deckid: _this.deckid,
-          sidea: '',
-          sideb: ''
-        };
-        home.choices = [], _this.$eventBus.$emit('addedCard', response.data);
+        _this.resetCard();
+
+        _this.$nextTick(function () {
+          _this.$refs.newcardmodal.hide();
+        });
       });
     },
-    setActiveCardType: function setActiveCardType(cardtype) {
-      this.card.cardtype = cardtype;
-      this.initialized = true;
+    storeNewCard: function storeNewCard() {
+      var _this2 = this;
+
+      var home = this;
+      axios.post('/api/card', {
+        card: home.card
+      }).then(function (response) {
+        _this2.resetCard();
+
+        _this2.$eventBus.$emit('addedCard', response.data);
+
+        _this2.$nextTick(function () {
+          _this2.$refs.newcardmodal.hide();
+        });
+      });
     },
-    focusMyElement: function focusMyElement(e) {
+    resetCard: function resetCard() {
+      this.card = {
+        cardtype: {
+          name: ''
+        },
+        deckid: this.deckid,
+        front: '',
+        back: ''
+      };
+      this.choices = [];
+    },
+    initializeCard: function initializeCard(carddata) {
+      console.log(carddata);
+
+      if (carddata.newCard == true) {
+        this.card.cardtype = carddata.card.cardtype;
+        this.card.deckid = carddata.card.deckid;
+        this.card.front = '';
+        this.card.back = '';
+        this.card.choices = [];
+      } else {
+        this.newCard = false;
+        this.card = carddata.card;
+      }
+    },
+    focusAndClearMyElement: function focusAndClearMyElement(e) {
+      this.errors = [];
       this.$refs.titleInput.focus();
     }
   }
@@ -67048,17 +67187,20 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("a", { attrs: { href: "#" } }, [
-            _c("img", {
-              staticClass: "img-fluid",
-              attrs: {
-                src:
-                  "https://dummyimage.com/600x400/c2c2c2/f2f2f2&text=" +
-                  card.front,
-                alt: ""
+          _c("img", {
+            staticClass: "img-fluid clickable",
+            attrs: {
+              src:
+                "https://dummyimage.com/600x400/c2c2c2/f2f2f2&text=" +
+                card.front,
+              alt: ""
+            },
+            on: {
+              click: function($event) {
+                return _vm.setAndShowCardmodal(card)
               }
-            })
-          ])
+            }
+          })
         ])
       }),
       _vm._v(" "),
@@ -67096,6 +67238,21 @@ var render = function() {
     { staticClass: "row no-gutters bg-light" },
     _vm._l(_vm.decks, function(deck) {
       return _c("div", { key: deck.id, staticClass: "col-4 hoverparent" }, [
+        _c(
+          "span",
+          {
+            staticClass:
+              "deck-cardcount abosolute-top-right text-white border border-white rounded px-2"
+          },
+          [
+            _vm._v(
+              "\n                " +
+                _vm._s(deck.cards.length) +
+                "\n            "
+            )
+          ]
+        ),
+        _vm._v(" "),
         _c(
           "div",
           {
@@ -67304,17 +67461,16 @@ var render = function() {
           return _c(
             "b-list-group-item",
             {
-              attrs: { active: choice.active },
+              key: choice.id,
+              attrs: { active: _vm.isCorrect(choice) },
               on: {
                 click: function($event) {
-                  return _vm.setActiveChoice(choice)
+                  return _vm.setCorrectChoice(choice)
                 }
               }
             },
             [
-              _vm._v(
-                "\n            " + _vm._s(choice.choice) + "\n            "
-              ),
+              _vm._v("\n            " + _vm._s(choice.body) + "\n            "),
               _c(
                 "button",
                 {
@@ -67431,6 +67587,7 @@ var render = function() {
               return _c(
                 "b-list-group-item",
                 {
+                  key: choice.id,
                   attrs: { button: "" },
                   on: {
                     click: function($event) {
@@ -67459,7 +67616,10 @@ var render = function() {
             _vm._l(_vm.card.choices, function(choice) {
               return _c(
                 "b-list-group-item",
-                { attrs: { button: "", active: choice.correct } },
+                {
+                  key: choice.id,
+                  attrs: { button: "", active: choice.correct }
+                },
                 [_vm._v(" " + _vm._s(choice.body) + " ")]
               )
             }),
@@ -67649,6 +67809,7 @@ var render = function() {
             return _c(
               "b-list-group-item",
               {
+                key: cardtype.id,
                 staticClass: "px-5 text-center",
                 attrs: { href: "#" },
                 on: {
@@ -67735,6 +67896,7 @@ var render = function() {
                 return _c(
                   "b-list-group-item",
                   {
+                    key: cardtype.id,
                     staticClass: "px-5",
                     attrs: { href: "#" },
                     on: {
@@ -67776,22 +67938,60 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.initialized
-    ? _c(
-        "b-modal",
-        {
+  return _c(
+    "b-modal",
+    {
+      ref: "newcardmodal",
+      attrs: {
+        id: "newcardmodal",
+        title: "Create new " + _vm.card.cardtype.name.toLowerCase() + " Card",
+        size: "lg"
+      },
+      on: { ok: _vm.storeCard, shown: _vm.focusAndClearMyElement }
+    },
+    [
+      _vm._l(_vm.errors, function(error) {
+        return _c("b-alert", { attrs: { show: "", variant: "danger" } }, [
+          _vm._v(" " + _vm._s(error) + " ")
+        ])
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group" }, [
+        _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+          _vm._v(_vm._s(_vm.card.cardtype.fronttext))
+        ]),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.card.front,
+              expression: "card.front"
+            }
+          ],
+          ref: "titleInput",
+          staticClass: "form-control",
           attrs: {
-            id: "newcardmodal",
-            title:
-              "Create new " + _vm.card.cardtype.name.toLowerCase() + " Card",
-            size: "lg"
+            id: "titleInput",
+            placeholder: _vm.card.cardtype.frontplaceholder
           },
-          on: { ok: _vm.storeCard, shown: _vm.focusMyElement }
-        },
-        [
-          _c("div", { staticClass: "form-group" }, [
+          domProps: { value: _vm.card.front },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.card, "front", $event.target.value)
+            }
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _vm.hasSideb
+        ? _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-              _vm._v(_vm._s(_vm.card.cardtype.fronttext))
+              _vm._v(_vm._s(_vm.card.cardtype.backtext))
             ]),
             _vm._v(" "),
             _c("textarea", {
@@ -67799,76 +67999,42 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.card.sidea,
-                  expression: "card.sidea"
+                  value: _vm.card.back,
+                  expression: "card.back"
                 }
               ],
-              ref: "titleInput",
               staticClass: "form-control",
               attrs: {
                 id: "titleInput",
-                placeholder: _vm.card.cardtype.frontplaceholder
+                placeholder: _vm.card.cardtype.backplaceholder
               },
-              domProps: { value: _vm.card.sidea },
+              domProps: { value: _vm.card.back },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.card, "sidea", $event.target.value)
+                  _vm.$set(_vm.card, "back", $event.target.value)
                 }
               }
             })
-          ]),
-          _vm._v(" "),
-          _vm.hasSideb
-            ? _c("div", { staticClass: "form-group" }, [
-                _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-                  _vm._v(_vm._s(_vm.card.cardtype.backtext))
-                ]),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.card.sideb,
-                      expression: "card.sideb"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    id: "titleInput",
-                    placeholder: _vm.card.cardtype.backplaceholder
-                  },
-                  domProps: { value: _vm.card.sideb },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.card, "sideb", $event.target.value)
-                    }
-                  }
-                })
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.isMultipleChoice
-            ? _c("manage-multiple-choices", {
-                model: {
-                  value: _vm.choices,
-                  callback: function($$v) {
-                    _vm.choices = $$v
-                  },
-                  expression: "choices"
-                }
-              })
-            : _vm._e()
-        ],
-        1
-      )
-    : _vm._e()
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isMultipleChoice
+        ? _c("manage-multiple-choices", {
+            model: {
+              value: _vm.card.choices,
+              callback: function($$v) {
+                _vm.$set(_vm.card, "choices", $$v)
+              },
+              expression: "card.choices"
+            }
+          })
+        : _vm._e()
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

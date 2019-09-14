@@ -1,6 +1,9 @@
 <template>
     <div class="row no-gutters bg-light">
 		<div class="col-4 hoverparent" v-for="deck in decks" :key="deck.id">
+            <span class="deck-cardcount abosolute-top-right text-white border border-white rounded px-2">
+                {{ deck.cards.length }}
+            </span>
             <div class="hoverbuttons position-absolute w-100 h-100 d-flex flex-column justify-content-center squares--overlay hoverchild p-4">
                 <b-list-group>
                     <a :href="'/deck/' + deck.id + '/test'" class="hoverparent">

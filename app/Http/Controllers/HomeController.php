@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         if( Auth::check() ){
-            $decks = Auth::user()->decks()->get();
+            $decks = Auth::user()->decks()->with('cards')->get();
             return view('dashboard', compact('decks'));
         }
         return view('welcome');

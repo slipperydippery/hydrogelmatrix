@@ -1,22 +1,23 @@
 <template>
     <b-modal 
         id="newcardmodal" 
+        ref="newcardmodal"
         :title="'Create new ' + card.cardtype.name.toLowerCase() + ' Card'"
         size="lg"
         @ok="storeCard"
-        v-if="initialized"
-        @shown="focusMyElement"
+        @shown="focusAndClearMyElement"
     >
+        <b-alert show variant="danger" v-for="error in errors"> {{ error }} </b-alert>
         <div class="form-group">
             <label for="exampleInputEmail1">{{ card.cardtype.fronttext }}</label>
-            <textarea class="form-control" id="titleInput" ref="titleInput"  :placeholder="card.cardtype.frontplaceholder" v-model="card.sidea"></textarea>
+            <textarea class="form-control" id="titleInput" ref="titleInput"  :placeholder="card.cardtype.frontplaceholder" v-model="card.front"></textarea>
         </div>
         <div class="form-group" v-if="hasSideb">
             <label for="exampleInputEmail1">{{ card.cardtype.backtext }}</label>
-            <textarea class="form-control" id="titleInput"  :placeholder="card.cardtype.backplaceholder" v-model="card.sideb"></textarea>
+            <textarea class="form-control" id="titleInput"  :placeholder="card.cardtype.backplaceholder" v-model="card.back"></textarea>
         </div>
         <manage-multiple-choices 
-            v-model="choices"
+            v-model="card.choices"
              v-if="isMultipleChoice"
          >
          </manage-multiple-choices>
@@ -31,14 +32,15 @@
 
         data() {
             return {
-                initialized: false,
                 card: {
-                    cardtype: '',
+                    cardtype: {name: ''},
                     deckid: this.deckid,
-                    sidea: '',
-                    sideb: '',
+                    front: '',
+                    back: '',
+                    choices: [],
                 },
-                choices: [],
+                newCard: true,
+                errors: [],
             }
         },
  
@@ -46,7 +48,7 @@
         },
 
         mounted() {
-            this.$eventBus.$on('setNewCardType', this.setActiveCardType);
+            this.$eventBus.$on('setNewCardType', this.initializeCard);
         },
 
         computed: {
@@ -61,53 +63,145 @@
             },
 
             isMultipleChoice() {
-                if( this.card.cardtype.slug == 'multiplechoice' ) {
-                    return true;
-                }
-                return false;
+                return this.card.cardtype.slug == 'multiplechoice' ? true : false
             },
 
-            completeMultipleChoice() {
+            isValid() {
+                switch(this.card.cardtype.slug) {
+                  case 'multiplechoice':
+                        return this.validMultipleChoice
+                    break;
+                  case 'doit':
+                        return this.validDoit
+                    break;
+                  case 'qa':
+                        return this.validQA
+                    break;
+                  case 'flippable':
+                        return this.validFlippable
+                    break;
+                  default:
+                }
+            },
+
+            validMultipleChoice() {
+                var errorcount = 0;
                 if(this.card.cardtype.slug == 'multiplechoice'){
-                    if(! this.choices.map(choice => choice.active).includes(true)){
-                        return false;
+                    if(this.card.choices.length < 2){
+                        this.errors.push('A multiplechoice question must have at least two answers.')
+                        errorcount ++;
                     }
-                    if(this.choices.length < 2){
-                        return false;
+                    if(! this.card.choices.map(choice => choice.correct).includes(true)){
+                        this.errors.push('A multiplechoice question must have a correct answer selected.')
+                        errorcount ++;
                     }
                 }
-                return true;
+                return errorcount ? false : true;
+            },
+
+            validQA() {
+                var errorcount = 0
+                if(this.card.front.length == '') {
+                    this.errors.push('You must have a question.')
+                    errorcount ++;
+                }
+                if(this.card.back.length == '') {
+                    this.errors.push('You must have an answer.')
+                    errorcount ++;
+                }
+                return errorcount ? false : true;
+            },
+
+            validFlippable() {
+                var errorcount = 0
+                if(this.card.front.length == '') {
+                    this.errors.push('You must have a native term.')
+                    errorcount ++;
+                }
+                if(this.card.back.length == '') {
+                    this.errors.push('You must have a foreign term.')
+                    errorcount ++;
+                }
+                return errorcount ? false : true;
+            },
+
+            validDoit() {
+                var errorcount = 0
+                if(this.card.front.length == '') {
+                    this.errors.push('You must set a task.')
+                    errorcount ++;
+                }
+                return errorcount ? false : true;
             },
         },
 
         methods: {
-            storeCard() {
-                if(! this.completeMultipleChoice){
+            storeCard(bvModalEvt) {
+                bvModalEvt.preventDefault()
+                this.errors = []
+                if(! this.isValid){
                     return
                 }
+                if(! this.newCard) {
+                    this.updateCard();
+                    return
+                }
+                this.storeNewCard();
+            },
+
+            updateCard() {
                 var home = this;
-                axios.post('/api/card', {
+                axios.patch('/api/card/' + this.card.id, {
                     card: home.card,
-                    choices: home.choices,
                 })
                 .then( response => {
-                    home.card = {
-                        cardtype: this.card.cardtype.slug,
-                        deckid: this.deckid,
-                        sidea: '',
-                        sideb: '',
-                    };
-                    home.choices = [],
-                    this.$eventBus.$emit('addedCard', response.data);
+                    this.resetCard()
+                    this.$nextTick( () => {
+                        this.$refs.newcardmodal.hide()
+                    })
                 });
             },
 
-            setActiveCardType(cardtype) { 
-                this.card.cardtype = cardtype;
-                this.initialized = true;
+            storeNewCard() {
+                var home = this;
+                axios.post('/api/card', {
+                    card: home.card,
+                })
+                .then( response => {
+                    this.resetCard()
+                    this.$eventBus.$emit('addedCard', response.data)
+                    this.$nextTick( () => {
+                        this.$refs.newcardmodal.hide()
+                    })
+                });
             },
 
-            focusMyElement(e) {
+            resetCard() {
+                this.card = {
+                    cardtype: {name: ''},
+                    deckid: this.deckid,
+                    front: '',
+                    back: '',
+                };
+                this.choices = []
+            },
+
+            initializeCard(carddata) { 
+                console.log(carddata);
+                if(carddata.newCard == true) {
+                    this.card.cardtype = carddata.card.cardtype;
+                    this.card.deckid = carddata.card.deckid;
+                    this.card.front = '';
+                    this.card.back = '';
+                    this.card.choices = [];
+                } else {
+                    this.newCard = false
+                    this.card = carddata.card
+                }
+            },
+
+            focusAndClearMyElement(e) {
+                this.errors = []
                 this.$refs.titleInput.focus()
             },
         }

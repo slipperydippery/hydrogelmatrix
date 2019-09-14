@@ -38,30 +38,30 @@ class CardController extends Controller
     {
         $user = auth('api')->user();
         $card = Card::create([
-            'front'         => $request['card']['sidea'],
-            'back'          => $request['card']['sideb'],
+            'front'         => $request['card']['front'],
+            'back'          => $request['card']['back'],
             'user_id'       => $user->id,
             'deck_id'       => $request['card']['deckid'],
             'cardtype_id'   => $request['card']['cardtype']['id'],
         ]);
-        foreach ($request['choices'] as $choice) {
+        foreach ($request['card']['choices'] as $choice) {
             Choice::create([
-                'body'      => $choice['choice'],
-                'correct'   => $choice['active'],
+                'body'      => $choice['body'],
+                'correct'   => $choice['correct'],
                 'card_id'   => $card['id'],
             ]);
         };
-        $card = Card::with('cardtype')->find($card->id);
+        $card = Card::with('cardtype', 'choices')->find($card->id);
         return $card;
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  Card $card
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Card $card)
     {
     }
 
@@ -69,22 +69,34 @@ class CardController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  int  Card $card
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Card $card)
     {
-        //
+        $card->front = $request['card']['front'];
+        $card->back = $request['card']['back'];
+        $card->deck_id = $request['card']['deck_id'];
+        $card->cardtype_id = $request['card']['cardtype']['id'];
+        $card->save();
+        $card->choices()->delete();
+        foreach ($request['card']['choices'] as $choice) {
+            Choice::create([
+                'body'      => $choice['body'],
+                'correct'   => $choice['correct'],
+                'card_id'   => $card['id'],
+            ]);
+        };
     }
 
 
     /**
      * Remove the specified resource from storage
      *
-     * @param  int  $id
+     * @param  int  Card $card
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Card $card)
     {
         //
     }

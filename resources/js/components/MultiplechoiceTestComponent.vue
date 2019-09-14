@@ -6,12 +6,12 @@
             </i>
 			<span>{{ card.front }} </span>
             <b-list-group>
-                <b-list-group-item button v-for="choice in card.choices" @click="setGuess(choice)"> {{ choice.body }} </b-list-group-item>
+                <b-list-group-item button v-for="choice in card.choices" :key="choice.id" @click="setGuess(choice)"> {{ choice.body }} </b-list-group-item>
             </b-list-group>
 		</div>
 		<div class="back face d-flex align-items-center justify-content-center rounded shadow"> 
             <b-list-group>
-                <b-list-group-item button v-for="choice in card.choices" :active="choice.correct"> {{ choice.body }} </b-list-group-item>
+                <b-list-group-item button v-for="choice in card.choices" :key="choice.id" :active="choice.correct"> {{ choice.body }} </b-list-group-item>
             </b-list-group>
 		</div>
 	</div>

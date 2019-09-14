@@ -4,9 +4,7 @@
 			<i class="material-icons md-light md-2 abosolute-top-right">
 				{{ card.cardtype.materialicon }}
 			</i>
-		    <a href="#">
-		        <img :src="'https://dummyimage.com/600x400/c2c2c2/f2f2f2&text=' + card.front " alt="" class="img-fluid">
-		    </a>
+	        <img :src="'https://dummyimage.com/600x400/c2c2c2/f2f2f2&text=' + card.front " alt="" class="img-fluid clickable" @click="setAndShowCardmodal(card)">
 		</div>
 		<new-card-card
 			:deckid="deck.id"
@@ -40,7 +38,17 @@
         	addCard(card) {
         		this.deck.cards.push(card);
         		this.$forceUpdate();
-        	}
+        	},
+
+            setAndShowCardmodal(thiscard) {
+                var carddata = {
+                        newCard: false,
+                        card: thiscard,
+                }
+                this.$eventBus.$emit('setNewCardType', carddata);
+                this.$bvModal.show('newcardmodal');
+
+            }
         }
     }
 </script>

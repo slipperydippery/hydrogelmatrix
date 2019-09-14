@@ -1,8 +1,8 @@
 <template>
 	<div class="form-group">
 	    <b-list-group>
-	        <b-list-group-item v-for="choice in value" @click="setActiveChoice(choice)" :active="choice.active">
-	            {{ choice.choice }}
+	        <b-list-group-item v-for="choice in value" :key="choice.id" @click="setCorrectChoice(choice)" :active="isCorrect(choice)">
+	            {{ choice.body }}
 	            <button type="button" class="close float-right" aria-label="Close" @click="removeChoice(choice)">
 	              <span aria-hidden="true">&times;</span>
 	            </button>
@@ -34,27 +34,33 @@
         	saveChoice() {
         		var choices = this.value;
         		choices.push({
-        	        choice: this.newChoice,
-        	        active: false
+        	        body: this.newChoice,
+        	        correct: false
         		});
         		this.newChoice = '';
         	    this.$emit('input', choices);
         	},
 
         	removeChoice(choice) {
-        	    this.$emit('input', this.value.splice(this.value.indexOf(choice), 1));
+                var newValue = this.value.slice()
+                newValue.splice(newValue.indexOf(choice), 1)
+        	    this.$emit('input', newValue);
         	},
 
-        	setActiveChoice(choice) {
+        	setCorrectChoice(choice) {
         		var choices = this.value;
         	    choices.forEach( thischoice => {
-        	    	thischoice.active = false;
+        	    	thischoice.correct = false;
         	    	if (thischoice == choice) {
-        	    		thischoice.active = true;
+        	    		thischoice.correct = true;
         	    	}
         	    });
         	    this.$emit('input', choices);
-        	}
+        	},
+
+            isCorrect(choice){
+                return (choice.correct == 0 || choice.correct == false) ? false : true
+            },
         }
     }
 </script>
