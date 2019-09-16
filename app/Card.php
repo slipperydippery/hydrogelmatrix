@@ -6,10 +6,13 @@ use App\Deck;
 use App\User;
 use App\Choice;
 use App\CardType;
+use App\Models\Concerns\UsesOrder;
 use Illuminate\Database\Eloquent\Model;
 
 class Card extends Model
 {
+    use UsesOrder;
+    
 	protected $guarded = [];
 
     public function user()

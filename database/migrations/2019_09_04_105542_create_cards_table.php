@@ -19,6 +19,7 @@ class CreateCardsTable extends Migration
             $table->tinyInteger('frontmarkup')->default(false);
             $table->text('back')->nullable();
             $table->tinyInteger('backmarkup')->default(false);
+            $table->integer('order')->unsigned();
             $table->bigInteger('deck_id')->unsigned()->nullable();
             $table->foreign('deck_id')->references('id')->on('decks')->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned();

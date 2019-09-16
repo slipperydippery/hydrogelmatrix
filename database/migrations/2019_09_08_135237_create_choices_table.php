@@ -17,6 +17,7 @@ class CreateChoicesTable extends Migration
             $table->bigIncrements('id');
             $table->string('body');
             $table->tinyInteger('correct')->unsigned();
+            $table->integer('order')->unsigned();
             $table->bigInteger('card_id')->unsigned();
             $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
             $table->timestamps();

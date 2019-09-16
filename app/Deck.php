@@ -4,10 +4,13 @@ namespace App;
 
 use App\Card;
 use App\User;
+use App\Models\Concerns\UsesOrder;
 use Illuminate\Database\Eloquent\Model;
 
 class Deck extends Model
 {
+	use UsesOrder;
+	
 	protected $guarded = [];
 
 	public function user()

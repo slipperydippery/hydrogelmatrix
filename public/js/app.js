@@ -1854,6 +1854,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['deck', 'cardtypes'],
   data: function data() {
@@ -1875,6 +1879,9 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.$eventBus.$emit('setNewCardType', carddata);
       this.$bvModal.show('newcardmodal');
+    },
+    fontSize: function fontSize(string) {
+      return Math.round(50 / string.length * 10) / 10;
     }
   }
 });
@@ -2005,6 +2012,9 @@ __webpack_require__.r(__webpack_exports__);
     flipCard: function flipCard() {
       this.flipped = !this.flipped;
       this.flipClass = this.flipped ? 'flip-vertical-right' : 'flip-vertical-left';
+    },
+    fontSize: function fontSize(string) {
+      return Math.round(80 / string.length * 10) / 10;
     }
   }
 });
@@ -2604,12 +2614,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
   data: function data() {
     return {
       deck: {
-        title: ''
+        title: '',
+        "public": false
       },
       active: false
     };
@@ -2843,6 +2857,9 @@ __webpack_require__.r(__webpack_exports__);
     flipCard: function flipCard() {
       this.flipped = !this.flipped;
       this.flipClass = this.flipped ? 'flip-vertical-right' : 'flip-vertical-left';
+    },
+    fontSize: function fontSize(string) {
+      return Math.round(30 / Math.sqrt(string.length) * 10) / 10;
     }
   }
 });
@@ -67177,30 +67194,45 @@ var render = function() {
     [
       _vm._l(_vm.deck.cards, function(card) {
         return _c("div", { key: card.id, staticClass: "col-4" }, [
-          _c(
-            "i",
-            { staticClass: "material-icons md-light md-2 abosolute-top-right" },
-            [
-              _vm._v(
-                "\n\t\t\t\t" + _vm._s(card.cardtype.materialicon) + "\n\t\t\t"
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c("img", {
-            staticClass: "img-fluid clickable",
-            attrs: {
-              src:
-                "https://dummyimage.com/600x400/c2c2c2/f2f2f2&text=" +
-                card.front,
-              alt: ""
-            },
-            on: {
-              click: function($event) {
-                return _vm.setAndShowCardmodal(card)
-              }
-            }
-          })
+          _c("div", { staticClass: "ratio-16-9 bg-gray-200" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "ratio-content d-flex align-items-center justify-content-center",
+                on: {
+                  click: function($event) {
+                    return _vm.setAndShowCardmodal(card)
+                  }
+                }
+              },
+              [
+                _c(
+                  "i",
+                  {
+                    staticClass:
+                      "material-icons md-light md-2 abosolute-top-right"
+                  },
+                  [
+                    _vm._v(
+                      "\n        \t\t\t\t" +
+                        _vm._s(card.cardtype.materialicon) +
+                        " \n        \t\t\t"
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: "text-white font-weight-light",
+                    style: { fontSize: _vm.fontSize(card.front) + "vw" }
+                  },
+                  [_vm._v(_vm._s(card.front) + " ")]
+                )
+              ]
+            )
+          ])
         ])
       }),
       _vm._v(" "),
@@ -67414,7 +67446,12 @@ var render = function() {
               )
             ]
           ),
-          _vm._v("\n\t\t\t" + _vm._s(_vm.card.front) + " \n\t\t")
+          _vm._v(" "),
+          _c(
+            "span",
+            { style: { fontSize: _vm.fontSize(_vm.card.front) + "vw" } },
+            [_vm._v(_vm._s(_vm.card.front) + " ")]
+          )
         ]
       ),
       _vm._v(" "),
@@ -68110,47 +68147,77 @@ var render = function() {
           on: { ok: _vm.storeDeck, shown: _vm.focusMyElement }
         },
         [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-              _vm._v("Deck name")
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.deck.title,
-                  expression: "deck.title"
-                }
-              ],
-              ref: "titleInput",
-              staticClass: "form-control",
-              attrs: {
-                type: "text",
-                id: "titleInput",
-                placeholder: "Give your deck a recognizable name"
-              },
-              domProps: { value: _vm.deck.title },
-              on: {
-                keyup: function($event) {
-                  if (
-                    !$event.type.indexOf("key") &&
-                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                  ) {
-                    return null
+          _c(
+            "div",
+            { staticClass: "form-group" },
+            [
+              _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                _vm._v("Deck name")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.deck.title,
+                    expression: "deck.title"
                   }
-                  return _vm.okAndCloseModal($event)
+                ],
+                ref: "titleInput",
+                staticClass: "form-control",
+                attrs: {
+                  type: "text",
+                  id: "titleInput",
+                  placeholder: "Give your deck a recognizable name"
                 },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+                domProps: { value: _vm.deck.title },
+                on: {
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.okAndCloseModal($event)
+                  },
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.deck, "title", $event.target.value)
                   }
-                  _vm.$set(_vm.deck, "title", $event.target.value)
                 }
-              }
-            })
-          ])
+              }),
+              _vm._v(" "),
+              _c(
+                "b-form-checkbox",
+                {
+                  staticClass: "pt-3",
+                  attrs: { name: "check-button", switch: "", size: "lg" },
+                  model: {
+                    value: _vm.deck.public,
+                    callback: function($$v) {
+                      _vm.$set(_vm.deck, "public", $$v)
+                    },
+                    expression: "deck.public"
+                  }
+                },
+                [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "noselect",
+                      class: { "text-muted": !_vm.deck.public }
+                    },
+                    [_vm._v("Public")]
+                  )
+                ]
+              )
+            ],
+            1
+          )
         ]
       )
     ],
@@ -68438,7 +68505,12 @@ var render = function() {
               )
             ]
           ),
-          _vm._v("\n\t\t" + _vm._s(_vm.card.front) + " \n\t")
+          _vm._v(" "),
+          _c(
+            "span",
+            { style: { fontSize: _vm.fontSize(_vm.card.front) + "vw" } },
+            [_vm._v(_vm._s(_vm.card.front) + " ")]
+          )
         ]
       ),
       _vm._v(" "),

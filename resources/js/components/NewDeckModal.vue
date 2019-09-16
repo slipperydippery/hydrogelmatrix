@@ -34,7 +34,10 @@
 		        	ref="titleInput"
 		        	@keyup.enter="okAndCloseModal"
 	        	>
-		      </div>
+                <b-form-checkbox v-model="deck.public" name="check-button" class="pt-3" switch size="lg" >
+                    <span class="noselect" :class="{ 'text-muted': ! deck.public }">Public</span>
+                </b-form-checkbox>
+            </div>
 		</b-modal>
 	</div>
 
@@ -48,7 +51,8 @@
         data() {
             return {
             	deck: {
-            		title: ''
+            		title: '',
+                    public: false,
             	},
             	active: false,
             }

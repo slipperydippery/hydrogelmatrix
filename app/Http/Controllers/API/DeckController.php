@@ -41,7 +41,8 @@ class DeckController extends Controller
         $user = auth('api')->user();
         $deck = Deck::create([
             'title'     => $request['deck']['title'],
-            'user_id'   => $user->id
+            'user_id'   => $user->id,
+            'public'    => $request['deck']['public'],
         ]);
 
         return $deck;

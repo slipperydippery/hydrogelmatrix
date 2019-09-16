@@ -1,10 +1,14 @@
 <template>
     <div class="row no-gutters">
 		<div class="col-4" v-for="card in deck.cards" :key="card.id">
-			<i class="material-icons md-light md-2 abosolute-top-right">
-				{{ card.cardtype.materialicon }}
-			</i>
-	        <img :src="'https://dummyimage.com/600x400/c2c2c2/f2f2f2&text=' + card.front " alt="" class="img-fluid clickable" @click="setAndShowCardmodal(card)">
+            <div class="ratio-16-9 bg-gray-200">
+                <div class="ratio-content d-flex align-items-center justify-content-center" @click="setAndShowCardmodal(card)">
+        			<i class="material-icons md-light md-2 abosolute-top-right">
+        				{{ card.cardtype.materialicon }} 
+        			</i>
+        	        <span class="text-white font-weight-light" :style="{ fontSize: fontSize(card.front) + 'vw' }">{{ card.front }} </span>
+                </div>
+            </div>
 		</div>
 		<new-card-card
 			:deckid="deck.id"
@@ -48,6 +52,10 @@
                 this.$eventBus.$emit('setNewCardType', carddata);
                 this.$bvModal.show('newcardmodal');
 
+            },
+
+            fontSize(string) {
+                return Math.round((50 / string.length) * 10) / 10 ;
             }
         }
     }

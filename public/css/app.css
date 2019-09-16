@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito:200,600&display=swap);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito:200,300,400&display=swap);@charset "UTF-8";
 
 /* Rules for sizing the icon. */
 
@@ -10757,6 +10757,24 @@ main {
   right: 1rem;
 }
 
+.ratio-16-9 {
+  width: 100%;
+  padding-bottom: 56.25%;
+  position: relative;
+}
+
+.ratio-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.bg-gray-200 {
+  background-color: #c2c2c2;
+}
+
 .squares--overlay {
   background: rgba(248, 249, 250, 0.3);
 }
@@ -10799,6 +10817,10 @@ main {
   color: #272727;
   background: #E6E4DE;
   z-index: 10;
+}
+
+.hydrocard .list-group {
+  min-width: 50%;
 }
 
 .flip-vertical-right {

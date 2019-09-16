@@ -4,7 +4,7 @@
             <i class="material-icons md-inactive md-3 abosolute-top-right">
                 {{ card.cardtype.materialicon }}
             </i>
-			{{ card.front }} 
+			<span :style="{ fontSize: fontSize(card.front) + 'vw' }">{{ card.front }} </span>
 		</div>
 		<div class="back face d-flex align-items-center justify-content-center rounded shadow"> 
 			{{ card.back }} 
@@ -35,7 +35,11 @@
         	flipCard() {
         		this.flipped = ! this.flipped;
         		this.flipClass = this.flipped ? 'flip-vertical-right' : 'flip-vertical-left';
-        	}
+        	},
+
+            fontSize(string) {
+                return Math.round((80 / string.length) * 10) / 10 ;
+            },
         }
     }
 </script>
