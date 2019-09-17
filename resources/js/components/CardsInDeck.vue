@@ -6,7 +6,12 @@
         			<i class="material-icons md-light md-2 abosolute-top-right">
         				{{ card.cardtype.materialicon }} 
         			</i>
-        	        <span class="text-white font-weight-light" :style="{ fontSize: fontSize(card.front) + 'vw' }">{{ card.front }} </span>
+        	        <span 
+                        class="text-white font-weight-light" 
+                        :style="{ fontSize: fontSize(card.front) + 'vw' }"
+                    >
+                        {{ card.front }} 
+                    </span>
                 </div>
             </div>
 		</div>
@@ -19,7 +24,6 @@
 </template>
 
 <script>
-
     export default {
         props: [
         	'deck',
@@ -55,7 +59,7 @@
             },
 
             fontSize(string) {
-                return Math.round((50 / string.length) * 10) / 10 ;
+                return ((Math.round((10 / Math.pow(string.length, 0.4)) * 10))/ 10) ;
             }
         }
     }

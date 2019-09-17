@@ -38,7 +38,7 @@
         	},
 
             fontSize(string) {
-                return ((Math.round((30 / Math.sqrt(string.length)) * 10))/ 10) ;
+                return ((Math.round((10 / Math.pow(string.length, 0.4)) * 10))/ 10) ;
             },
         }
     }

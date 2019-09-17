@@ -7,7 +7,7 @@
         @ok="storeCard"
         @shown="focusAndClearMyElement"
     >
-        <b-alert show variant="danger" v-for="error in errors"> {{ error }} </b-alert>
+        <b-alert show variant="danger" v-for="error in errors" key="error.key"> {{ error }} </b-alert>
         <div class="form-group">
             <label for="exampleInputEmail1">{{ card.cardtype.fronttext }}</label>
             <textarea class="form-control" id="titleInput" ref="titleInput"  :placeholder="card.cardtype.frontplaceholder" v-model="card.front"></textarea>
@@ -187,13 +187,13 @@
             },
 
             initializeCard(carddata) { 
-                console.log(carddata);
                 if(carddata.newCard == true) {
-                    this.card.cardtype = carddata.card.cardtype;
-                    this.card.deckid = carddata.card.deckid;
-                    this.card.front = '';
-                    this.card.back = '';
-                    this.card.choices = [];
+                    this.newCard = true
+                    this.card.cardtype = carddata.card.cardtype
+                    this.card.deckid = carddata.card.deckid
+                    this.card.front = ''
+                    this.card.back = ''
+                    this.card.choices = []
                 } else {
                     this.newCard = false
                     this.card = carddata.card

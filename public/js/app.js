@@ -1858,6 +1858,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['deck', 'cardtypes'],
   data: function data() {
@@ -1881,7 +1886,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$bvModal.show('newcardmodal');
     },
     fontSize: function fontSize(string) {
-      return Math.round(50 / string.length * 10) / 10;
+      return Math.round(10 / Math.pow(string.length, 0.4) * 10) / 10;
     }
   }
 });
@@ -1931,6 +1936,13 @@ __webpack_require__.r(__webpack_exports__);
     addDeck: function addDeck(deck) {
       this.decks.push(deck);
       this.$forceUpdate();
+    },
+    cardCounter: function cardCounter(deck) {
+      if ('cards' in deck) {
+        return deck.cards.length;
+      }
+
+      return 0;
     }
   }
 });
@@ -2541,9 +2553,8 @@ __webpack_require__.r(__webpack_exports__);
       this.choices = [];
     },
     initializeCard: function initializeCard(carddata) {
-      console.log(carddata);
-
       if (carddata.newCard == true) {
+        this.newCard = true;
         this.card.cardtype = carddata.card.cardtype;
         this.card.deckid = carddata.card.deckid;
         this.card.front = '';
@@ -2859,7 +2870,7 @@ __webpack_require__.r(__webpack_exports__);
       this.flipClass = this.flipped ? 'flip-vertical-right' : 'flip-vertical-left';
     },
     fontSize: function fontSize(string) {
-      return Math.round(30 / Math.sqrt(string.length) * 10) / 10;
+      return Math.round(10 / Math.pow(string.length, 0.4) * 10) / 10;
     }
   }
 });
@@ -67228,7 +67239,13 @@ var render = function() {
                     staticClass: "text-white font-weight-light",
                     style: { fontSize: _vm.fontSize(card.front) + "vw" }
                   },
-                  [_vm._v(_vm._s(card.front) + " ")]
+                  [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(card.front) +
+                        " \n                    "
+                    )
+                  ]
                 )
               ]
             )
@@ -67279,7 +67296,7 @@ var render = function() {
           [
             _vm._v(
               "\n                " +
-                _vm._s(deck.cards.length) +
+                _vm._s(_vm.cardCounter(deck)) +
                 "\n            "
             )
           ]
@@ -67988,9 +68005,11 @@ var render = function() {
     },
     [
       _vm._l(_vm.errors, function(error) {
-        return _c("b-alert", { attrs: { show: "", variant: "danger" } }, [
-          _vm._v(" " + _vm._s(error) + " ")
-        ])
+        return _c(
+          "b-alert",
+          { key: "error.key", attrs: { show: "", variant: "danger" } },
+          [_vm._v(" " + _vm._s(error) + " ")]
+        )
       }),
       _vm._v(" "),
       _c("div", { staticClass: "form-group" }, [
@@ -82109,10 +82128,11 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\zeronothingzero\Code\hydrogelmatrix\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\zeronothingzero\Code\hydrogelmatrix\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/silvernitrate/Code/hydrogelmatrix/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/silvernitrate/Code/hydrogelmatrix/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
 
 /******/ });
+//# sourceMappingURL=app.js.map
