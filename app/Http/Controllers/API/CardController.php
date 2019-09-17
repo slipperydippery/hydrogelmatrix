@@ -41,7 +41,7 @@ class CardController extends Controller
             'front'         => $request['card']['front'],
             'back'          => $request['card']['back'],
             'user_id'       => $user->id,
-            'deck_id'       => $request['card']['deckid'],
+            'deck_id'       => $request['card']['deck_id'],
             'cardtype_id'   => $request['card']['cardtype']['id'],
         ]);
         foreach ($request['card']['choices'] as $choice) {

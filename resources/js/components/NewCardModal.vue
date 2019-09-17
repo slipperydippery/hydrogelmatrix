@@ -27,14 +27,14 @@
 <script>
     export default {
         props: [
-            'deckid',
+            'deck_id',
         ],
 
         data() {
             return {
                 card: {
                     cardtype: {name: ''},
-                    deckid: this.deckid,
+                    deck_id: this.deck_id,
                     front: '',
                     back: '',
                     choices: [],
@@ -179,7 +179,7 @@
             resetCard() {
                 this.card = {
                     cardtype: {name: ''},
-                    deckid: this.deckid,
+                    deck_id: this.deck_id,
                     front: '',
                     back: '',
                 };
@@ -187,17 +187,13 @@
             },
 
             initializeCard(carddata) { 
-                if(carddata.newCard == true) {
-                    this.newCard = true
-                    this.card.cardtype = carddata.card.cardtype
-                    this.card.deckid = carddata.card.deckid
-                    this.card.front = ''
-                    this.card.back = ''
-                    this.card.choices = []
-                } else {
-                    this.newCard = false
-                    this.card = carddata.card
-                }
+                this.newCard = carddata.newCard
+                this.card.cardtype = carddata.card.cardtype
+                this.card.deck_id = carddata.card.deck_id
+                this.card.front = ('front' in carddata.card) ? carddata.card.front : ''
+                this.card.back = ('back' in carddata.card) ? carddata.card.back : ''
+                this.card.choices = ('choices' in carddata.card) ? carddata.card.choices : []
+                this.card.id = ('id' in carddata.card) ? carddata.card.id : 99
             },
 
             focusAndClearMyElement(e) {

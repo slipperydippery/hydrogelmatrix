@@ -26,7 +26,7 @@
     export default {
         props: [
         	'cardtypes',
-        	'deckid'
+        	'deck_id'
         ],
 
         data() {
@@ -48,7 +48,10 @@
                         newCard: true,
                         card: {
                             cardtype: cardtype,
-                            deckid: this.deckid
+                            deck_id: this.deck_id,
+                            front: '',
+                            back: '',
+                            choices: [],
                         }
                 }
         		this.$eventBus.$emit('setNewCardType', carddata);

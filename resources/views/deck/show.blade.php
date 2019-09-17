@@ -7,10 +7,6 @@
             <a href=" {{ route('decktest.start', $deck) }} " class="btn btn-outline-primary btn-block "> Start test </a>
         </div>
     </div>
-    <new-card-modal
-        :deckid=" {{ $deck->id }} "
-    >
-    </new-card-modal>
     <cards-in-deck
         :deck=" {{ json_encode($deck) }} "
         :cardtypes=" {{ json_encode($cardtypes) }} "
@@ -18,8 +14,12 @@
     </cards-in-deck>
     <new-card-fixed-button
         :cardtypes= " {{ json_encode($cardtypes) }} "
-        :deckid=" {{ $deck->id }} "
+        :deck_id=" {{ $deck->id }} "
     >
     </new-card-fixed-button>
+    <new-card-modal
+        :deck_id=" {{ $deck->id }} "
+    >
+    </new-card-modal>
 
 @endsection
