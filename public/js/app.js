@@ -1987,6 +1987,33 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditCardModal.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EditCardModal.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../app.js */ "./resources/js/app.js");
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: [],
+  data: function data() {
+    return {};
+  },
+  mounted: function mounted() {},
+  computed: {},
+  methods: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FlippableTestComponent.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FlippableTestComponent.vue?vue&type=script&lang=js& ***!
@@ -2282,7 +2309,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       this.$eventBus.$emit('setNewCardType', carddata);
-      this.$bvModal.show('newcardmodal');
     }
   }
 });
@@ -2345,7 +2371,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       this.$eventBus.$emit('setNewCardType', carddata);
-      this.$bvModal.show('newcardmodal');
     }
   }
 });
@@ -2387,25 +2412,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['deck_id'],
   data: function data() {
     return {
       card: {
         cardtype: {
-          name: ''
+          name: '',
+          slug: ''
         },
-        deck_id: this.deck_id,
+        deck_id: null,
         front: '',
         back: '',
         choices: []
       },
       newCard: true,
-      errors: []
+      errors: [],
+      initialized: false
     };
   },
   watch: {},
   mounted: function mounted() {
+    this.card.deck_id = this.deck_id;
     this.$eventBus.$on('setNewCardType', this.initializeCard);
   },
   computed: {
@@ -2559,6 +2588,8 @@ __webpack_require__.r(__webpack_exports__);
       this.choices = [];
     },
     initializeCard: function initializeCard(carddata) {
+      console.log('initialized Card');
+      this.initialized = true;
       this.newCard = carddata.newCard;
       this.card.cardtype = carddata.card.cardtype;
       this.card.deck_id = carddata.card.deck_id;
@@ -2566,6 +2597,7 @@ __webpack_require__.r(__webpack_exports__);
       this.card.back = 'back' in carddata.card ? carddata.card.back : '';
       this.card.choices = 'choices' in carddata.card ? carddata.card.choices : [];
       this.card.id = 'id' in carddata.card ? carddata.card.id : 99;
+      this.$bvModal.show('newcardmodal');
     },
     focusAndClearMyElement: function focusAndClearMyElement(e) {
       this.errors = [];
@@ -67422,6 +67454,30 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditCardModal.vue?vue&type=template&id=1e1070b8&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EditCardModal.vue?vue&type=template&id=1e1070b8& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div")
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/FlippableTestComponent.vue?vue&type=template&id=28e8d18e&":
 /*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/FlippableTestComponent.vue?vue&type=template&id=28e8d18e& ***!
@@ -67994,62 +68050,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "b-modal",
-    {
-      ref: "newcardmodal",
-      attrs: {
-        id: "newcardmodal",
-        title: "Create new " + _vm.card.cardtype.name.toLowerCase() + " Card",
-        size: "lg"
-      },
-      on: { ok: _vm.storeCard, shown: _vm.focusAndClearMyElement }
-    },
-    [
-      _vm._l(_vm.errors, function(error) {
-        return _c(
-          "b-alert",
-          { key: "error.key", attrs: { show: "", variant: "danger" } },
-          [_vm._v(" " + _vm._s(error) + " ")]
-        )
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-          _vm._v(_vm._s(_vm.card.cardtype.fronttext))
-        ]),
-        _vm._v(" "),
-        _c("textarea", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.card.front,
-              expression: "card.front"
-            }
-          ],
-          ref: "titleInput",
-          staticClass: "form-control",
+  return true
+    ? _c(
+        "b-modal",
+        {
+          ref: "newcardmodal",
           attrs: {
-            id: "titleInput",
-            placeholder: _vm.card.cardtype.frontplaceholder
+            id: "newcardmodal",
+            title:
+              "Create new " + _vm.card.cardtype.name.toLowerCase() + " Card",
+            size: "lg"
           },
-          domProps: { value: _vm.card.front },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.card, "front", $event.target.value)
-            }
-          }
-        })
-      ]),
-      _vm._v(" "),
-      _vm.hasSideb
-        ? _c("div", { staticClass: "form-group" }, [
+          on: { ok: _vm.storeCard, shown: _vm.focusAndClearMyElement }
+        },
+        [
+          _vm._l(_vm.errors, function(error) {
+            return _c(
+              "b-alert",
+              { key: "error.key", attrs: { show: "", variant: "danger" } },
+              [_vm._v(" " + _vm._s(error) + " ")]
+            )
+          }),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "exampleInputEmail1" } }, [
-              _vm._v(_vm._s(_vm.card.cardtype.backtext))
+              _vm._v(_vm._s(_vm.card.cardtype.fronttext))
             ]),
             _vm._v(" "),
             _c("textarea", {
@@ -68057,42 +68082,76 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.card.back,
-                  expression: "card.back"
+                  value: _vm.card.front,
+                  expression: "card.front"
                 }
               ],
+              ref: "titleInput",
               staticClass: "form-control",
               attrs: {
                 id: "titleInput",
-                placeholder: _vm.card.cardtype.backplaceholder
+                placeholder: _vm.card.cardtype.frontplaceholder
               },
-              domProps: { value: _vm.card.back },
+              domProps: { value: _vm.card.front },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.$set(_vm.card, "back", $event.target.value)
+                  _vm.$set(_vm.card, "front", $event.target.value)
                 }
               }
             })
-          ])
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.isMultipleChoice
-        ? _c("manage-multiple-choices", {
-            model: {
-              value: _vm.card.choices,
-              callback: function($$v) {
-                _vm.$set(_vm.card, "choices", $$v)
-              },
-              expression: "card.choices"
-            }
-          })
-        : _vm._e()
-    ],
-    2
-  )
+          ]),
+          _vm._v(" "),
+          _vm.hasSideb
+            ? _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "exampleInputEmail1" } }, [
+                  _vm._v(_vm._s(_vm.card.cardtype.backtext))
+                ]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.card.back,
+                      expression: "card.back"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "titleInput",
+                    placeholder: _vm.card.cardtype.backplaceholder
+                  },
+                  domProps: { value: _vm.card.back },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.card, "back", $event.target.value)
+                    }
+                  }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isMultipleChoice
+            ? _c("manage-multiple-choices", {
+                model: {
+                  value: _vm.card.choices,
+                  callback: function($$v) {
+                    _vm.$set(_vm.card, "choices", $$v)
+                  },
+                  expression: "card.choices"
+                }
+              })
+            : _vm._e()
+        ],
+        2
+      )
+    : undefined
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -80921,6 +80980,8 @@ Vue.component('decks-by-user', __webpack_require__(/*! ./components/DecksByUser.
 Vue.component('cards-in-deck', __webpack_require__(/*! ./components/CardsInDeck.vue */ "./resources/js/components/CardsInDeck.vue")["default"]);
 Vue.component('new-card-fixed-button', __webpack_require__(/*! ./components/NewCardFixedButton.vue */ "./resources/js/components/NewCardFixedButton.vue")["default"]);
 Vue.component('new-card-card', __webpack_require__(/*! ./components/NewCardCard.vue */ "./resources/js/components/NewCardCard.vue")["default"]);
+Vue.component('new-card-modal', __webpack_require__(/*! ./components/NewCardModal.vue */ "./resources/js/components/NewCardModal.vue")["default"]);
+Vue.component('edit-card-modal', __webpack_require__(/*! ./components/EditCardModal.vue */ "./resources/js/components/EditCardModal.vue")["default"]);
 Vue.component('new-qa-card-modal', __webpack_require__(/*! ./components/NewQaCardModal.vue */ "./resources/js/components/NewQaCardModal.vue")["default"]);
 Vue.component('qa-test-component', __webpack_require__(/*! ./components/QaTestComponent.vue */ "./resources/js/components/QaTestComponent.vue")["default"]);
 Vue.component('new-flippable-card-modal', __webpack_require__(/*! ./components/NewFlippableCardModal */ "./resources/js/components/NewFlippableCardModal.vue")["default"]);
@@ -80932,7 +80993,6 @@ Vue.component('test-deck-component', __webpack_require__(/*! ./components/TestDe
 Vue.component('manage-multiple-choices', __webpack_require__(/*! ./components/ManageMultipleChoices */ "./resources/js/components/ManageMultipleChoices.vue")["default"]); // OLD
 
 Vue.component('new-deck-modal', __webpack_require__(/*! ./components/NewDeckModal */ "./resources/js/components/NewDeckModal.vue")["default"]);
-Vue.component('new-card-modal', __webpack_require__(/*! ./components/NewCardModal */ "./resources/js/components/NewCardModal.vue")["default"]);
 Vue.component('new-card-block-modal', __webpack_require__(/*! ./components/NewCardBlockModal */ "./resources/js/components/NewCardBlockModal.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -81210,6 +81270,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DoitTestComponent_vue_vue_type_template_id_6d1c33da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DoitTestComponent_vue_vue_type_template_id_6d1c33da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/EditCardModal.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/EditCardModal.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _EditCardModal_vue_vue_type_template_id_1e1070b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditCardModal.vue?vue&type=template&id=1e1070b8& */ "./resources/js/components/EditCardModal.vue?vue&type=template&id=1e1070b8&");
+/* harmony import */ var _EditCardModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditCardModal.vue?vue&type=script&lang=js& */ "./resources/js/components/EditCardModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _EditCardModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _EditCardModal_vue_vue_type_template_id_1e1070b8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _EditCardModal_vue_vue_type_template_id_1e1070b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/EditCardModal.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/EditCardModal.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/EditCardModal.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCardModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./EditCardModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditCardModal.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCardModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/EditCardModal.vue?vue&type=template&id=1e1070b8&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/EditCardModal.vue?vue&type=template&id=1e1070b8& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCardModal_vue_vue_type_template_id_1e1070b8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./EditCardModal.vue?vue&type=template&id=1e1070b8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/EditCardModal.vue?vue&type=template&id=1e1070b8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCardModal_vue_vue_type_template_id_1e1070b8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditCardModal_vue_vue_type_template_id_1e1070b8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -82130,11 +82259,10 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/silvernitrate/Code/hydrogelmatrix/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/silvernitrate/Code/hydrogelmatrix/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\zeronothingzero\Code\hydrogelmatrix\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\zeronothingzero\Code\hydrogelmatrix\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=app.js.map

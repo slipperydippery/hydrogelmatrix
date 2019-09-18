@@ -50,7 +50,6 @@
                         }
                 }
                 this.$eventBus.$emit('setNewCardType', carddata);
-                this.$bvModal.show('newcardmodal');
         	},
         }
     }

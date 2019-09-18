@@ -6,6 +6,7 @@
         size="lg"
         @ok="storeCard"
         @shown="focusAndClearMyElement"
+        v-if="true"
     >
         <b-alert show variant="danger" v-for="error in errors" key="error.key"> {{ error }} </b-alert>
         <div class="form-group">
@@ -33,14 +34,15 @@
         data() {
             return {
                 card: {
-                    cardtype: {name: ''},
-                    deck_id: this.deck_id,
+                    cardtype: {name: '', slug: ''},
+                    deck_id: null,
                     front: '',
                     back: '',
                     choices: [],
                 },
                 newCard: true,
                 errors: [],
+                initialized: false,
             }
         },
  
@@ -48,6 +50,7 @@
         },
 
         mounted() {
+            this.card.deck_id = this.deck_id;
             this.$eventBus.$on('setNewCardType', this.initializeCard);
         },
 
@@ -187,6 +190,8 @@
             },
 
             initializeCard(carddata) { 
+                console.log('initialized Card');
+                this.initialized = true;
                 this.newCard = carddata.newCard
                 this.card.cardtype = carddata.card.cardtype
                 this.card.deck_id = carddata.card.deck_id
@@ -194,6 +199,7 @@
                 this.card.back = ('back' in carddata.card) ? carddata.card.back : ''
                 this.card.choices = ('choices' in carddata.card) ? carddata.card.choices : []
                 this.card.id = ('id' in carddata.card) ? carddata.card.id : 99
+                this.$bvModal.show('newcardmodal');
             },
 
             focusAndClearMyElement(e) {
