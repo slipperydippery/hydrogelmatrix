@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class DeckController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('ownsdeck', ['except' => 'index']);
+    }
+
     /**
      * Display a listing of the resource.
      *

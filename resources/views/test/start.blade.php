@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.clean')
 
 @section('content')
 	<test-deck-component

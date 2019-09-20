@@ -4,7 +4,10 @@
             <i class="material-icons md-inactive md-3 abosolute-top-right">
                 {{ card.cardtype.materialicon }}
             </i>
-			<span>{{ card.front }} </span>
+            <hydrocard-text-formatter
+                v-model="card.front"
+            >
+            </hydrocard-text-formatter>
             <b-list-group>
                 <b-list-group-item button v-for="choice in card.choices" :key="choice.id" @click="setGuess(choice)"> {{ choice.body }} </b-list-group-item>
             </b-list-group>
@@ -56,7 +59,7 @@
         	flipCard() {
         		this.flipped = ! this.flipped;
         		this.flipClass = this.flipped ? 'flip-vertical-right' : 'flip-vertical-left';
-        	}
+        	},
         }
     }
 </script>

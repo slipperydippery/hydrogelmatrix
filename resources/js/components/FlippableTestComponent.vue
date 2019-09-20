@@ -4,10 +4,16 @@
             <i class="material-icons md-inactive md-3 abosolute-top-right">
                 {{ card.cardtype.materialicon }}
             </i>
-			<span :style="{ fontSize: fontSize(card.front) + 'vw' }">{{ card.front }} </span>
+            <hydrocard-text-formatter
+                v-model="card.front"
+            >
+            </hydrocard-text-formatter>
 		</div>
 		<div class="back face d-flex align-items-center justify-content-center rounded shadow"> 
-			{{ card.back }} 
+            <hydrocard-text-formatter
+                v-model="card.back"
+            >
+            </hydrocard-text-formatter>
 		</div>
 	</div>
 </template>
@@ -36,10 +42,6 @@
         		this.flipped = ! this.flipped;
         		this.flipClass = this.flipped ? 'flip-vertical-right' : 'flip-vertical-left';
         	},
-
-            fontSize(string) {
-                return Math.round((80 / string.length) * 10) / 10 ;
-            },
         }
     }
 </script>

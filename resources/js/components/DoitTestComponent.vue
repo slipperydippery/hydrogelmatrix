@@ -4,10 +4,16 @@
             <i class="material-icons md-inactive md-3 abosolute-top-right">
                 {{ card.cardtype.materialicon }}
             </i>
-			{{ card.front }} 
+            <hydrocard-text-formatter
+                v-model="card.front"
+            >
+            </hydrocard-text-formatter>
 		</div>
 		<div class="back face d-flex align-items-center justify-content-center rounded shadow"> 
-			{{ card.back }} 
+            <hydrocard-text-formatter
+                v-model="card.back"
+            >
+            </hydrocard-text-formatter>
 		</div>
 	</div>
 </template>

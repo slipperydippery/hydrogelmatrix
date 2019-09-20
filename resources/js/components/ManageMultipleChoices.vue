@@ -51,10 +51,11 @@
         		var choices = this.value;
         	    choices.forEach( thischoice => {
         	    	thischoice.correct = false;
-        	    	if (thischoice == choice) {
+        	    	if (thischoice == choice || ('id'in choice) && thischoice.id == choice.id) {
         	    		thischoice.correct = true;
         	    	}
         	    });
+                this.$forceUpdate()
         	    this.$emit('input', choices);
         	},
 

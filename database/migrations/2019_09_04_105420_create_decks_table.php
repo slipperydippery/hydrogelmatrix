@@ -15,7 +15,8 @@ class CreateDecksTable extends Migration
     {
         Schema::create('decks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title')->nullable();
+            $table->string('title');
+            $table->text('description')->nullable();
             $table->integer('order')->unsigned();
             $table->tinyInteger('public')->unsigned()->default(0);
             $table->bigInteger('user_id')->unsigned()->nullable();

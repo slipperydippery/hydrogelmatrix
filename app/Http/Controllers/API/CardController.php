@@ -87,6 +87,7 @@ class CardController extends Controller
                 'card_id'   => $card['id'],
             ]);
         };
+        return Card::with('choices', 'cardtype')->find($card->id);
     }
 
 
