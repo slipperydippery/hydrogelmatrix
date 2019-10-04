@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 namespace App;
 
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Card extends Model
 {
     use UsesOrder;
-    
+
 	protected $guarded = [];
 
     public function user()
@@ -33,5 +33,11 @@ class Card extends Model
     public function choices()
     {
     	return $this->hasMany(Choice::class);
+    }
+
+    public function setUserAttribute($user)
+    {
+        $this->attributes['user_id'] = $user->getKey();
+        $this->setRelation('user', $user);
     }
 }

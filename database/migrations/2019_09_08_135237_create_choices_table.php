@@ -16,7 +16,7 @@ class CreateChoicesTable extends Migration
         Schema::create('choices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('body');
-            $table->tinyInteger('correct')->unsigned();
+            $table->boolean('correct')->default(false);
             $table->integer('order')->unsigned();
             $table->bigInteger('card_id')->unsigned();
             $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');

@@ -1,5 +1,11 @@
 <?php
 
+app()->singleton(GateContract::class, function ($app) {
+    return new Gate($app, function () use ($app) {
+        return call_user_func($app['auth']->userResolver());
+    });
+});
+
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');

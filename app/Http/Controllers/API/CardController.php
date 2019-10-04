@@ -37,20 +37,23 @@ class CardController extends Controller
     public function store(Request $request)
     {
         $user = auth('api')->user();
+
         $card = Card::create([
-            'front'         => $request['card']['front'],
-            'back'          => $request['card']['back'],
-            'user_id'       => $user->id,
-            'deck_id'       => $request['card']['deck_id'],
-            'cardtype_id'   => $request['card']['cardtype']['id'],
+            'front'         => $request->input('card.front'),
+            'back'          => $request->input('card.back'),
+            'user'          => $user,
+            'deck_id'       => $request->input('card.deck_id'),
+            'cardtype_id'   => $request->input('card.cardtype.id'),
         ]);
-        foreach ($request['card']['choices'] as $choice) {
+
+        foreach ($request->input('card.choices') as $choice) {
             Choice::create([
                 'body'      => $choice['body'],
                 'correct'   => $choice['correct'],
-                'card_id'   => $card['id'],
+                'card'      => $card,
             ]);
         };
+        
         $card = Card::with('cardtype', 'choices')->find($card->id);
         return $card;
     }
@@ -74,17 +77,17 @@ class CardController extends Controller
      */
     public function update(Request $request, Card $card)
     {
-        $card->front = $request['card']['front'];
-        $card->back = $request['card']['back'];
-        $card->deck_id = $request['card']['deck_id'];
-        $card->cardtype_id = $request['card']['cardtype']['id'];
+        $card->front        = $request->input('card.front');
+        $card->back         = $request->input('card.back');
+        $card->deck_id      = $request->input('card.deck_id');
+        $card->cardtype_id  = $request->input('card.cardtype.id');
         $card->save();
         $card->choices()->delete();
-        foreach ($request['card']['choices'] as $choice) {
+        foreach ($request->input('card.choices') as $choice) {
             Choice::create([
                 'body'      => $choice['body'],
                 'correct'   => $choice['correct'],
-                'card_id'   => $card['id'],
+                'card'      => $card,
             ]);
         };
         return Card::with('choices', 'cardtype')->find($card->id);
