@@ -53,7 +53,7 @@ class CardController extends Controller
                 'card'      => $card,
             ]);
         };
-        
+
         $card = Card::with('cardtype', 'choices')->find($card->id);
         return $card;
     }

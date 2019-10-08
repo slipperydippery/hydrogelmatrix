@@ -7,9 +7,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import BootstrapVue from 'bootstrap-vue'
 import PortalVue from 'portal-vue'
-Vue.use(BootstrapVue);
 Vue.use(PortalVue);
 
 /**
@@ -23,24 +21,24 @@ Vue.use(PortalVue);
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-// 
+//
 // Dashboard
-// 
+//
 Vue.component('decks-by-user', require('./components/DecksByUser.vue').default);
 Vue.component('new-deck-modal', require('./components/NewDeckModal').default);
 
-// 
+//
 // Deck
-// 
+//
 Vue.component('cards-in-deck', require('./components/CardsInDeck.vue').default);
 Vue.component('new-card-fixed-button', require('./components/NewCardFixedButton.vue').default);
 Vue.component('new-card-card', require('./components/NewCardCard.vue').default);
 Vue.component('new-card-modal', require('./components/NewCardModal.vue').default);
 
 
-// 
-// Test Deck Components: 
-// 
+//
+// Test Deck Components:
+//
 Vue.component('test-deck-component', require('./components/TestDeckComponent').default);
 Vue.component('qa-test-component', require('./components/QaTestComponent.vue').default);
 Vue.component('flippable-test-component', require('./components/FlippableTestComponent.vue').default);
@@ -48,14 +46,29 @@ Vue.component('multiplechoice-test-component', require('./components/Multiplecho
 Vue.component('doit-test-component', require('./components/DoitTestComponent.vue').default);
 
 
-// 
+//
 // Loose components
-// 
+//
 Vue.component('hydrocard-text-formatter', require('./components/HydrocardTextFormatter.vue').default);
 Vue.component('manage-multiple-choices', require('./components/ManageMultipleChoices').default);
 
 
-Vue.prototype.$eventBus = new Vue(); 
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//                          TAILWIND REFACTOR:
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//
+// Modal Components
+//
+Vue.component('new-deck-modal-button', require('./components/NewDeckModalButton.vue').default);
+
+//
+// Inline-templates
+//
+Vue.component('nav-template', require('./components/NavTemplate.vue').default);
+
+
+Vue.prototype.$eventBus = new Vue();
 const app = new Vue({
     el: '#app',
 });

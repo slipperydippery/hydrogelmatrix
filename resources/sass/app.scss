@@ -2,19 +2,8 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400&display=swap');
 @import "partials/materialicons";
 
-// Variables
-@import "partials/themecolors";
-@import 'variables';
+@tailwind base;
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@tailwind components;
 
-@import 'partials/layout';
-
-@import 'partials/components';
-@import 'partials/elements';
-@import 'partials/colors';
-
-@import 'partials/squares';
-@import 'partials/card';
-@import 'partials/test';
+@tailwind utilities;
