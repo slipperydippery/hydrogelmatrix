@@ -24,13 +24,10 @@ Vue.use(PortalVue);
 //
 // Dashboard
 //
-Vue.component('decks-by-user', require('./components/DecksByUser.vue').default);
-Vue.component('new-deck-modal', require('./components/NewDeckModal').default);
 
 //
 // Deck
 //
-Vue.component('cards-in-deck', require('./components/CardsInDeck.vue').default);
 Vue.component('new-card-fixed-button', require('./components/NewCardFixedButton.vue').default);
 Vue.component('new-card-card', require('./components/NewCardCard.vue').default);
 Vue.component('new-card-modal', require('./components/NewCardModal.vue').default);
@@ -61,6 +58,12 @@ Vue.component('manage-multiple-choices', require('./components/ManageMultipleCho
 // Modal Components
 //
 Vue.component('new-deck-modal-button', require('./components/NewDeckModalButton.vue').default);
+Vue.component('edit-deck-modal-button', require('./components/EditDeckModalButton.vue').default);
+Vue.component('decks-by-user', require('./components/DecksByUser.vue').default);
+Vue.component('new-deck-modal', require('./components/NewDeckModal').default);
+
+Vue.component('new-card-modal-button', require('./components/NewCardModalButton.vue').default);
+Vue.component('cards-in-deck', require('./components/CardsInDeck.vue').default);
 
 //
 // Inline-templates
@@ -69,6 +72,7 @@ Vue.component('nav-template', require('./components/NavTemplate.vue').default);
 
 
 Vue.prototype.$eventBus = new Vue();
+
 const app = new Vue({
     el: '#app',
 });

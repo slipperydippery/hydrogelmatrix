@@ -28,7 +28,10 @@
             @yield('content')
         </main>
 
-        <portal-target name="modals">
+        <portal-target name="card">
+        </portal-target>
+        <portal-target name="deck">
+
         </portal-target>
     </div>
 

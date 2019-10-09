@@ -1,7 +1,7 @@
 // Base colors
 $theme-colors: (
 	primary: 			#1C154B,
-	secondary: 	 		#008390,
+	secondary: 	 		#07737C,
 	success: 		 	#119822,
 	info: 		 		#98C1D9,
 	warning: 		 	#f6e84d,
@@ -9,7 +9,7 @@ $theme-colors: (
 );
 
 $primary: 			#1C154B;
-$secondary: 	 	#008390;
+$secondary: 	 	#07737C;
 $success: 		 	#119822;
 $info: 		 		#98C1D9;
 $warning: 		 	#f6e84d;
@@ -18,3 +18,9 @@ $wrong:				#C8202B;
 
 $secondary-light: 	#def6f8;
 
+.bg-secondary {
+    background: $secondary
+}
+.bg-secondary-light {
+    background: $secondary-light
+}

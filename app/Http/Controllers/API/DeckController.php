@@ -40,9 +40,10 @@ class DeckController extends Controller
     {
         $user = auth('api')->user();
         $deck = Deck::create([
-            'title'     => $request['deck']['title'],
-            'user_id'   => $user->id,
-            'public'    => $request['deck']['public'],
+            'title'         => $request->input('deck.title'),
+            'description'   => $request->input('deck.description'),
+            'user_id'       => $user->id,
+            'public'        => $request->input('deck.public'),
         ]);
 
         return $deck;
@@ -68,7 +69,13 @@ class DeckController extends Controller
      */
     public function update(Request $request, Deck $deck)
     {
-        //
+        $deck->title        = $request->input('deck.title');
+        $deck->description  = $request->input('deck.description');
+        $deck->public       = $request->input('deck.public');
+
+        $deck->save();
+
+        return $deck;
     }
 
     /**

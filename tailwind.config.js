@@ -1,6 +1,13 @@
 module.exports = {
     theme: {
-        extend: {}
+        extend: {
+            colors: {
+                'primary': '#1C154B',
+                'secondary': '#07737C',
+                'secondary-light': '#2E8D95',
+                'secondary-dark': '#01626A',
+            }
+        }
     },
         variants: {},
 

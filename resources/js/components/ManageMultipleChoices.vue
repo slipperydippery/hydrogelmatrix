@@ -1,14 +1,15 @@
 <template>
-	<div class="form-group">
-	    <b-list-group>
-	        <b-list-group-item v-for="choice in value" :key="choice.id" @click="setCorrectChoice(choice)" :active="isCorrect(choice)">
-	            {{ choice.body }}
-	            <button type="button" class="close float-right" aria-label="Close" @click="removeChoice(choice)">
-	              <span aria-hidden="true">&times;</span>
-	            </button>
-	        </b-list-group-item>
-	    </b-list-group>
-	    <input type="text" class="form-control" placeholder="A possible answer is..." v-model="newChoice" @keydown.enter="saveChoice()">
+	<div class="mt-4">
+        <div v-for="choice in value" :key="choice.id" @click="setCorrectChoice(choice)"
+            class="bg-transparent hover:bg-blue-300 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+            :class="{ 'bg-blue-500 text-white' : isCorrect(choice), 'text-blue-700' : ! isCorrect(choice)}"
+        >
+            {{ choice.body }}
+            <button type="button" class="close float-right" aria-label="Close" @click="removeChoice(choice)">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+	    <input type="text" class="form-input mt-1 block w-full" placeholder="A possible answer is..." v-model="newChoice" @keydown.enter="saveChoice()">
 	</div>
 </template>
 
