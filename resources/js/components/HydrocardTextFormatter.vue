@@ -1,5 +1,5 @@
 <template>
-	<span :style="{ fontSize: fontSize(value) + 'vw' }" v-if="value">
+	<span class="select-none" :style="{ fontSize: fontSize(value) + 'vw' }" v-if="value">
 		<vue-markdown :source="value" v-if="value"></vue-markdown>
 	</span>
 </template>

@@ -36,11 +36,12 @@ Vue.component('new-card-modal', require('./components/NewCardModal.vue').default
 //
 // Test Deck Components:
 //
-Vue.component('test-deck-component', require('./components/TestDeckComponent').default);
-Vue.component('qa-test-component', require('./components/QaTestComponent.vue').default);
-Vue.component('flippable-test-component', require('./components/FlippableTestComponent.vue').default);
-Vue.component('multiplechoice-test-component', require('./components/MultiplechoiceTestComponent.vue').default);
-Vue.component('doit-test-component', require('./components/DoitTestComponent.vue').default);
+Vue.component('test-deck-component', require('./components/TestDeckComponent.vue').default);
+Vue.component('card-content', require('./components/CardContent.vue').default);
+// Vue.component('qa-test-component', require('./components/QaTestComponent.vue').default);
+// Vue.component('flippable-test-component', require('./components/FlippableTestComponent.vue').default);
+// Vue.component('multiplechoice-test-component', require('./components/MultiplechoiceTestComponent.vue').default);
+// Vue.component('doit-test-component', require('./components/DoitTestComponent.vue').default);
 
 
 //

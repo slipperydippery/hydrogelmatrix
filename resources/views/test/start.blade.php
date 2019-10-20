@@ -22,10 +22,10 @@
                 </div>
 
                 <div class="hydrocard-container relative flex-1 flex items-center justify-center" v-for="card in shuffledDeck" v-if="card.id == activeCard.id" :key="card.id">
-                    <qa-test-component v-if="card.cardtype.slug == 'qa'" :card="card"></qa-test-component>
-                    <flippable-test-component v-if="card.cardtype.slug == 'flippable'" :card="card"></flippable-test-component>
-                    <multiplechoice-test-component v-if="card.cardtype.slug == 'multiplechoice'" :card="card"></multiplechoice-test-component>
-                    <doit-test-component v-if="card.cardtype.slug == 'doit'" :card="card"></doit-test-component>
+                    <card-content
+                        :card="card"
+                    >
+                    </card-content>
                 </div>
 
                 <div

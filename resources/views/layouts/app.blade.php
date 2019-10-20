@@ -28,6 +28,8 @@
             @yield('content')
         </main>
 
+        @include('layouts.partials.footer')
+
         <portal-target name="card">
         </portal-target>
         <portal-target name="deck">
