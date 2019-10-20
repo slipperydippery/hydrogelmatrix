@@ -5,8 +5,8 @@
         <div class="px-4 py-2 text-center text-gray-600 w-full">
             <h1 class="text-2xl sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl antialiased  tracking-tight font-semibold">Scaffolding for your brain</h1>
             <p class="italic mt-2 text-gray-600">"Pellentesque posuere. Suspendisse nisl elit, rhoncus eget, elementum ac, condimentum eget, diam. Nullam accumsan lorem in dui. Vivamus quis mi."</p>
-            <new-deck-modal-button>
-            </new-deck-modal-button>
+            <new-deck-button>
+            </new-deck-button>
 
         </div>
     </div>

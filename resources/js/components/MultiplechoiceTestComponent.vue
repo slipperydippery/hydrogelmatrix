@@ -1,6 +1,6 @@
 <template>
-	<div class="hydrocard" :class="flipClass" @click="flipCard">
-		<div class="front face d-flex flex-column align-items-center justify-content-center rounded shadow"> 
+    <div class="hydrocard relative bg-gray-850 text-orange-100 rounded shadow w-xs16 h-xs9 sm:w-sm16 sm:h-sm9 md:w-md16 md:h-md9 lg:w-md16 lg:h-md9 xl:w-xl16 xl:h-xl9" :class="flipClass" @click="flipCard">
+        <div class="h-full front face flex flex-col items-center justify-center">
             <i class="material-icons md-inactive md-3 abosolute-top-right">
                 {{ card.cardtype.materialicon }}
             </i>
@@ -8,14 +8,25 @@
                 v-model="card.front"
             >
             </hydrocard-text-formatter>
-            <b-list-group>
-                <b-list-group-item button v-for="choice in card.choices" :key="choice.id" @click="setGuess(choice)"> {{ choice.body }} </b-list-group-item>
-            </b-list-group>
+            <div class="min-w-1/2 mt-8">
+                <div v-for="choice in card.choices" :key="choice.id" @click="setGuess(choice)"
+                     class="bg-transparent hover:bg-blue-300 font-semibold hover:text-white py-2 px-4 border rounded"
+
+                >
+                    {{ choice.body }}
+                </div>
+            </div>
+
 		</div>
-		<div class="back face d-flex align-items-center justify-content-center rounded shadow"> 
-            <b-list-group>
-                <b-list-group-item button v-for="choice in card.choices" :key="choice.id" :active="choice.correct"> {{ choice.body }} </b-list-group-item>
-            </b-list-group>
+        <div class="h-full back face flex items-center justify-center">
+            <div class="min-w-1/2 mt-8">
+                <div v-for="choice in card.choices" :key="choice.id" @click="setGuess(choice)"
+                     class="bg-transparent hover:bg-blue-300 font-semibold hover:text-white py-2 px-4 border border-gray-100 rounded"
+                     :class="{'bg-blue-300' : choice.correct}"
+                >
+                    {{ choice.body }}
+                </div>
+            </div>
 		</div>
 	</div>
 </template>
@@ -41,7 +52,7 @@
             correctChoice() {
                 var correctChoice = 'sorry';
                 this.card.choices.forEach( thischoice => {
-                    if( thischoice.correct ) { 
+                    if( thischoice.correct ) {
                         correctChoice = thischoice.body;
                     }
                 });

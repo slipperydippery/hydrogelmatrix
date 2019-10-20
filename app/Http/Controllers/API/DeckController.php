@@ -86,6 +86,9 @@ class DeckController extends Controller
      */
     public function destroy(Deck $deck)
     {
-        //
+        $deck->delete();
+
+        // set notification of deleted succes
+        return 'deleted';
     }
 }

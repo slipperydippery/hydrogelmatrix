@@ -14,14 +14,14 @@
                     <span>
                         {{ $deck->cards->count() }} cards
                     </span>
-                    <edit-deck-modal-button
+                    <edit-deck-button
                         :deck = "{{ json_encode($deck)  }}"
                         inline-template
                     >
                         <i class="material-icons clickable" @click="editDeckInModal">
                             edit
                         </i>
-                    </edit-deck-modal-button>
+                    </edit-deck-button>
                 </div>
 
                 <a href=" {{ route('decktest.start', $deck) }} " class="inline-block w-full px-8 mr-4 lg:w-auto bg-secondary hover:bg-secondary-dark text-white font-bold py-2 rounded"> Start test </a>
@@ -33,9 +33,9 @@
                     </button>
                 </new-card-modal-button>
 
-                <new-deck-modal
+                <manage-deck-modal
                 >
-                </new-deck-modal>
+                </manage-deck-modal>
 
 
 
@@ -52,20 +52,22 @@
         <div class="mt-8">
             <div class=" relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 inline-block p-2 text-gray-100" v-for="card in deck.cards" :key="'card' + card.id">
                 <div class="block bg-secondary-light hover:bg-secondary rounded shadow p-4 clickable" @click="editCard(card)">
-                    <span class="icons flex flex-row-reverse pb-4 text-gray-400">
-                        <i class="material-icons pr-1">
-                            lock_open
-                        </i>
-                        <i class="material-icons md-light md-2 abosolute-top-right">
-                            @{{ card.cardtype.materialicon }}
-                        </i>
+                    <i class="material-icons md-light md-2 abosolute-top-right">
+                        @{{ card.cardtype.materialicon }}
+                    </i>
+                    <span class="icons flex flex-row-reverse text-gray-400">
 
                     </span>
-                    <div class="text-2xl mb-2 h-16 overflow-hidden text-center"> <vue-markdown :source="card.front" v-if="card.front"></vue-markdown> </div>
+                    <div class="text-2xl h-24 overflow-hidden flex items-center justify-center">
+                        <vue-markdown :source="card.front" v-if="card.front">
+                        </vue-markdown>
+                    </div>
                 </div>
             </div>
         </div>
     </cards-in-deck>
+
+    {{ $deck->id }}
 
     <new-card-modal
         :cardtypes= " {{ json_encode($cardtypes) }} "

@@ -237,7 +237,7 @@
                 this.newCard = true
                 this.card = {
                     cardtype: this.cardtypes[0],
-                    deck_id: null,
+                    deck_id: this.deck_id,
                     front: '',
                     back: '',
                     choices: [],

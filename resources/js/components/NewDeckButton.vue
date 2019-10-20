@@ -3,12 +3,12 @@
         <button class="inline-block w-full px-8 py-2 mt-6 md:w-auto bg-blue-500 hover:bg-blue-700 text-white font-bold rounded"
                 @click="newDeckInModal"
         >
-            Make your first deck
+            Make a new deck
         </button>
 
-        <new-deck-modal
+        <manage-deck-modal
         >
-        </new-deck-modal>
+        </manage-deck-modal>
 
     </div>
 </template>

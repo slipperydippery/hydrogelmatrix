@@ -57,10 +57,12 @@ Vue.component('manage-multiple-choices', require('./components/ManageMultipleCho
 //
 // Modal Components
 //
-Vue.component('new-deck-modal-button', require('./components/NewDeckModalButton.vue').default);
-Vue.component('edit-deck-modal-button', require('./components/EditDeckModalButton.vue').default);
+Vue.component('new-deck-button', require('./components/NewDeckButton.vue').default);
+Vue.component('edit-deck-button', require('./components/EditDeckButton.vue').default);
+Vue.component('manage-deck-modal', require('./components/ManageDeckModal.vue').default);
+Vue.component('delete-deck-button', require('./components/DeleteDeckButton.vue').default);
+
 Vue.component('decks-by-user', require('./components/DecksByUser.vue').default);
-Vue.component('new-deck-modal', require('./components/NewDeckModal').default);
 
 Vue.component('new-card-modal-button', require('./components/NewCardModalButton.vue').default);
 Vue.component('cards-in-deck', require('./components/CardsInDeck.vue').default);

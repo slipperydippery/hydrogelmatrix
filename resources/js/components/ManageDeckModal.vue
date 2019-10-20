@@ -41,6 +41,10 @@
                             Update Deck
                         </span>
                     </button>
+                    <delete-deck-button
+                        :deck=deck
+                    >
+                    </delete-deck-button>
                 </div>
             </div>
         </div>
@@ -73,7 +77,7 @@
         watch: {
             show: function(newVal, oldVal) {
                 if (newVal == true) {
-                    // setTimeout(() => this.$refs.input.focus(), 100);
+                    setTimeout(() => this.$refs.input.focus(), 100);
                 }
             }
         },

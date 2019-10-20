@@ -3,11 +3,8 @@
 }
 
 .hydrocard {
-    width: 100%;
-    height: 100%;
     transform-style: preserve-3d;
     transition: transform 0.8s;
-    position: relative;
     .face {
     	position: absolute;
 	    width: 100%;
@@ -26,7 +23,7 @@
     }
     .back {
     	transform: rotateY(180deg);
-    	
+
     	color: #272727;
     	background: #E6E4DE;
     	z-index: 10;
@@ -39,7 +36,7 @@
 }
 
 .flip-vertical-right {
-	        animation: flip-vertical-right 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: flip-vertical-right 0.35s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 @-webkit-keyframes flip-vertical-right {
   0% {
@@ -59,7 +56,7 @@
 }
 
 .flip-vertical-left {
-	        animation: flip-vertical-left 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: flip-vertical-left 0.35s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
 @-webkit-keyframes flip-vertical-left {
