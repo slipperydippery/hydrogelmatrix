@@ -36,7 +36,7 @@
                     <span class="ml-2"> {{ __('Remember Me') }} </span>
                 </label>
 
-                <button type="submit" class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5">
+                <button type="submit" class="block w-full bg-secondary hover:bg-secondary-dark text-white font-bold py-2 px-4 rounded mt-5">
                     {{ __('Login') }}
                 </button>
 

@@ -49,17 +49,17 @@
         :cardtypes=" {{ json_encode($cardtypes) }} "
         inline-template
     >
-        <div class="mt-8 flex">
-            <div class="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 inline-block p-2 text-gray-100" v-for="card in deck.cards" :key="'card' + card.id">
-                <div class="block bg-secondary-light hover:bg-secondary rounded shadow p-4 clickable" @click="editCard(card)">
+        <div class="mt-8">
+            <div class="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 inline-block p-2 " v-for="card in deck.cards" :key="'card' + card.id">
+                <div class="block bg-gray-200 hover:bg-gray-700 text-gray-700 hover:text-gray-300 rounded shadow p-4 clickable" @click="editCard(card)">
                     <i class="material-icons md-light md-2 abosolute-top-right">
                         @{{ card.cardtype.materialicon }}
                     </i>
                     <span class="icons flex flex-row-reverse text-gray-400">
 
                     </span>
-                    <div class="text-2xl h-32 py-4 flex justify-center">
-                        <span class="h-24 overflow-hidden">
+                    <div class="text-xl h-32 py-6 flex justify-center">
+                        <span class="h-20 overflow-hidden">
                             <vue-markdown :source="card.front" v-if="card.front">
                             </vue-markdown>
                         </span>

@@ -1,5 +1,5 @@
 <template>
-    <div class="hydrocard relative bg-gray-850 text-orange-100 rounded shadow w-xs16 h-xs9 sm:w-sm16 sm:h-sm9 md:w-md16 md:h-md9 lg:w-md16 lg:h-md9 xl:w-xl16 xl:h-xl9" :class="flipClass" @click="flipCard">
+    <div class="hydrocard relative bg-gray-850 text-orange-100 rounded shadow-xl w-xs16 h-xs9 sm:w-sm16 sm:h-sm9 md:w-md16 md:h-md9 lg:w-md16 lg:h-md9 xl:w-xl16 xl:h-xl9" :class="flipClass" @click="flipCard">
         <div class="h-full front face flex flex-col items-center justify-center">
             <i class="material-icons md-inactive md-3 abosolute-top-right">
                 {{ card.cardtype.materialicon }}

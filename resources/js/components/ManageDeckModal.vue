@@ -33,7 +33,7 @@
                             <span class="ml-2">Public</span>
                         </label>
                     </div>
-                    <button type="submit" class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5" @click="storeDeck">
+                    <button type="submit" class="block w-full bg-secondary hover:bg-secondary-dark text-white font-bold py-2 px-4 rounded mt-5" @click="storeDeck">
                         <span v-if="newDeck">
                             Create Deck
                         </span>
@@ -43,6 +43,7 @@
                     </button>
                     <delete-deck-button
                         :deck=deck
+                        v-if="! newDeck"
                     >
                     </delete-deck-button>
                 </div>

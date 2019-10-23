@@ -22,6 +22,7 @@
 </head>
 <body class="font-sans leading-tight">
     <div id="app">
+
         @include('layouts.partials.nav')
 
         <main class="">
