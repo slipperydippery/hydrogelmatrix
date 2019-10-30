@@ -21,7 +21,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="font-sans leading-tight">
-    <div id="app">
+    <div id="app" class="bg-gray-200">
 
         @include('layouts.partials.nav')
 

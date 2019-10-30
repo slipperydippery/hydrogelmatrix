@@ -2010,6 +2010,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     fontSize: function fontSize(string) {
       return Math.round(10 / Math.pow(string.length, 0.4) * 10) / 10;
+    },
+    stringLimit: function stringLimit(str) {
+      if (str == null || str.length < 150) {
+        return str;
+      }
+
+      return str.substring(0, 150) + '...';
+    },
+    startTest: function startTest(deck) {
+      window.location.href = '/deck/' + deck.id + '/test';
+    },
+    editDeck: function editDeck(deck) {
+      window.location.href = '/deck/' + deck.id;
     }
   }
 });

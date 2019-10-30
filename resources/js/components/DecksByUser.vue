@@ -34,7 +34,22 @@
 
             fontSize(string) {
                 return ((Math.round((10 / Math.pow(string.length, 0.4)) * 10))/ 10) ;
-            }
+            },
+
+            stringLimit(str) {
+        	    if(str == null || str.length < 150) {
+        	        return str
+                }
+        	    return str.substring(0,150) + '...'
+            },
+
+            startTest(deck) {
+                window.location.href = '/deck/' + deck.id + '/test'
+            },
+
+            editDeck(deck) {
+                window.location.href = '/deck/' + deck.id
+            },
         }
     }
 </script>

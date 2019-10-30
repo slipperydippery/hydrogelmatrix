@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mx-auto">
-    <div class="max-w-sm rounded overflow-hidden lg:shadow-lg lg:border mx-auto mt-10 pt-2 pb-5 ">
+    <div class="max-w-sm rounded overflow-hidden lg:shadow-lg lg:border mx-auto mt-10 pt-2 pb-5 bg-white">
         <div class="px-6 py-4">
             <div class="font-bold text-xl mb-6 text-center"> {{ __('Register') }} </div>
             <form method="POST" action="{{ route('register') }}">

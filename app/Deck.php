@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class Deck extends Model
 {
 	use UsesOrder;
-	
+
 	protected $guarded = [];
 
 	public function user()
@@ -21,5 +21,10 @@ class Deck extends Model
     public function cards()
     {
     	return $this->hasMany(Card::class);
+    }
+
+    public function testpath()
+    {
+        return "/deck/{$this->id}/test";
     }
 }

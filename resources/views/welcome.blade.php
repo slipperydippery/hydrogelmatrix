@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="md:flex md:flex-row-reverse mx-auto pt-6 bg-white">
+    <div class="md:flex md:flex-row-reverse justify-center pt-6 bg-white">
         <div class="">
             <img src="/img/feature.svg" class="w-full" alt="">
         </div>

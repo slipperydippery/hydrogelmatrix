@@ -67,7 +67,7 @@
 .material-icons {
   font-size: inherit;
   line-height: inherit;
-  vertical-align: text-bottom;
+  vertical-align: sub;
 }
 
 .material-icons.h1 {
@@ -122,6 +122,10 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.transition-5 {
+  transition: all 0.5s;
 }
 
 .hydrocard-container {
