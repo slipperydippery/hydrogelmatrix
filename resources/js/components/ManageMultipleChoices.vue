@@ -1,8 +1,8 @@
 <template>
 	<div class="mt-4">
         <div v-for="choice in value" :key="choice.id" @click="setCorrectChoice(choice)"
-            class="bg-transparent hover:bg-blue-300 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-            :class="{ 'bg-blue-500 text-white' : isCorrect(choice), 'text-blue-700' : ! isCorrect(choice)}"
+            class="bg-transparent hover:bg-teal-500 font-semibold hover:text-white py-2 px-4 border border-teal-500 hover:border-transparent rounded"
+            :class="{ 'bg-teal-600 text-white' : isCorrect(choice), 'text-teal-700' : ! isCorrect(choice)}"
         >
             {{ choice.body }}
             <button type="button" class="close float-right" aria-label="Close" @click="removeChoice(choice)">

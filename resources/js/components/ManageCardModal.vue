@@ -1,19 +1,19 @@
 <template>
     <portal to="card">
-        <div class="fixed top-0 left-0 w-full h-full bg-gray-300" v-show="show" ref="portal" @click.self="resetAndHide">
-            <div class="max-w-sm overflow-hidden lg:border mx-auto mt-10 px-2 ">
+        <div class="fixed top-0 left-0 w-full h-full bg-gray-300 z-100" v-show="show" ref="portal" @click.self="resetAndHide">
+            <div class="max-w-sm md:max-w-md lg:max-w-lg overflow-hidden lg:border mx-auto mt-10 px-4 ">
                 <div
-                    class="w-1/4 inline-block text-center bg-white border-2 clickable noselect hover:bg-gray-200"
-                    :class="{ 'bg-gray-200' : isActiveCardtype(cardtype) }"
+                    class="w-1/4 inline-block text-center bg-white border-2 clickable noselect hover:bg-teal-700 hover:text-white"
+                    :class="{ 'bg-teal-700' : isActiveCardtype(cardtype), 'text-white' : isActiveCardtype(cardtype), 'text-gray-500': ! isActiveCardtype(cardtype) }"
                     v-for="cardtype in cardtypes"
                     @click="setCardtype(cardtype)"
                 >
-                    <i class="material-icons md-1-5 text-gray-500 " :class="{ 'text-gray-700' : isActiveCardtype(cardtype) }">
+                    <i class="material-icons md-1-5">
                         {{ cardtype.materialicon }}
                     </i>
                 </div>
             </div>
-            <div class="max-w-sm rounded overflow-hidden lg:shadow-lg lg:border mx-auto pt-2 pb-2 bg-white">
+            <div class="max-w-sm md:max-w-md lg:max-w-lg rounded-xl overflow-hidden lg:shadow-lg lg:border mx-auto pt-2 pb-2 bg-white">
                 <div class="relative px-6 py-4">
                     <button class="absolute top-0 right-0 mr-4 text-gray-800 hover:text-red-800" @click="resetAndHide">
                         <i class="material-icons">
@@ -37,14 +37,19 @@
                          >
                          </manage-multiple-choices>
                     </div>
-                    <button type="submit" class="block w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-5" @click="storeCard">
+                    <button type="submit" class="block w-full bg-secondary hover:bg-secondary-dark text-white font-bold py-2 px-4 rounded mt-5" @click="storeCard">
                         <span v-if="newCard">
-                            Create Card
+                            Creëer je kaart
                         </span>
                         <span v-else>
-                            Update Card
+                            Update je kaart
                         </span>
                     </button>
+                    <delete-card-button
+                        :card=card
+                        v-if="! newCard"
+                    >
+                    </delete-card-button>
                 </div>
             </div>
         </div>
@@ -84,6 +89,7 @@
             this.card.deck_id = this.deck_id
             this.$eventBus.$on('openNewCardModal', this.initializeCard)
             this.$eventBus.$on('openEditCardModal', this.initializeEditCard)
+            this.$eventBus.$on('deletedCard', () => {this.show = false})
         },
 
         computed: {

@@ -48,6 +48,7 @@
             },
 
             editDeck(deck) {
+                // this.$eventBus.$emit('editDeckInModal', deck)
                 window.location.href = '/deck/' + deck.id
             },
         }

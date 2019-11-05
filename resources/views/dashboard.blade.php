@@ -1,35 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container md:flex mx-auto mt-6">
-        <div class="px-4 py-2 text-center text-gray-600 w-full">
-            <h1 class="text-2xl sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl antialiased  tracking-tight font-semibold">Scaffolding for your brain</h1>
-            <p class="italic mt-2 text-gray-600">"Pellentesque posuere. Suspendisse nisl elit, rhoncus eget, elementum ac, condimentum eget, diam. Nullam accumsan lorem in dui. Vivamus quis mi."</p>
-            <new-deck-button inline-template>
-                <div>
-                    <button class="inline-block w-full px-8 py-2 mt-6 md:w-auto bg-secondary hover:bg-secondary-dark  text-white font-bold rounded"
-                            @click="newDeckInModal"
-                    >
-                        Make a new deck
-                    </button>
-
-                    <manage-deck-modal
-                    >
-                    </manage-deck-modal>
-
-                </div>
-            </new-deck-button>
-
-        </div>
-    </div>
     <div class="container mx-auto mt-6">
+        <h1 class="text-teal-900 text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl antialiased tracking-tight font-semibold"> Jouw decks </h1>
+        <new-deck-button inline-template>
+            <div>
+                <div class="inline-block md:w-auto text-teal-600 hover:text-teal-900 font-semibold  mb-6 clickable"
+                        @click="newDeckInModal"
+                >
+                    <i class="material-icons">
+                        add
+                    </i> Maak een nieuwe deck
+                </div>
+
+                <manage-deck-modal
+                >
+                </manage-deck-modal>
+
+            </div>
+        </new-deck-button>
         <decks-by-user
             :decks = " {{ json_encode($decks) }} "
             inline-template
         >
-            <div class="flex flex-wrap -mx-4">
-                <div class="w-1/3 px-4" v-for="deck in decks" :key="deck.id">
-                    <div class="bg-white mb-4 rounded shadow-lg p-5 h-56 relative hoverparent">
+            <div class="flex flex-wrap -mx-4 justify-center sm:justify-start">
+                <div class="w-full max-w-lg sm:w-1/2 md:w-1/2 xl:w-1/3 px-4 overflow-hidden" v-for="deck in decks" :key="deck.id">
+                    <div class="relative bg-white rounded-xl shadow-lg border-r-4 border-b-8 border-gray-500 h-56 mb-4 p-5 hoverparent overflow-hidden">
                         <h3 class="font-normal text-xl py-4 -mx-5 px-4 w-full border-l-4 border-teal-400 truncate">@{{ deck.title }}</h3>
 
                         <div class="text-gray-600">
@@ -58,11 +54,19 @@
                                 </svg>
                                 @{{ cardCounter(deck)  }}
                             </div>
-                            <div class="absolute right-0 bottom-0 h-full hoverchild flex">
+                            <div class="inline-block h-full px-2">
+                                <i class="material-icons md-1-2" v-if="deck.public">
+                                    link
+                                </i>
+                                <i class="material-icons md-1-2" v-else>
+                                    link_off
+                                </i>
+                            </div>
+                            <div class="absolute right-0 bottom-0 h-full hoverchild opacity-0 flex">
                                 <div class="h-full text-teal-400 hover:bg-teal-100 hover:text-teal-600 px-5 py-1 clickable transition-5"
                                      @click="editDeck(deck)"
                                 >
-                                    edit deck
+                                    bekijk deck
                                 </div>
 
                                 <div class="h-full bg-teal-400 text-white hover:bg-teal-600 flex items-center py-1 pl-6 pr-5 clickable transition-5"
@@ -79,9 +83,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="w-full">
+                    <span class="float-right flex items-center text-teal-800 clickable">
+                        Bekijk alles
+                        <i class="material-icons md-1-5">
+                            arrow_right
+                        </i>
+                    </span>
+                </div>
             </div>
-
         </decks-by-user>
+    </div>
+    <div class="container mx-auto">
+        <hr class="my-6">
+        <h1 class="text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl antialiased tracking-tight font-semibold"> Jouw Tests </h1>
+    </div>
+
+    <div class="container mx-auto">
+        <hr class="my-6">
+        <h1 class="text-lg sm:text-xl md:text-xl lg:text-2xl xl:text-3xl antialiased tracking-tight font-semibold"> Interessant voor jou </h1>
     </div>
 
 

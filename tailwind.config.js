@@ -13,10 +13,12 @@ module.exports = {
                 'secondary': '#07737C',
                 'secondary-light': '#2E8D95',
                 'secondary-dark': '#01626A',
+                'modalback-8': 'rgba(244,244,244, .8)',
                 gray: {
                     '100': '#f5f5f5',
                     '200': '#eeeeee',
                     '300': '#e0e0e0',
+                    '300-8': 'rgba(244,244,244, .8) ',
                     '400': '#bdbdbd',
                     '500': '#9e9e9e',
                     '600': '#757575',

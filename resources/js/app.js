@@ -30,7 +30,8 @@ Vue.use(PortalVue);
 //
 Vue.component('new-card-fixed-button', require('./components/NewCardFixedButton.vue').default);
 Vue.component('new-card-card', require('./components/NewCardCard.vue').default);
-Vue.component('new-card-modal', require('./components/NewCardModal.vue').default);
+Vue.component('manage-card-modal', require('./components/ManageCardModal.vue').default);
+Vue.component('delete-card-button', require('./components/DeleteCardButton.vue').default);
 
 
 //

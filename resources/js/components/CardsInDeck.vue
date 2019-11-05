@@ -18,6 +18,7 @@
         mounted() {
         	this.$eventBus.$on('addedCard', this.addCard);
             this.$eventBus.$on('updatedCard',this.updateCard);
+            this.$eventBus.$on('deletedCard',this.deleteCard);
         },
 
         computed: {
@@ -32,6 +33,11 @@
             updateCard(card) {
                 var i = this.deck.cards.map(deckcard => deckcard.id).indexOf(card.id);
                 this.deck.cards[i] = card;
+                this.$forceUpdate()
+            },
+
+            deleteCard(card){
+        	    this.deck.cards.splice(this.deck.cards.map(card => card.id).indexOf(card.id), 1)
                 this.$forceUpdate()
             },
 
