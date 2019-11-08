@@ -22,6 +22,7 @@
             updateDeckInfo(deck) {
                 this.deck.title = deck.title
                 this.deck.slug = deck.slug
+                this.deck.public = deck.public
                 this.deck.description = deck.description
             },
 

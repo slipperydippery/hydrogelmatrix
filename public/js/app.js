@@ -2007,6 +2007,7 @@ __webpack_require__.r(__webpack_exports__);
     updateDeckInfo: function updateDeckInfo(deck) {
       this.deck.title = deck.title;
       this.deck.slug = deck.slug;
+      this.deck["public"] = deck["public"];
       this.deck.description = deck.description;
     },
     addCard: function addCard(card) {
@@ -2081,6 +2082,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     showAll: function showAll() {
       this.decksToShow = null;
+    },
+    showDefault: function showDefault() {
+      this.decksToShow = 3;
     }
   }
 });
@@ -2564,6 +2568,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -45325,7 +45330,7 @@ var render = function() {
                 ),
                 _vm._v(" "),
                 _c("div", { staticClass: "flex mt-6" }, [
-                  _c("label", { staticClass: "flex items-center" }, [
+                  _c("label", { staticClass: "flex items-center switch" }, [
                     _c("input", {
                       directives: [
                         {
@@ -45368,8 +45373,17 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "ml-2" }, [_vm._v(" Openbaar ")])
-                  ])
+                    _c("span", { staticClass: "slider round" })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "ml-2 text-gray-400",
+                      class: { "text-teal-700 font-semibold": _vm.deck.public }
+                    },
+                    [_vm._v(" Openbaar ")]
+                  )
                 ]),
                 _vm._v(" "),
                 !_vm.updating

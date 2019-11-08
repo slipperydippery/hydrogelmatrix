@@ -63,6 +63,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'ownsdeck' => \App\Http\Middleware\VerifyDeckOwner::class,
+        'apiownsdeck' => \App\Http\Middleware\ApiVerifyDeckOwner::class,
+        'apiownscard' => \App\Http\Middleware\ApiVerifyCardOwner::class,
         'publiclyaccessible' => \App\Http\Middleware\ManagePrivateAccess::class,
     ];
 

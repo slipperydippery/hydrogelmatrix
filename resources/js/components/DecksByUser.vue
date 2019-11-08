@@ -65,6 +65,10 @@
 
             showAll() {
                 this.decksToShow = null
+            },
+
+            showDefault() {
+                this.decksToShow = 3
             }
         }
     }

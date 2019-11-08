@@ -24,6 +24,13 @@
                             <span>
                                 @{{ deck.cards.length }} kaarten
                             </span>
+                            <i class="material-icons clickable ml-4" v-if="deck.public">
+                                lock_open
+                            </i>
+                            <i class="material-icons clickable ml-4" v-else>
+                                lock
+                            </i>
+
                             <edit-deck-button
                                 :deck = "{{ json_encode($deck)  }}"
                                 inline-template
@@ -52,6 +59,7 @@
             <new-card-modal-button inline-template>
                 <div class="w-full text-teal-600 hover:text-teal-900 font-semibold py-2 clickable"
                         @click="openNewCardModal"
+                     v-if=" {{ $owner  }} "
                 >
                     <i class="material-icons">
                         add
@@ -81,7 +89,7 @@
                                 @{{ card.cardtype.materialicon }}
                             </i>
                         </div>
-                        <div class="absolute right-0 bottom-0 h-full">
+                        <div class="absolute right-0 bottom-0 h-full" v-if=" {{ $owner  }} ">
                             <div class="h-full bg-teal-600 text-white px-4 clickable transition-5 flex items-center"
                                  @click="editCard(card)"
                             >
@@ -99,6 +107,7 @@
     <manage-card-modal
         :cardtypes= " {{ json_encode($cardtypes) }} "
         :deck_id=" {{ $deck->id }} "
+        v-if=" {{ $owner  }} "
     >
     </manage-card-modal>
 

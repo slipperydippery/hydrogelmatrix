@@ -46,10 +46,11 @@
                         </label>
                     </div>
                     <div class="flex mt-6">
-                        <label class="flex items-center">
+                        <label class="flex items-center switch">
                             <input type="checkbox" class="form-checkbox" v-model="deck.public" >
-                            <span class="ml-2"> Openbaar </span>
+                            <span class="slider round"></span>
                         </label>
+                        <span class="ml-2 text-gray-400" :class="{ 'text-teal-700 font-semibold': deck.public }"> Openbaar </span>
                     </div>
                     <button type="submit" class="block w-full bg-secondary hover:bg-secondary-dark text-white font-bold py-2 px-4 rounded mt-5" @click="storeDeck" v-if="! updating">
                         <span v-if="newDeck">

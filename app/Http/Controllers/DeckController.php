@@ -12,7 +12,7 @@ class DeckController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('publiclyaccessible', ['except' => 'index']);
+        $this->middleware('publiclyaccessible')->except('index');
     }
 
     /**

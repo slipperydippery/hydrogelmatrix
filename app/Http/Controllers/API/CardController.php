@@ -14,6 +14,9 @@ class CardController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+        $this->middleware('apiownsdeck')->only('store');
+        $this->middleware('apiownscard', ['only' => ['update', 'destroy']]);
+//        $this->middleware('apiownscard')->only(['update, delete']);
     }
 
 
@@ -79,7 +82,6 @@ class CardController extends Controller
     {
         $card->front        = $request->input('card.front');
         $card->back         = $request->input('card.back');
-        $card->deck_id      = $request->input('card.deck_id');
         $card->cardtype_id  = $request->input('card.cardtype.id');
         $card->save();
         $card->choices()->delete();

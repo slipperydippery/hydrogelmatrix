@@ -91,6 +91,12 @@
                             arrow_right
                         </i>
                     </span>
+                    <span class="float-right flex items-center text-teal-800 clickable" @click="showDefault" v-else>
+                        Verberg
+                        <i class="material-icons md-1-5">
+                            arrow_drop_up
+                        </i>
+                    </span>
                 </div>
             </div>
         </decks-by-user>
