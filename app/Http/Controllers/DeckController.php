@@ -12,7 +12,7 @@ class DeckController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('ownsdeck', ['except' => 'index']);
+        $this->middleware('publiclyaccessible', ['except' => 'index']);
     }
 
     /**
@@ -55,9 +55,11 @@ class DeckController extends Controller
     public function show(Deck $deck)
     {
         $deck = Deck::with('cards.cardtype', 'cards.choices')->find($deck->id);
+        $slugs = Deck::select('slug')->get();
         $cards = Deck::find($deck->id)->cards;
         $cardtypes = CardType::get();
-        return view('deck.show', compact('deck', 'cards', 'cardtypes'));
+        $owner = $deck->user->id == auth()->user()->id ? 1 : 0;
+        return view('deck.show', compact('deck', 'cards', 'cardtypes', 'slugs', 'owner'));
     }
 
     /**

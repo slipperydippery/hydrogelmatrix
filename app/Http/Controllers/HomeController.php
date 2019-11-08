@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Deck;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,8 +26,9 @@ class HomeController extends Controller
     public function index()
     {
         if( Auth::check() ){
+            $slugs = Deck::select('slug')->get();
             $decks = Auth::user()->decks()->with('cards')->get();
-            return view('dashboard', compact('decks'));
+            return view('dashboard', compact('decks', 'slugs'));
         }
         return view('welcome');
     }

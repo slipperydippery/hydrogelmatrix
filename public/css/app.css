@@ -152,6 +152,10 @@
   border-radius: 1rem;
 }
 
+.error {
+  box-shadow: 0 0 3px #CC0000;
+}
+
 .hydrocard-container {
   perspective: 1000px;
   /* Remove this if you don't want the 3D effect */

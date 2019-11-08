@@ -14,6 +14,7 @@
                 </div>
 
                 <manage-deck-modal
+                    :slugs = " {{ json_encode($slugs) }} "
                 >
                 </manage-deck-modal>
 

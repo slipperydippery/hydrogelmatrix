@@ -44,12 +44,12 @@
             },
 
             startTest(deck) {
-                window.location.href = '/deck/' + deck.id + '/test'
+                window.location.href = '/deck/' + deck.slug + '/test'
             },
 
             editDeck(deck) {
                 // this.$eventBus.$emit('editDeckInModal', deck)
-                window.location.href = '/deck/' + deck.id
+                window.location.href = '/deck/' + deck.slug
             },
         }
     }

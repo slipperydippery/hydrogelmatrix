@@ -1,6 +1,6 @@
 <template>
     <portal to="card">
-        <div class="fixed top-0 left-0 w-full h-full bg-gray-300 z-100" v-show="show" ref="portal" @click.self="resetAndHide">
+        <div class="fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100" v-show="show" ref="portal" @click.self="resetAndHide">
             <div class="max-w-sm md:max-w-md lg:max-w-lg overflow-hidden lg:border mx-auto mt-10 px-4 ">
                 <div
                     class="w-1/4 inline-block text-center bg-white border-2 clickable noselect hover:bg-teal-700 hover:text-white"
@@ -24,18 +24,20 @@
                     <div class="font-bold text-xl mb-6 text-center"> {{ modalTitle }} </div>
 
                     <div class="block mb-3 text-gray-700 text-sm font-bold">
-                        <span v-for="(error, key) in errors" :key="error.key"> {{ error }} </span>
                         <label class="block mb-2">{{ card.cardtype.fronttext }}</label>
-                        <textarea class="form-textarea mt-1 block w-full" id="frontInput" ref="frontInput" :placeholder="card.cardtype.frontplaceholder" v-model="card.front" @keydown.esc="resetAndHide"></textarea>
+                        <textarea class="form-textarea my-1 block w-full" id="frontInput" ref="frontInput" :placeholder="card.cardtype.frontplaceholder" v-model="card.front" @keydown.esc="resetAndHide"></textarea>
+                        <span class="p-2 text-red-600" v-if="errors.front"> {{ errors.front }} </span>
 
                         <label class="block mb-2 mt-4" v-if="hasSideb">{{ card.cardtype.backtext }}</label>
-                        <textarea class="form-textarea mt-1 block w-full" id="backInput"  :placeholder="card.cardtype.backplaceholder" v-model="card.back" v-if="hasSideb"></textarea>
+                        <textarea class="form-textarea my-1 block w-full" id="backInput"  :placeholder="card.cardtype.backplaceholder" v-model="card.back" v-if="hasSideb"></textarea>
+                        <span class="p-2 text-red-600" v-if="errors.back"> {{ errors.back }} </span>
 
                         <manage-multiple-choices
                             v-model="card.choices"
                              v-if="isMultipleChoice"
                          >
                          </manage-multiple-choices>
+                        <span class="block p-2 text-red-600 w-full" v-if="errors.multiplechoice" v-for="error in errors.multiplechoice"> {{ error }} </span>
                     </div>
                     <button type="submit" class="block w-full bg-secondary hover:bg-secondary-dark text-white font-bold py-2 px-4 rounded mt-5" @click="storeCard">
                         <span v-if="newCard">
@@ -76,7 +78,11 @@
                     choices: [],
                 },
                 newCard: true,
-                errors: [],
+                errors: {
+                    front: null,
+                    back: null,
+                    multiplechoice: []
+                },
                 initialized: false,
             }
         },
@@ -95,9 +101,9 @@
         computed: {
             modalTitle() {
                 if(this.newCard) {
-                    return this.initialized ? 'Create: ' + this.card.cardtype.name.toLowerCase() : 'Create new card'
+                    return this.initialized ? 'Creëer : ' + this.card.cardtype.name.toLowerCase() : 'Creëer een nieuwe kaart'
                 }
-                return this.initialized ? 'Edit: ' + this.card.cardtype.name.toLowerCase() : 'Create new card'
+                return this.initialized ? 'Edit: ' + this.card.cardtype.name.toLowerCase() : 'Edit een kaart'
             },
 
             hasSideb() {
@@ -119,7 +125,11 @@
         methods: {
             storeCard(bvModalEvt) {
                 bvModalEvt.preventDefault()
-                this.errors = []
+                this.errors = {
+                    front: null,
+                    back: null,
+                    multiplechoice: []
+                }
                 if(! this.isValid()){
                     return
                 }
@@ -178,15 +188,17 @@
 
             validMultipleChoice() {
                 var errorcount = 0;
-                if(this.card.cardtype.slug == 'multiplechoice'){
-                    if(this.card.choices.length < 2){
-                        this.errors.push('A multiplechoice question must have at least two answers.')
-                        errorcount ++;
-                    }
-                    if(! this.card.choices.map(choice => choice.correct).includes(true)){
-                        this.errors.push('A multiplechoice question must have a correct answer selected.')
-                        errorcount ++;
-                    }
+                if(this.card.front.length == '') {
+                    this.errors.front = 'Je moet wel een vraag stellen.'
+                    errorcount ++;
+                }
+                if(this.card.choices.length < 2){
+                    this.errors.multiplechoice.push('Een meerkeuzevraag moet minstens twee antwoorden hebben.')
+                    errorcount ++;
+                }
+                if(! this.card.choices.map(choice => choice.correct).includes(true)){
+                    this.errors.multiplechoice.push('Een meerkeuzevraag moet een correct antwoord hebben.')
+                    errorcount ++;
                 }
                 return errorcount ? false : true;
             },
@@ -194,11 +206,11 @@
             validQA() {
                 var errorcount = 0
                 if(this.card.front.length == '') {
-                    this.errors.push('You must have a question.')
+                    this.errors.front = 'Je moet wel een vraag stellen.'
                     errorcount ++;
                 }
                 if(this.card.back.length == '') {
-                    this.errors.push('You must have an answer.')
+                    this.errors.back = 'Je vraag heeft ook een antwoord nodig.'
                     errorcount ++;
                 }
                 return errorcount ? false : true
@@ -207,11 +219,11 @@
             validFlippable() {
                 var errorcount = 0
                 if(this.card.front.length == '') {
-                    this.errors.push('You must have a native term.')
+                    this.errors.front = 'Je moet een bekende term hebben.'
                     errorcount ++;
                 }
                 if(this.card.back.length == '') {
-                    this.errors.push('You must have a foreign term.')
+                    this.errors.back = 'Je moet een vreemde term hebben.'
                     errorcount ++;
                 }
                 return errorcount ? false : true;
@@ -220,7 +232,7 @@
             validDoit() {
                 var errorcount = 0
                 if(this.card.front.length == '') {
-                    this.errors.push('You must set a task.')
+                    this.errors.front = 'Wat is je taak?'
                     errorcount ++;
                 }
                 return errorcount ? false : true;
@@ -247,7 +259,12 @@
                     front: '',
                     back: '',
                     choices: [],
-                };
+                }
+                this.errors = {
+                    front: null,
+                    back: null,
+                    multiplechoice: []
+                }
             },
 
             initializeCard() {

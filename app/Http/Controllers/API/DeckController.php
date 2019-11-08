@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Auth;
 use App\Deck;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreDeck;
 use App\Http\Controllers\Controller;
 
 class DeckController extends Controller
@@ -36,14 +37,17 @@ class DeckController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDeck $request)
     {
+        $validated = $request->validated();
+
         $user = auth('api')->user();
         $deck = Deck::create([
-            'title'         => $request->input('deck.title'),
-            'description'   => $request->input('deck.description'),
+            'title'         => $validated['title'],
+            'slug'          => $validated['slug'],
+            'description'   => $validated['description'],
             'user_id'       => $user->id,
-            'public'        => $request->input('deck.public'),
+            'public'        => $validated['public'],
         ]);
 
         return $deck;
@@ -67,11 +71,12 @@ class DeckController extends Controller
      * @param  int  Deck $deck
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Deck $deck)
+    public function update(StoreDeck $request, Deck $deck)
     {
-        $deck->title        = $request->input('deck.title');
-        $deck->description  = $request->input('deck.description');
-        $deck->public       = $request->input('deck.public');
+        $deck->title        = $request->input('title');
+        $deck->slug         = $request->input('slug');
+        $deck->description  = $request->input('description');
+        $deck->public       = $request->input('public');
 
         $deck->save();
 

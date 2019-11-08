@@ -32,6 +32,7 @@ Vue.component('new-card-fixed-button', require('./components/NewCardFixedButton.
 Vue.component('new-card-card', require('./components/NewCardCard.vue').default);
 Vue.component('manage-card-modal', require('./components/ManageCardModal.vue').default);
 Vue.component('delete-card-button', require('./components/DeleteCardButton.vue').default);
+Vue.component('deck-info', require('./components/DeckInfo.vue').default);
 
 
 //

@@ -45,7 +45,7 @@
         	},
 
         	backToDeck() {
-        		window.location.href = "/deck/" + this.deck.id;
+        		window.location.href = "/deck/" + this.deck.slug;
         	},
 
         	shuffleDeck(array) {

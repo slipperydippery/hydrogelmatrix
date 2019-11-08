@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 use Auth;
-use Closure;
 use App\Deck;
+use Closure;
 
-class VerifyDeckOwner
+class ManagePrivateAccess
 {
     /**
      * Handle an incoming request.
@@ -19,10 +19,10 @@ class VerifyDeckOwner
     {
         $deckid = $request->route('deck')->id;
         $deck = Deck::findOrFail($deckid);
-        if (Auth::guest()) {
+        if (Auth::guest() && ! $deck->public){
             return redirect()->guest('login');
         }
-        if (Auth::id() != $deck->user->id) {
+        if (Auth::id() != $deck->user->id && ! $deck->public) {
             return response('Je bent niet geauthoriseerd om deze pagina te bekijken', 401);
         }
         return $next($request);
