@@ -15,48 +15,48 @@ class CardtypeTableSeeder extends Seeder
         DB::table('cardtypes')->delete();
 
         $qa = new Cardtype([
-            'name' 				=> 'Question and Answer',
+            'name' 				=> 'Vraag en antwoord',
             'slug' 				=> 'qa',
-            'description' 		=> 'A card with a question on the front and the answer on the back. Can be reversed in Jeopardy mode',
+            'description' 		=> 'Een kaart met een duidelijke vraag op de voorkant en een antwoord op de achterkant. Kan worden omgedraaid in Jeopardy mode.',
             'materialicon'		=> 'question_answer',
-            'fronttext'			=> 'Question',
-            'frontplaceholder'	=> 'What is the question..?',
-            'backtext'			=> 'Answer',
-            'backplaceholder'	=> 'This is the answer!',
+            'fronttext'			=> 'Vraag',
+            'frontplaceholder'	=> 'Wat is de vraag..?',
+            'backtext'			=> 'Antwoord',
+            'backplaceholder'	=> 'Dit is het antwoord!',
         ]);
         $qa->save();
 
         $flippable = new Cardtype([
             'name' 				=> 'Flippable',
             'slug' 				=> 'flippable',
-            'description' 		=> 'A card that can be tested both ways. Language cards can work like this. Can be tested in strict or priority mode, where preference is given to the front as question.',
+            'description' 		=> 'Een kaart die beide richtingen op getest kan worden. Taal-kaarten werken bijvoorbeeld op deze manier. Kunnen ook in strikte modus getest worden, waarbij de moedertaal of juist vreemde taal wordt gevraagd.',
             'materialicon'		=> 'swap_calls',
-            'fronttext'			=> 'Side A',
-            'frontplaceholder'	=> 'The native term',
-            'backtext'			=> 'Side B',
-            'backplaceholder'	=> 'The foreign term',
+            'fronttext'			=> 'A zijde',
+            'frontplaceholder'	=> 'De natuurlijke term',
+            'backtext'			=> 'B zijde',
+            'backplaceholder'	=> 'De vreemde term',
         ]);
         $flippable->save();
 
         $multiplechoice = new Cardtype([
-            'name' 				=> 'Multiple choice',
+            'name' 				=> 'Meerkeuzevraag',
             'slug' 				=> 'multiplechoice',
-            'description' 		=> 'A question with multiple answer options, of which one is the final answer.',
+            'description' 		=> 'Een vraag met meerdere antwoord mogelijkheden, waarvan een de correcte is.',
             'materialicon'		=> 'format_list_bulleted',
-            'fronttext'			=> 'Question',
-            'frontplaceholder'	=> 'What is the question..?',
-            'backtext'			=> 'Choice',
-            'backplaceholder'	=> 'A possible answer...',
+            'fronttext'			=> 'Vraag',
+            'frontplaceholder'	=> 'Wat is de vraag..?',
+            'backtext'			=> 'Keuze',
+            'backplaceholder'	=> 'Een mogelijk antwoord is...',
         ]);
         $multiplechoice->save();
 
         $dothis = new Cardtype([
-            'name' 				=> 'Do it!',
+            'name' 				=> 'Do het!',
             'slug' 				=> 'doit',
-            'description' 		=> 'A card with a simple task - does not have an answer or backside.',
+            'description' 		=> 'Een kaart met een eenvoudige taak - heeft geen antwoord of achterkant',
             'materialicon'		=> 'double_arrow',
-            'fronttext'			=> 'Do it!',
-            'frontplaceholder'	=> 'The task is to...',
+            'fronttext'			=> 'Doe het!',
+            'frontplaceholder'	=> 'De taak is om te...',
             'backtext'			=> '',
             'backplaceholder'	=> '',
         ]);

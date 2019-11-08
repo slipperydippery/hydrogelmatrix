@@ -6,6 +6,7 @@
 
         data() {
             return {
+                decksToShow: 3
             }
         },
 
@@ -16,7 +17,17 @@
         computed: {
             chunkedDecks () {
                 return _.chunk(this.decks,4)
-            }
+            },
+
+            filteredDecks() {
+                var returnDecks = Object.values(this.decks)
+
+                if(this.decksToShow) {
+                    returnDecks = Object.values(returnDecks).slice(0, this.decksToShow)
+                }
+
+                return returnDecks
+            },
         },
 
         methods: {
@@ -51,6 +62,10 @@
                 // this.$eventBus.$emit('editDeckInModal', deck)
                 window.location.href = '/deck/' + deck.slug
             },
+
+            showAll() {
+                this.decksToShow = null
+            }
         }
     }
 </script>

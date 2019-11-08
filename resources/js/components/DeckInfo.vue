@@ -13,15 +13,20 @@
         },
 
         mounted() {
-            console.log(this.initialdeck)
             this.deck = this.initialdeck
             this.$eventBus.$on('updatedDeckInfo', this.updateDeckInfo)
+            this.$eventBus.$on('addedCard', this.addCard)
         },
 
         methods: {
             updateDeckInfo(deck) {
-                console.log(deck)
-                this.deck = deck
+                this.deck.title = deck.title
+                this.deck.slug = deck.slug
+                this.deck.description = deck.description
+            },
+
+            addCard(card){
+                this.deck.cards.push(card)
             }
         }
     }

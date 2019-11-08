@@ -21,7 +21,7 @@
                         </i>
                     </button>
 
-                    <div class="font-bold text-xl mb-6 text-center"> {{ modalTitle }} </div>
+                    <div class="font-semibold text-2xl text-teal-800 mb-6 text-center uppercase border-b pb-5"> {{ modalTitle }} </div>
 
                     <div class="block mb-3 text-gray-700 text-sm font-bold">
                         <label class="block mb-2">{{ card.cardtype.fronttext }}</label>
@@ -103,7 +103,7 @@
                 if(this.newCard) {
                     return this.initialized ? 'Creëer : ' + this.card.cardtype.name.toLowerCase() : 'Creëer een nieuwe kaart'
                 }
-                return this.initialized ? 'Edit: ' + this.card.cardtype.name.toLowerCase() : 'Edit een kaart'
+                return this.initialized ? 'Bewerk: ' + this.card.cardtype.name.toLowerCase() : 'Edit een kaart'
             },
 
             hasSideb() {

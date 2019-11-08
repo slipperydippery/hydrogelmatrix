@@ -25,7 +25,7 @@
             inline-template
         >
             <div class="flex flex-wrap -mx-4 justify-center sm:justify-start">
-                <div class="w-full max-w-lg sm:w-1/2 md:w-1/2 xl:w-1/3 px-4 overflow-hidden" v-for="deck in decks" :key="deck.id">
+                <div class="w-full max-w-lg sm:w-1/2 md:w-1/2 xl:w-1/3 px-4 overflow-hidden" v-for="deck in filteredDecks" :key="deck.id">
                     <div class="relative bg-white rounded-xl shadow-lg border-r-4 border-b-8 border-gray-500 h-56 mb-4 p-5 hoverparent overflow-hidden">
                         <h3 class="font-normal text-xl py-4 -mx-5 px-4 w-full border-l-4 border-teal-400 truncate">@{{ deck.title }}</h3>
 
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="w-full">
-                    <span class="float-right flex items-center text-teal-800 clickable">
+                    <span class="float-right flex items-center text-teal-800 clickable" @click="showAll" v-if="decksToShow">
                         Bekijk alles
                         <i class="material-icons md-1-5">
                             arrow_right

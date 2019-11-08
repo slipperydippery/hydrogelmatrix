@@ -47,7 +47,7 @@
 
             editCard(card) {
                 this.$eventBus.$emit('openEditCardModal', card)
-            }
+            },
         }
     }
 </script>

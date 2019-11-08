@@ -1,14 +1,17 @@
 <template>
     <portal to="deck">
         <div class="fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100" v-show="show" ref="portal" @click.self="resetModal">
-            <div class="max-w-sm md:max-w-md lg:max-w-lg rounded-xl lg:shadow-lg lg:border mx-auto mt-10 pt-2 pb-2 bg-white overflow-auto">
+            <div class="max-w-sm md:max-w-md lg:max-w-lg rounded-xl lg:shadow-lg lg:border mx-auto my-10 pt-2 pb-2 bg-white overflow-auto">
                 <div class="relative px-6 py-4">
                     <button class="absolute top-0 right-0 mr-4 text-gray-800 hover:text-red-800" @click="resetModal">
                         <i class="material-icons">
                             close
                         </i>
                     </button>
-                    <div class="font-bold text-xl mb-6 text-center"> Nieuwe Deck </div>
+                    <div class="font-semibold text-2xl text-teal-800 mb-6 text-center uppercase border-b pb-5">
+                        <span v-if="newDeck">Nieuwe Deck</span>
+                        <span v-else>Bewerk Deck</span>
+                    </div>
                     <div class="block mb-3 text-gray-700 text-sm font-bold">
                         <label class="block mb-2" for="input">Naam</label>
                         <input
@@ -141,7 +144,10 @@
                 })
                     .then( response => {
                         home.resetModal()
-                        home.$eventBus.$emit('updatedDeckInfo', home.deck)
+                        if(home.originaldeck.slug != response.data.slug) {
+                            window.location.href = "/deck/" + response.data.slug
+                        }
+                        home.$eventBus.$emit('updatedDeckInfo', response.data)
                     })
                     .catch(error => {
                         home.errors = error.response.data.errors

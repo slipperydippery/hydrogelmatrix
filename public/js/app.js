@@ -1999,14 +1999,18 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    console.log(this.initialdeck);
     this.deck = this.initialdeck;
     this.$eventBus.$on('updatedDeckInfo', this.updateDeckInfo);
+    this.$eventBus.$on('addedCard', this.addCard);
   },
   methods: {
     updateDeckInfo: function updateDeckInfo(deck) {
-      console.log(deck);
-      this.deck = deck;
+      this.deck.title = deck.title;
+      this.deck.slug = deck.slug;
+      this.deck.description = deck.description;
+    },
+    addCard: function addCard(card) {
+      this.deck.cards.push(card);
     }
   }
 });
@@ -2025,7 +2029,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['decks'],
   data: function data() {
-    return {};
+    return {
+      decksToShow: 3
+    };
   },
   mounted: function mounted() {
     this.$eventBus.$on('addedDeck', this.addDeck);
@@ -2033,6 +2039,15 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     chunkedDecks: function chunkedDecks() {
       return _.chunk(this.decks, 4);
+    },
+    filteredDecks: function filteredDecks() {
+      var returnDecks = Object.values(this.decks);
+
+      if (this.decksToShow) {
+        returnDecks = Object.values(returnDecks).slice(0, this.decksToShow);
+      }
+
+      return returnDecks;
     }
   },
   methods: {
@@ -2063,6 +2078,9 @@ __webpack_require__.r(__webpack_exports__);
     editDeck: function editDeck(deck) {
       // this.$eventBus.$emit('editDeckInModal', deck)
       window.location.href = '/deck/' + deck.slug;
+    },
+    showAll: function showAll() {
+      this.decksToShow = null;
     }
   }
 });
@@ -2337,7 +2355,7 @@ __webpack_require__.r(__webpack_exports__);
         return this.initialized ? 'Creëer : ' + this.card.cardtype.name.toLowerCase() : 'Creëer een nieuwe kaart';
       }
 
-      return this.initialized ? 'Edit: ' + this.card.cardtype.name.toLowerCase() : 'Edit een kaart';
+      return this.initialized ? 'Bewerk: ' + this.card.cardtype.name.toLowerCase() : 'Edit een kaart';
     },
     hasSideb: function hasSideb() {
       if (this.card.cardtype.slug == 'multiplechoice' || this.card.cardtype.slug == 'doit') {
@@ -2623,6 +2641,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['slugs'],
   data: function data() {
@@ -2684,7 +2705,12 @@ __webpack_require__.r(__webpack_exports__);
         "public": home.deck["public"]
       }).then(function (response) {
         home.resetModal();
-        home.$eventBus.$emit('updatedDeckInfo', home.deck);
+
+        if (home.originaldeck.slug != response.data.slug) {
+          window.location.href = "/deck/" + response.data.slug;
+        }
+
+        home.$eventBus.$emit('updatedDeckInfo', response.data);
       })["catch"](function (error) {
         home.errors = error.response.data.errors;
         home.updating = false;
@@ -44916,7 +44942,10 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "font-bold text-xl mb-6 text-center" },
+                  {
+                    staticClass:
+                      "font-semibold text-2xl text-teal-800 mb-6 text-center uppercase border-b pb-5"
+                  },
                   [_vm._v(" " + _vm._s(_vm.modalTitle) + " ")]
                 ),
                 _vm._v(" "),
@@ -45122,7 +45151,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "max-w-sm md:max-w-md lg:max-w-lg rounded-xl lg:shadow-lg lg:border mx-auto mt-10 pt-2 pb-2 bg-white overflow-auto"
+              "max-w-sm md:max-w-md lg:max-w-lg rounded-xl lg:shadow-lg lg:border mx-auto my-10 pt-2 pb-2 bg-white overflow-auto"
           },
           [
             _c(
@@ -45147,8 +45176,15 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "font-bold text-xl mb-6 text-center" },
-                  [_vm._v(" Nieuwe Deck ")]
+                  {
+                    staticClass:
+                      "font-semibold text-2xl text-teal-800 mb-6 text-center uppercase border-b pb-5"
+                  },
+                  [
+                    _vm.newDeck
+                      ? _c("span", [_vm._v("Nieuwe Deck")])
+                      : _c("span", [_vm._v("Bewerk Deck")])
+                  ]
                 ),
                 _vm._v(" "),
                 _c(
