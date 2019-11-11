@@ -10,7 +10,7 @@
             </hydrocard-text-formatter>
             <div class="min-w-1/2 mt-8">
                 <div v-for="choice in card.choices" :key="choice.id" @click="setGuess(choice)"
-                     class="bg-gray-200 hover:bg-blue-300 font-semibold hover:text-gray-850  py-2 px-4 border rounded"
+                     class="bg-gray-200 hover:bg-teal-700 font-semibold hover:text-gray-850  py-2 px-4 border rounded"
                 >
                     {{ choice.body }}
                 </div>
@@ -20,7 +20,7 @@
         <div class="h-full back face flex items-center justify-center">
             <div class="min-w-1/2 mt-8">
                 <div v-for="choice in card.choices" :key="choice.id" @click="setGuess(choice)"
-                     class="bg-transparent hover:bg-blue-300 font-semibold hover:text-white py-2 px-4 border border-gray-100 rounded"
+                     class="bg-transparent hover:bg-teal-700 font-semibold hover:text-white py-2 px-4 border border-gray-100 rounded"
                      :class="{'bg-blue-300' : choice.correct}"
                 >
                     {{ choice.body }}

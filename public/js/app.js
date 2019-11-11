@@ -1876,6 +1876,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CardContent",
   props: ['card'],
@@ -1910,9 +1913,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     evalutatedChoiceClass: function evalutatedChoiceClass(choice) {
       return {
-        'text-white bg-blue-300': choice.correct && !this.evalutateChoice(choice),
-        'text-white bg-green-300': choice.correct && this.evalutateChoice(choice),
-        'text-white bg-red-600': !choice.correct && this.evalutateChoice(choice)
+        'text-white bg-teal-600': choice.correct && !this.evalutateChoice(choice),
+        'text-white bg-green-700': choice.correct && this.evalutateChoice(choice),
+        'text-white bg-red-700': !choice.correct && this.evalutateChoice(choice)
       };
     },
     evalutateChoice: function evalutateChoice(choice) {
@@ -2239,7 +2242,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {},
   methods: {
     fontSize: function fontSize(string) {
-      return Math.round(15 / Math.pow(string.length, 0.4) * 10) / 10;
+      return Math.round(15 / Math.pow(string.length, 0.4) * 10) / 10 * .6;
     }
   }
 });
@@ -44494,7 +44497,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "hydrocard relative bg-gray-850 text-orange-100 rounded shadow-xl w-xs16 h-xs9 sm:w-sm16 sm:h-sm9 md:w-md16 md:h-md9 lg:w-md16 lg:h-md9 xl:w-xl16 xl:h-xl9",
+        "hydrocard relative w-xs16 h-xs9 sm:w-sm16 sm:h-sm9 md:w-md16 md:h-md9 lg:w-md16 lg:h-md9 xl:w-xl16 xl:h-xl9",
       class: _vm.flipClass,
       on: { click: _vm.flipCard }
     },
@@ -44503,13 +44506,14 @@ var render = function() {
         "div",
         {
           staticClass:
-            "h-full front face flex flex-col items-center justify-center"
+            "h-full front face flex flex-col rounded-xl overflow-hidden shadow-xl items-center justify-center text-teal-700"
         },
         [
           _c(
             "i",
             {
-              staticClass: "material-icons md-inactive md-3 abosolute-top-right"
+              staticClass:
+                "material-icons md-inactive text-gray-400 text-xl sm:text-2xl md:text-4xl xl:text-5xl abosolute-top-right"
             },
             [
               _vm._v(
@@ -44540,7 +44544,7 @@ var render = function() {
                     {
                       key: choice.id,
                       staticClass:
-                        "bg-gray-200 hover:bg-blue-300 font-semibold text-black hover:text-white py-2 px-4 border rounded",
+                        "bg-gray-200 hover:bg-teal-600 font-semibold text-black hover:text-white py-2 px-4 border rounded",
                       on: {
                         click: function($event) {
                           return _vm.setGuess(choice)
@@ -44558,7 +44562,12 @@ var render = function() {
                 }),
                 0
               )
-            : _vm._e()
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", {
+            staticClass:
+              "abosolute-bottom-right bg-calmly-light shadow-xl shadow-inner h-4 w-4 md:h-6 md:w-6 rounded-full"
+          })
         ],
         1
       ),
@@ -44568,7 +44577,7 @@ var render = function() {
             "div",
             {
               staticClass:
-                "h-full back face flex flex-col items-center justify-center"
+                "h-full back face flex flex-col rounded-xl overflow-hidden shadow-xl items-center justify-center text-teal-700"
             },
             [
               _c("hydrocard-text-formatter", {
@@ -44591,7 +44600,7 @@ var render = function() {
                         {
                           key: choice.id,
                           staticClass:
-                            "bg-gray-200 hover:bg-blue-300 font-semibold hover:text-white py-2 px-4 border border-gray-100 rounded",
+                            "bg-gray-200 hover:bg-teal-600 font-semibold hover:text-white py-2 px-4 border border-gray-100 rounded",
                           class: _vm.evalutatedChoiceClass(choice),
                           on: {
                             click: function($event) {
@@ -44610,7 +44619,12 @@ var render = function() {
                     }),
                     0
                   )
-                : _vm._e()
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", {
+                staticClass:
+                  "abosolute-bottom-left bg-calmly-light shadow-xl shadow-inner h-4 w-4 md:h-6 md:w-6 rounded-full"
+              })
             ],
             1
           )
@@ -58406,7 +58420,7 @@ window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
+ * all outgoing HTTP requests automatically have it attabched. This is just
  * a simple convenience so we don't have to attach every token manually.
  */
 // let token = document.head.querySelector('meta[name="csrf-token"]');

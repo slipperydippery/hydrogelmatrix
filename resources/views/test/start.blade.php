@@ -6,49 +6,33 @@
         inline-template
 	>
         <div class="flex flex-col w-full h-screen overflow-hidden">
-            <div class="flex flex-grow ">
-                <div class="flex-1 h-100 flex items-center pl-4">
-                    <div class="h-xs9sm:h-sm9 md:h-md9 lg:h-md9 xl:h-xl9 w-full py-2">
-                        <div class="w-full h-full select-none text-gray-600 flex items-center justify-end"
-                             :class="{'clickable hover:text-yellow-700 hover:bg-gray-200': ! firstCardActive}"
-                             @click="previousQuestion()"
-                        >
-                            <i
-                                class="material-icons md-5"
-                                :class="{'md-dark md-inactive': firstCardActive} "
-                            >
-                                arrow_left
-                            </i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hydrocard-container relative flex-1 flex items-center justify-center" v-for="card in shuffledDeck" v-if="card.id == activeCard.id" :key="card.id">
-                    <card-content
-                        :card="card"
+            <div class="flex-grow flex items-center">
+                <div class="flex-grow flex h-xs9 sm:h-sm9 md:h-md9 lg:h-md9 xl:h-xl9">
+                    <div class="flex-grow h-100 opacity-0 flex items-center justify-end text-gray-600 pl-4 py-2"
+                         :class="{'hover:opacity-75 transition-3 clickable': ! firstCardActive}"
+                         @click="previousQuestion()"
                     >
-                    </card-content>
-                </div>
+                        <img src="/img/arrows_prev.svg" class="h-full">
+                    </div>
 
-                <div class="flex-1 h-100 flex items-center pr-4">
-                    <div class="h-xs9sm:h-sm9 md:h-md9 lg:h-md9 xl:h-xl9 w-full py-2">
-                        <div class="w-full h-full select-none text-gray-600 flex items-center justify-start"
-                             :class="{'clickable hover:text-yellow-700 hover:bg-gray-200': ! lastCardActive}"
-                             @click="nextQuestion()"
+                    <div class="hydrocard-container relative flex items-center justify-center" v-for="card in shuffledDeck" v-if="card.id == activeCard.id" :key="card.id">
+                        <card-content
+                            :card="card"
                         >
-                            <i
-                                class="material-icons md-5"
-                                :class="{'md-dark md-inactive': lastCardActive}"
-                            >
-                                arrow_right
-                            </i>
-                        </div>
+                        </card-content>
+                    </div>
+
+                    <div class="flex-grow h-100 opacity-0 flex items-center justify-start text-gray-600 pr-4 py-2"
+                         :class="{'opacity-0 hover:opacity-75 transition-3 clickable': ! lastCardActive}"
+                         @click="nextQuestion()"
+                    >
+                        <img src="/img/arrows_next.svg" class="h-full">
                     </div>
                 </div>
             </div>
 
             <div class="px-5">
-                <div class="row flex flex-row items-center">
+                <div class="row flex flex-row items-center text-teal-800">
                     <div
                         class="px-2"
                         @mouseover="mouseBack = true"
@@ -66,7 +50,7 @@
                     </div>
                     <div class="flex-1 px-2">
                         <div class="w-full h-3 bg-gray-300 relative">
-                            <div class="absolute top-0 left-0 bg-blue-900 h-full" :style="{ width: (activeIndex / shuffledDeck.length) * 100 + '%' }"></div>
+                            <div class="absolute top-0 left-0 bg-teal-900 h-full" :style="{ width: (activeIndex / shuffledDeck.length) * 100 + '%' }"></div>
                         </div>
                     </div>
                     <div class="px-2">

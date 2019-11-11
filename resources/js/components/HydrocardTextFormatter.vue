@@ -28,7 +28,7 @@
 
         methods: {
             fontSize(string) {
-                return ((Math.round((15 / Math.pow(string.length, 0.4)) * 10))/ 10) ;
+                return ((Math.round((15 / Math.pow(string.length, 0.4)) * 10))/ 10) * .6 ;
             },
         }
     }

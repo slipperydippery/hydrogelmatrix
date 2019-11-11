@@ -16,9 +16,27 @@
 }
 
 .abosolute-top-right {
-	position: absolute;
-	top: 1rem;
-	right: 1rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.abosolute-top-left {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+}
+
+.abosolute-bottom-right {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.abosolute-bottom-left {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
 }
 
 .ratio-16-9 {
@@ -34,6 +52,10 @@
 
 .transition-5 {
     transition: all .5s;
+}
+
+.transition-3 {
+    transition: all .3s;
 }
 
 .z-100 {

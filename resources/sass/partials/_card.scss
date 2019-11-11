@@ -17,16 +17,23 @@
 	    }
     }
     .front {
-    	color: #E6E4DE;
-    	background: #272727;
+    	//color: #E6E4DE;
+    	//background: #272727;
+        //color: #272727;
+        background: #ffffff;
 	    z-index: 10;
+        //background: #ffffff url("/img/question_dot_front_bg.svg") no-repeat bottom right;
+        background-size: contain, cover;
+        //background: #ffffff url("/img/wormz_transp.png");
     }
     .back {
     	transform: rotateY(180deg);
-
-    	color: #272727;
-    	background: #E6E4DE;
+    	//color: #272727;
+        //background: #ffffff url("/img/question_dot_back_bg.svg") no-repeat bottom left;
+        background: #ffffff;
+        background-size: contain, cover;
     	z-index: 10;
+        //background-image: url("/img/memphis_transp.png");
     }
 
     .list-group {
