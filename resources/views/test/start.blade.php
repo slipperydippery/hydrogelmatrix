@@ -8,11 +8,14 @@
         <div class="flex flex-col w-full h-screen overflow-hidden">
             <div class="flex-grow flex items-center">
                 <div class="flex-grow flex h-xs9 sm:h-sm9 md:h-md9 lg:h-md9 xl:h-xl9">
-                    <div class="flex-grow h-100 opacity-0 flex items-center justify-end text-gray-600 pl-4 py-2"
-                         :class="{'hover:opacity-75 transition-3 clickable': ! firstCardActive}"
+                    <div class="flex-grow h-100 flex items-center justify-end text-gray-600 opacity-0 hover:opacity-75 pl-4 py-2 transition-3 clickable"
                          @click="previousQuestion()"
+                         v-if="! firstCardActive"
                     >
                         <img src="/img/arrows_prev.svg" class="h-full">
+                    </div>
+                    <div class="flex-grow h-100 opacity-75 flex items-center justify-end text-gray-600 pl-4 py-2" v-else>
+                        <img src="/img/dot_prev.svg" class="h-full">
                     </div>
 
                     <div class="hydrocard-container relative flex items-center justify-center" v-for="card in shuffledDeck" v-if="card.id == activeCard.id" :key="card.id">
@@ -22,11 +25,14 @@
                         </card-content>
                     </div>
 
-                    <div class="flex-grow h-100 opacity-0 flex items-center justify-start text-gray-600 pr-4 py-2"
-                         :class="{'opacity-0 hover:opacity-75 transition-3 clickable': ! lastCardActive}"
+                    <div class="flex-grow h-100 flex items-center justify-start text-gray-600 opacity-0 hover:opacity-75 pr-4 py-2 transition-3 clickable"
                          @click="nextQuestion()"
+                         v-if="! lastCardActive"
                     >
                         <img src="/img/arrows_next.svg" class="h-full">
+                    </div>
+                    <div class="flex-grow h-100 opacity-75 flex items-center justify-start text-gray-600 pr-4 py-2" v-else>
+                        <img src="/img/dot_next.svg" class="h-full">
                     </div>
                 </div>
             </div>
