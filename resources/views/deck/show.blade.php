@@ -83,7 +83,14 @@
                             </vue-markdown>
                         </span>
                     </div>
-                    <div class="absolute bottom-0 left-0 right-0 border-t border-gray-300 text-teal-600 py-1 px-5 hoverchild">
+                    <div class="absolute bottom-0 left-0 right-0 text-teal-600 py-1 px-5 select-none">
+                        <div class="inline-block ">
+                            <i class="material-icons-outlined md-1 pt-1 float-right">
+                                @{{ card.cardtype.materialicon }}
+                            </i>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 border-t border-gray-300 text-teal-600 py-1 px-5 hoverchild select-none">
                         <div class="inline-block ">
                             <i class="material-icons-outlined md-1 pt-1 float-right">
                                 @{{ card.cardtype.materialicon }}

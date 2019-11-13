@@ -24,6 +24,9 @@ Vue.use(PortalVue);
 //
 // Dashboard
 //
+Vue.component('manage-profile-button', require('./components/ManageProfileButton.vue').default);
+Vue.component('manage-profile-modal', require('./components/ManageProfileModal.vue').default);
+Vue.component('delete-profile-button', require('./components/DeleteProfileButton.vue').default);
 
 //
 // Deck
@@ -40,10 +43,6 @@ Vue.component('deck-info', require('./components/DeckInfo.vue').default);
 //
 Vue.component('test-deck-component', require('./components/TestDeckComponent.vue').default);
 Vue.component('card-content', require('./components/CardContent.vue').default);
-// Vue.component('qa-test-component', require('./components/QaTestComponent.vue').default);
-// Vue.component('flippable-test-component', require('./components/FlippableTestComponent.vue').default);
-// Vue.component('multiplechoice-test-component', require('./components/MultiplechoiceTestComponent.vue').default);
-// Vue.component('doit-test-component', require('./components/DoitTestComponent.vue').default);
 
 
 //
@@ -51,11 +50,6 @@ Vue.component('card-content', require('./components/CardContent.vue').default);
 //
 Vue.component('hydrocard-text-formatter', require('./components/HydrocardTextFormatter.vue').default);
 Vue.component('manage-multiple-choices', require('./components/ManageMultipleChoices').default);
-
-
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//                          TAILWIND REFACTOR:
-// ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //
 // Modal Components

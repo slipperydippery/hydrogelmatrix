@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         if( Auth::check() ){
             $slugs = Deck::select('slug')->get();
-            $decks = Auth::user()->decks()->with('cards')->get();
+            $decks = Auth::user()->decks()->with('cards')->orderBy('updated_at', 'desc')->get();
             return view('dashboard', compact('decks', 'slugs'));
         }
         return view('welcome');

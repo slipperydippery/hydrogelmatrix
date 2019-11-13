@@ -36,6 +36,8 @@
         </portal-target>
         <portal-target name="deck">
         </portal-target>
+        <portal-target name="profile">
+        </portal-target>
     </div>
 
     {{-- scripts  --}}

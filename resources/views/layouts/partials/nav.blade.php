@@ -20,14 +20,20 @@
             </div>
             <div class="border-t mt-8 text-center md:border-0 md:mt-0">
                 @guest
-                    <a href=" {{ route('login') }} " class="inline-block text-sm leading-none rounded-full bg-teal-600 text-white hover:text-gray-800 hover:bg-gray-100 px-4 py-2"> Log in </a>
-                    <a href=" {{ route('register') }} " class="inline-block text-sm leading-none border rounded-full border-white bg-white hover:border-transparent hover:text-gray-800 hover:bg-white mt-4 md:mt-0 px-4 py-2"> Registreer </a>
+                    <a href=" {{ route('login') }} " class="inline-block text-sm leading-none rounded-full bg-teal-600 text-white hover:text-gray-800 hover:bg-gray-100 px-4 py-2"> {{ __('Login') }} </a>
+                    <a href=" {{ route('register') }} " class="inline-block text-sm leading-none border rounded-full border-white bg-white hover:border-transparent hover:text-gray-800 hover:bg-white mt-4 md:mt-0 px-4 py-2"> {{ __('Register') }} </a>
                 @else
-                    <a class="inline-block text-sm px-4 py-2 leading-none rounded-full hover:text-gray-800 hover:bg-gray-100" href="#" >Beheer profiel</a>
+
+                    <manage-profile-button inline-template>
+                        <span class="inline-block text-sm px-4 py-2 leading-none rounded-full hover:text-gray-800 hover:bg-gray-100 clickable" @click="manageProfile" >Beheer profiel</span>
+                    </manage-profile-button>
+                    <manage-profile-modal :initialuser="{{ json_encode(Auth::user()) }}"></manage-profile-modal>
+
                     <a class="inline-block text-sm px-4 py-2 leading-none rounded-full hover:text-gray-800 hover:bg-gray-100" href="{{ route('logout') }}"
-                       onclick="event.preventDefault();
-                                     document.getElementById('logout-form').submit();">
-                        {{ __('Log uit ') }}
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();"
+                    >
+                        {{ __('Logout') }}
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

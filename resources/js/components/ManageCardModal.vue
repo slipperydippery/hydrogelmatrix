@@ -21,7 +21,10 @@
                         </i>
                     </button>
 
-                    <div class="font-semibold text-2xl text-teal-800 mb-6 text-center uppercase border-b pb-5"> {{ modalTitle }} </div>
+                    <div class="text-center border-b pb-5 mb-6 ">
+                        <div class="font-semibold text-2xl text-teal-800 uppercase "> {{ modalTitle }} </div>
+                        <em class="text-sm text-gray-500 p-4"> {{ card.cardtype.description }} </em>
+                    </div>
 
                     <div class="block mb-3 text-gray-700 text-sm font-bold">
                         <label class="block mb-2">{{ card.cardtype.fronttext }}</label>

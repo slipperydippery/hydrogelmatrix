@@ -15,6 +15,8 @@ class Card extends Model
 
 	protected $guarded = [];
 
+    protected $touches = ['deck'];
+
     public function user()
     {
     	return $this->belongsTo(User::class);
