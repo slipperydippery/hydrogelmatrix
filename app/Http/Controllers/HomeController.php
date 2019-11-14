@@ -27,17 +27,12 @@ class HomeController extends Controller
     public function index()
     {
         if( Auth::check() ){
-            return redirect()->route('dashbaord');
+            $slugs = Deck::select('slug')->get();
+            $decks = Auth::user()->decks()->with('cards')->get();
+
+            return view('dashboard', compact('decks', 'slugs'));
         }
 
         return view('welcome');
-    }
-
-    public function dashboard()
-    {
-        $slugs = Deck::select('slug')->get();
-        $decks = Auth::user()->decks()->with('cards')->get();
-
-        return view('dashboard', compact('decks', 'slugs'));
     }
 }
