@@ -36,7 +36,7 @@ class HomeController extends Controller
     public function dashboard()
     {
         $slugs = Deck::select('slug')->get();
-        $decks = Auth::user()->decks()->with('cards')->orderBy('updated_at', 'desc')->get();
+        $decks = Auth::user()->decks()->with('cards')->get();
 
         return view('dashboard', compact('decks', 'slugs'));
     }
