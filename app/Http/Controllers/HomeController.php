@@ -29,6 +29,7 @@ class HomeController extends Controller
         if( Auth::check() ){
             return redirect()->route('dashbaord');
         }
+
         return view('welcome');
     }
 
@@ -36,6 +37,7 @@ class HomeController extends Controller
     {
         $slugs = Deck::select('slug')->get();
         $decks = Auth::user()->decks()->with('cards')->orderBy('updated_at', 'desc')->get();
+
         return view('dashboard', compact('decks', 'slugs'));
     }
 }
