@@ -31,7 +31,7 @@
         methods: {
             deleteDeck(deck) {
                 var home = this
-                axios.delete('/api/deck/' + home.deck.id)
+                axios.delete('/api/deck/' + home.deck.slug)
                     .then( response => {
                         window.location.href = "/"
                     })

@@ -2040,24 +2040,13 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$eventBus.$on('addedDeck', this.addDeck);
   },
-  computed: {
-    chunkedDecks: function chunkedDecks() {
-      return _.chunk(this.decks, 4);
-    },
-    filteredDecks: function filteredDecks() {
-      var returnDecks = Object.values(this.decks);
-
-      if (this.decksToShow) {
-        returnDecks = Object.values(returnDecks).slice(0, this.decksToShow);
-      }
-
-      return returnDecks;
-    }
-  },
+  computed: {},
   methods: {
     addDeck: function addDeck(deck) {
+      console.log('adding deck');
       this.decks.push(deck);
       this.$forceUpdate();
+      console.log(this.filteredDecks);
     },
     cardCounter: function cardCounter(deck) {
       if ('cards' in deck) {
@@ -2181,7 +2170,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     deleteDeck: function deleteDeck(deck) {
       var home = this;
-      axios["delete"]('/api/deck/' + home.deck.id).then(function (response) {
+      axios["delete"]('/api/deck/' + home.deck.slug).then(function (response) {
         window.location.href = "/";
       });
     }

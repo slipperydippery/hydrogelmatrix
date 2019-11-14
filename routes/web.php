@@ -9,6 +9,7 @@ app()->singleton(GateContract::class, function ($app) {
 Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/dashboard', 'Homecontroller@dashboard')->name('dashbaord');
 
 Route::resource('deck', 'DeckController');
 

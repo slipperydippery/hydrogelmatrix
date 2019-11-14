@@ -15,25 +15,14 @@
         },
 
         computed: {
-            chunkedDecks () {
-                return _.chunk(this.decks,4)
-            },
-
-            filteredDecks() {
-                var returnDecks = Object.values(this.decks)
-
-                if(this.decksToShow) {
-                    returnDecks = Object.values(returnDecks).slice(0, this.decksToShow)
-                }
-
-                return returnDecks
-            },
         },
 
         methods: {
         	addDeck(deck) {
-        		this.decks.push(deck);
-        		this.$forceUpdate();
+        	    console.log('adding deck')
+        		this.decks.push(deck)
+        		this.$forceUpdate()
+                console.log(this.filteredDecks)
         	},
 
             cardCounter(deck) {

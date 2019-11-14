@@ -15,7 +15,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+         $this->middleware('auth')->only('dashboard');
+         $this->middleware('verified')->only('dashboard');
     }
 
     /**
@@ -26,10 +27,15 @@ class HomeController extends Controller
     public function index()
     {
         if( Auth::check() ){
-            $slugs = Deck::select('slug')->get();
-            $decks = Auth::user()->decks()->with('cards')->orderBy('updated_at', 'desc')->get();
-            return view('dashboard', compact('decks', 'slugs'));
+            return redirect()->route('dashbaord');
         }
         return view('welcome');
+    }
+
+    public function dashboard()
+    {
+        $slugs = Deck::select('slug')->get();
+        $decks = Auth::user()->decks()->with('cards')->orderBy('updated_at', 'desc')->get();
+        return view('dashboard', compact('decks', 'slugs'));
     }
 }
