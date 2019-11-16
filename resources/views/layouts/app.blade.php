@@ -20,6 +20,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 </head>
 <body class="font-sans leading-tight">
     <div id="app" class="bg-gray-200">
