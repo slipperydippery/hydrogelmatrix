@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Deck;
 use App\CardType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DeckController extends Controller
 {
