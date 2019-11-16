@@ -38,5 +38,5 @@ class HomeController extends Controller
         $decks = Auth::user()->decks()->with('cards')->orderBy('updated_at', 'desc')->get();
         return view('dashboard', compact('decks', 'slugs'));
     }
-    
+
 }

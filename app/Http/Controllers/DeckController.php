@@ -59,7 +59,10 @@ class DeckController extends Controller
         $slugs = Deck::select('slug')->get();
         $cards = Deck::find($deck->id)->cards;
         $cardtypes = CardType::get();
-        $owner = $deck->user->id == auth()->user()->id ? 1 : 0;
+        $owner = 0;
+        if(Auth::check()) {
+            $owner = $deck->user->id == auth()->user()->id ? 1 : 0;
+        }
         return view('deck.show', compact('deck', 'cards', 'cardtypes', 'slugs', 'owner'));
     }
 
