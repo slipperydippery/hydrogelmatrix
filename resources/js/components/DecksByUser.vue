@@ -19,11 +19,13 @@
 
         methods: {
         	addDeck(deck) {
-        	    console.log('adding deck')
         		this.decks.push(deck)
         		this.$forceUpdate()
-                console.log(this.filteredDecks)
         	},
+
+            addDeckToTest(deck){
+        	    this.$eventBus.$emit('AddDeckToTest', deck)
+            },
 
             cardCounter(deck) {
                 if('cards' in deck) {
@@ -33,7 +35,7 @@
             },
 
             fontSize(string) {
-                return ((Math.round((10 / Math.pow(string.length, 0.4)) * 10))/ 10) ;
+                return ((Math.round((10 / Math.pow(string.length, 0.4)) * 10))/ 10)
             },
 
             stringLimit(str) {
@@ -48,7 +50,6 @@
             },
 
             editDeck(deck) {
-                // this.$eventBus.$emit('editDeckInModal', deck)
                 window.location.href = '/deck/' + deck.slug
             },
 

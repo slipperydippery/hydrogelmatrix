@@ -28,6 +28,11 @@ class Deck extends Model
     	return $this->hasMany(Card::class);
     }
 
+    public function tests()
+    {
+        return $this->belongsToMany(Test::class, 'constituents');
+    }
+
     public function testpath()
     {
         return "/deck/{$this->id}/test";

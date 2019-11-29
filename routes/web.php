@@ -12,5 +12,6 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 
 Route::resource('deck', 'DeckController');
+Route::resource('test', 'TestController');
 
 Route::get('/deck/{deck}/test', 'DeckTestController@start')->name('decktest.start');

@@ -24,4 +24,6 @@ Route::apiResources([
 	'deck'			=> 'API\DeckController',
 	'card'			=> 'API\CardController',
     'user'          => 'API\UserController',
+    'test'          => 'API\TestController',
+    'constituent'   => 'API\ConstituentController'
 ]);

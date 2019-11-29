@@ -22,6 +22,11 @@ Vue.use(PortalVue);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //
+// Nav
+//
+Vue.component('nav-template', require('./components/NavTemplate.vue').default);
+
+//
 // Dashboard
 //
 Vue.component('manage-profile-button', require('./components/ManageProfileButton.vue').default);
@@ -37,6 +42,13 @@ Vue.component('manage-card-modal', require('./components/ManageCardModal.vue').d
 Vue.component('delete-card-button', require('./components/DeleteCardButton.vue').default);
 Vue.component('deck-info', require('./components/DeckInfo.vue').default);
 
+//
+// Test Components
+//
+Vue.component('manage-test-modal', require('./components/ManageTestModal.vue').default);
+Vue.component('manage-test-button', require('./components/ManageTestButton.vue').default);
+Vue.component('add-to-test-modal', require('./components/AddToTestModal').default);
+Vue.component('tests-by-user', require('./components/TestsByUser').default);
 
 //
 // Test Deck Components:
@@ -50,6 +62,7 @@ Vue.component('card-content', require('./components/CardContent.vue').default);
 //
 Vue.component('hydrocard-text-formatter', require('./components/HydrocardTextFormatter.vue').default);
 Vue.component('manage-multiple-choices', require('./components/ManageMultipleChoices').default);
+Vue.component('toggle-component', require('./components/ToggleComponent').default);
 
 //
 // Modal Components
@@ -63,11 +76,6 @@ Vue.component('decks-by-user', require('./components/DecksByUser.vue').default);
 
 Vue.component('new-card-modal-button', require('./components/NewCardModalButton.vue').default);
 Vue.component('cards-in-deck', require('./components/CardsInDeck.vue').default);
-
-//
-// Inline-templates
-//
-Vue.component('nav-template', require('./components/NavTemplate.vue').default);
 
 
 Vue.prototype.$eventBus = new Vue();

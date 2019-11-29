@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Deck;
+use App\Test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         if( Auth::check() ){
             return redirect()->route('dashboard');
         }
@@ -34,9 +36,11 @@ class HomeController extends Controller
 
     public function dashboard()
     {
-        $slugs = Deck::select('slug')->get();
+        $deckslugs = Deck::select('slug')->get();
         $decks = Auth::user()->decks()->with('cards')->orderBy('updated_at', 'desc')->get();
-        return view('dashboard', compact('decks', 'slugs'));
+        $tests = Auth::user()->tests()->with('decks')->orderBy('updated_at', 'desc')->get();
+        $testslugs = Test::select('slug')->get();
+        return view('dashboard', compact('decks', 'tests', 'deckslugs', 'testslugs'));
     }
 
 }
