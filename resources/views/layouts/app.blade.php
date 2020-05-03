@@ -23,7 +23,7 @@
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 </head>
 <body class="font-sans leading-tight">
-    <div id="app" class="bg-gray-200">
+    <div id="app" class="bg-calmly-light">
 
         @include('layouts.partials.nav')
 

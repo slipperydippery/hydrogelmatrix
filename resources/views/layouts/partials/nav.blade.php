@@ -1,9 +1,9 @@
 <nav-template inline-template>
     <nav class="relative flex items-center justify-between flex-wrap text-teal-700 p-4 z-10 bg-gray-200 md:bg-transparent">
         <div class="flex items-center flex-shrink-0 mr-6">
-            <svg class="fill-current h-8 w-8 mr-2" width="54px" height="54px" viewBox="0 0 54 54" enable-background="new 0 0 54 54" xml:space="preserve"><path fill-rule="evenodd" clip-rule="evenodd" d="M53.445,28.595c-0.327,5.71-3.195,10.61-9.099,13.34 c-5.855,2.706-11.426,1.786-16.449-2.213c-1.18-0.938-2.152-2.14-3.251-3.187c-0.51-0.486-1.054-0.963-1.655-1.323 c-1.429-0.855-2.916-0.72-4.369-0.033c-1.235,0.585-2.428,1.265-3.678,1.816c-6.641,2.932-13.831-1.631-14.011-8.874 c-0.153-6.154,5.846-11.078,11.872-9.608c1.692,0.413,3.261,1.338,4.882,2.036c0.371,0.161,0.718,0.377,1.092,0.532 c2.105,0.871,3.806,0.474,5.361-1.205c1.187-1.281,2.309-2.64,3.61-3.793c7.153-6.337,18.573-4.466,23.43,3.759 C52.649,22.331,53.394,24.987,53.445,28.595z"/></svg>
             <a href=" {{ route('home')  }} ">
-                <span class="font-bold text-2xl tracking-tight"> SUPERLIJM </span>
+                <svg class="fill-current h-8 w-8 mr-2" width="54px" height="54px" viewBox="0 0 54 54" enable-background="new 0 0 54 54" xml:space="preserve"><path fill-rule="evenodd" clip-rule="evenodd" d="M53.445,28.595c-0.327,5.71-3.195,10.61-9.099,13.34 c-5.855,2.706-11.426,1.786-16.449-2.213c-1.18-0.938-2.152-2.14-3.251-3.187c-0.51-0.486-1.054-0.963-1.655-1.323 c-1.429-0.855-2.916-0.72-4.369-0.033c-1.235,0.585-2.428,1.265-3.678,1.816c-6.641,2.932-13.831-1.631-14.011-8.874 c-0.153-6.154,5.846-11.078,11.872-9.608c1.692,0.413,3.261,1.338,4.882,2.036c0.371,0.161,0.718,0.377,1.092,0.532 c2.105,0.871,3.806,0.474,5.361-1.205c1.187-1.281,2.309-2.64,3.61-3.793c7.153-6.337,18.573-4.466,23.43,3.759 C52.649,22.331,53.394,24.987,53.445,28.595z"/></svg>
+                <span class="font-bold text-2xl tracking-tight hidden"> SUPERLIJM </span>
             </a>
         </div>
         <div class="block md:hidden" @click="toggleHidden">
