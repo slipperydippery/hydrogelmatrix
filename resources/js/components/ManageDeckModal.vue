@@ -1,6 +1,6 @@
 <template>
     <portal to="deck">
-        <div class="fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100" v-show="show" ref="portal" @click.self="resetModal">
+        <div class="fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100" v-show="show" ref="portal">
             <div class="max-w-sm md:max-w-md lg:max-w-lg rounded-xl lg:shadow-lg lg:border mx-auto my-10 pt-2 pb-2 bg-white overflow-auto">
                 <div class="relative px-6 py-4">
                     <button class="absolute top-0 right-0 mr-4 text-gray-800 hover:text-red-800" @click="resetModal">
@@ -76,7 +76,8 @@
 <script>
     export default {
         props: [
-            'slugs'
+            'user',
+            'slugsInStorage'
         ],
 
         data() {
@@ -96,13 +97,16 @@
                     slug: null,
                     description: null
                 },
-                updating: false
+                updating: false,
+                slugs: []
             }
         },
 
         mounted() {
-            this.$eventBus.$on('editDeckInModal', this.editDeck)
+            this.slugs = this.slugsInStorage
+            this.deck.slug = this.user.username + '-'
             this.$eventBus.$on('newDeckInModal', this.openModal)
+            this.$eventBus.$on('editDeckInModal', this.editDeck)
         },
 
         watch: {
@@ -120,6 +124,17 @@
         },
 
         methods: {
+            openModal() {
+                this.show = true
+            },
+
+            editDeck(deck) {
+                this.newDeck = false
+                this.deck = deck
+                this.originaldeck = JSON.parse(JSON.stringify(deck))
+                this.show = true
+            },
+
             storeDeck() {
                 this.updating = true
                 if (this.newDeck) {
@@ -160,7 +175,8 @@
         		})
         		.then( response => {
         			home.$eventBus.$emit('addedDeck', response.data);
-        			home.resetModal()
+                    home.slugs.push({slug: home.deck.slug})
+                    home.resetModal()
         		})
                     .catch(error => {
                         home.errors = error.response.data.errors
@@ -182,25 +198,13 @@
                 this.updating = false
                 this.errors = {
                     title: null,
-                    slug: null,
                     description: null
                 }
             },
 
-            openModal() {
-        	    this.show = true
-            },
-
-            editDeck(deck) {
-        	    this.newDeck = false
-        	    this.deck = deck
-                this.originaldeck = JSON.parse(JSON.stringify(deck))
-                this.show = true
-            },
-
             morphSlug() {
                 var regex = /\s/g
-                this.deck.slug = this.deck.title
+                this.deck.slug = this.user.username + '-' +  this.deck.title
                                             .toLowerCase()
                                             .replace(/[^\w ]+/g,'')
                                             .replace(/ +/g,'-')

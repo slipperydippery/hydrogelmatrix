@@ -49,6 +49,7 @@ Vue.component('manage-test-modal', require('./components/ManageTestModal.vue').d
 Vue.component('manage-test-button', require('./components/ManageTestButton.vue').default);
 Vue.component('add-to-test-modal', require('./components/AddToTestModal').default);
 Vue.component('tests-by-user', require('./components/TestsByUser').default);
+Vue.component('test-deck', require('./components/TestDeck').default);
 
 //
 // Test Deck Components:

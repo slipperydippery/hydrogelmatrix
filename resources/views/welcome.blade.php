@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="md:flex pt-6 bg-white">
+    <div class="md:flex pt-6">
         <div class="hidden md:block absolute top-0 right-0 left-0 z-0 ">
             <img src="/img/herobackground.svg" class="w-full" alt="">
         </div>
@@ -10,7 +10,7 @@
         </div>
         <div class="relative md:w-2/5 text-center md:text-left text-secondary px-4 py-2 z-10">
             <div class="md:pl-24 md:py-16">
-                <h1 class="text-2xl sm:text-xl md:text-2xl lg:text-4xl xl:text-6xl antialiased tracking-tight leading-none"> 
+                <h1 class="text-2xl sm:text-xl md:text-2xl lg:text-4xl xl:text-6xl antialiased tracking-tight leading-none">
                     <span class="">Superlijm</span> <br>
                     voor je <span class="font-bold">brein</span> </h1>
                 <p class=" text-gray-600 pt-4 mt-2 leading-relaxed">Boost je kennis en zet snel tests in elkaar om jezelf te trainen. Leer termen en concepten in een handomdraai.</p>

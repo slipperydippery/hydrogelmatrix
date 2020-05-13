@@ -1960,7 +1960,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AddToTestModal",
-  props: ['tests', 'user', 'slugs'],
+  props: ['tests', 'user', 'slugsInStorage'],
   data: function data() {
     return {
       show: false,
@@ -1968,11 +1968,14 @@ __webpack_require__.r(__webpack_exports__);
       slug: '',
       deck: {
         id: null
-      }
+      },
+      slugs: []
     };
   },
   mounted: function mounted() {
+    this.slugs = this.slugsInStorage;
     this.$eventBus.$on('AddDeckToTest', this.addDeckToTest);
+    this.$eventBus.$on('addedTest', this.addTest);
   },
   watch: {
     show: function show(newVal) {
@@ -2017,6 +2020,12 @@ __webpack_require__.r(__webpack_exports__);
       this.show = true;
       this.deck = deck;
     },
+    addTest: function addTest(test) {
+      this.slugs.push({
+        slug: test.slug
+      });
+      this.tests.push(test);
+    },
     resetModal: function resetModal() {
       this.show = false;
     },
@@ -2045,6 +2054,7 @@ __webpack_require__.r(__webpack_exports__);
         test: test,
         deck_id: this.deck.id
       }).then(function (response) {
+        home.$eventBus.$emit('AddedDeckToTest', response.data);
         home.show = false;
       });
     },
@@ -2937,7 +2947,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['slugs'],
+  props: ['user', 'slugsInStorage'],
   data: function data() {
     return {
       show: false,
@@ -2955,12 +2965,15 @@ __webpack_require__.r(__webpack_exports__);
         slug: null,
         description: null
       },
-      updating: false
+      updating: false,
+      slugs: []
     };
   },
   mounted: function mounted() {
-    this.$eventBus.$on('editDeckInModal', this.editDeck);
+    this.slugs = this.slugsInStorage;
+    this.deck.slug = this.user.username + '-';
     this.$eventBus.$on('newDeckInModal', this.openModal);
+    this.$eventBus.$on('editDeckInModal', this.editDeck);
   },
   watch: {
     show: function show(newVal) {
@@ -2978,6 +2991,15 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {},
   methods: {
+    openModal: function openModal() {
+      this.show = true;
+    },
+    editDeck: function editDeck(deck) {
+      this.newDeck = false;
+      this.deck = deck;
+      this.originaldeck = JSON.parse(JSON.stringify(deck));
+      this.show = true;
+    },
     storeDeck: function storeDeck() {
       this.updating = true;
 
@@ -3017,6 +3039,9 @@ __webpack_require__.r(__webpack_exports__);
         "public": home.deck["public"]
       }).then(function (response) {
         home.$eventBus.$emit('addedDeck', response.data);
+        home.slugs.push({
+          slug: home.deck.slug
+        });
         home.resetModal();
       })["catch"](function (error) {
         home.errors = error.response.data.errors;
@@ -3036,22 +3061,12 @@ __webpack_require__.r(__webpack_exports__);
       this.updating = false;
       this.errors = {
         title: null,
-        slug: null,
         description: null
       };
     },
-    openModal: function openModal() {
-      this.show = true;
-    },
-    editDeck: function editDeck(deck) {
-      this.newDeck = false;
-      this.deck = deck;
-      this.originaldeck = JSON.parse(JSON.stringify(deck));
-      this.show = true;
-    },
     morphSlug: function morphSlug() {
       var regex = /\s/g;
-      this.deck.slug = this.deck.title.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
+      this.deck.slug = this.user.username + '-' + this.deck.title.toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
 
       if (this.deck.slug == this.originaldeck.slug) {
         return;
@@ -3388,8 +3403,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ManageTestModal",
-  props: [// 'slugs'
-  ],
+  props: ['slugsInStorage'],
   data: function data() {
     return {
       show: false,
@@ -3407,11 +3421,13 @@ __webpack_require__.r(__webpack_exports__);
         slug: null,
         description: null
       },
-      updating: false
+      updating: false,
+      slugs: []
     };
   },
   mounted: function mounted() {
-    // this.$eventBus.$on('editTestInModal', this.editTest)
+    this.slugs = this.slugsInStorage; // this.$eventBus.$on('editTestInModal', this.editTest)
+
     this.$eventBus.$on('newTestInModal', this.openModal);
   },
   watch: {
@@ -3719,6 +3735,48 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TestDeck.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TestDeck.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "TestDeck",
+  props: ['test'],
+  mounted: function mounted() {},
+  computed: {
+    deckCounter: function deckCounter() {
+      if ('decks' in this.test) {
+        return this.test.decks.length;
+      }
+
+      return 0;
+    },
+    stringLimitDescription: function stringLimitDescription() {
+      if (this.test.description == null || this.test.description.length < 150) {
+        return this.test.description;
+      }
+
+      return this.test.description.substring(0, 150) + '...';
+    }
+  },
+  methods: {
+    stringLimit: function stringLimit(str) {
+      if (str == null || str.length < 150) {
+        return str;
+      }
+
+      return str.substring(0, 150) + '...';
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TestDeckComponent.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TestDeckComponent.vue?vue&type=script&lang=js& ***!
@@ -3805,6 +3863,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$eventBus.$on('addedTest', this.addTest);
+    this.$eventBus.$on('AddedDeckToTest', this.addedDeckToTest);
   },
   computed: {},
   methods: {
@@ -3812,26 +3871,13 @@ __webpack_require__.r(__webpack_exports__);
       this.tests.push(test);
       this.$forceUpdate();
     },
-    addTestToTest: function addTestToTest(test) {
-      console.log('adding ' + test.id + ' to test');
-      this.$eventBus.$emit('AddTestToTest', test);
-    },
-    deckCounter: function deckCounter(test) {
-      if ('decks' in test) {
-        return test.decks.length;
-      }
-
-      return 0;
+    addedDeckToTest: function addedDeckToTest(response) {
+      this.tests.find(function (x) {
+        return x.id === response.test_id;
+      }).decks.push(response.deck);
     },
     fontSize: function fontSize(string) {
       return Math.round(10 / Math.pow(string.length, 0.4) * 10) / 10;
-    },
-    stringLimit: function stringLimit(str) {
-      if (str == null || str.length < 150) {
-        return str;
-      }
-
-      return str.substring(0, 150) + '...';
     },
     startTest: function startTest(test) {
       window.location.href = '/test/' + test.slug + '/test';
@@ -46230,15 +46276,7 @@ var render = function() {
         ],
         ref: "portal",
         staticClass:
-          "fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100",
-        on: {
-          click: function($event) {
-            if ($event.target !== $event.currentTarget) {
-              return null
-            }
-            return _vm.resetModal($event)
-          }
-        }
+          "fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100"
       },
       [
         _c(
@@ -60001,7 +60039,8 @@ Vue.component('deck-info', __webpack_require__(/*! ./components/DeckInfo.vue */ 
 Vue.component('manage-test-modal', __webpack_require__(/*! ./components/ManageTestModal.vue */ "./resources/js/components/ManageTestModal.vue")["default"]);
 Vue.component('manage-test-button', __webpack_require__(/*! ./components/ManageTestButton.vue */ "./resources/js/components/ManageTestButton.vue")["default"]);
 Vue.component('add-to-test-modal', __webpack_require__(/*! ./components/AddToTestModal */ "./resources/js/components/AddToTestModal.vue")["default"]);
-Vue.component('tests-by-user', __webpack_require__(/*! ./components/TestsByUser */ "./resources/js/components/TestsByUser.vue")["default"]); //
+Vue.component('tests-by-user', __webpack_require__(/*! ./components/TestsByUser */ "./resources/js/components/TestsByUser.vue")["default"]);
+Vue.component('test-deck', __webpack_require__(/*! ./components/TestDeck */ "./resources/js/components/TestDeck.vue")["default"]); //
 // Test Deck Components:
 //
 
@@ -61425,6 +61464,56 @@ component.options.__file = "resources/js/components/NewDeckButton.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewDeckButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./NewDeckButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/NewDeckButton.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NewDeckButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/TestDeck.vue":
+/*!**********************************************!*\
+  !*** ./resources/js/components/TestDeck.vue ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TestDeck_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TestDeck.vue?vue&type=script&lang=js& */ "./resources/js/components/TestDeck.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _TestDeck_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/TestDeck.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/TestDeck.vue?vue&type=script&lang=js&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/components/TestDeck.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TestDeck_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./TestDeck.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/TestDeck.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TestDeck_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 

@@ -82,11 +82,12 @@
                 >
                     + Maak een nieuwe deck
                 </span>
-                <manage-deck-modal
-                    :slugs = " {{ json_encode($deckslugs) }} "
-                >
-                </manage-deck-modal>
             </new-deck-button>
+            <manage-deck-modal
+                :user = " {{ json_encode( auth()->user() ) }} "
+                :slugs-in-storage = " {{ json_encode($deckslugs) }} "
+            >
+            </manage-deck-modal>
         </div>
     </div>
 </decks-by-user>

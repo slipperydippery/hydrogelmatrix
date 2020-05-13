@@ -55,7 +55,7 @@
         props: [
             'tests',
             'user',
-            'slugs'
+            'slugsInStorage'
         ],
 
         data() {
@@ -65,12 +65,15 @@
                 slug: '',
                 deck: {
                     id: null
-                }
+                },
+                slugs: []
             }
         },
 
         mounted() {
+            this.slugs = this.slugsInStorage
             this.$eventBus.$on('AddDeckToTest', this.addDeckToTest)
+            this.$eventBus.$on('addedTest', this.addTest);
         },
 
         watch: {
@@ -113,6 +116,11 @@
                 this.deck = deck
             },
 
+            addTest(test) {
+                this.slugs.push({slug: test.slug})
+                this.tests.push(test)
+            },
+
             resetModal() {
                 this.show = false
             },
@@ -145,6 +153,7 @@
                     deck_id: this.deck.id,
                 })
                     .then( response => {
+                        home.$eventBus.$emit('AddedDeckToTest', response.data)
                         home.show = false
                     } )
             },

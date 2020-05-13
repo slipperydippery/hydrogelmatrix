@@ -31,6 +31,9 @@ class ConstituentController extends Controller
             'test_id' => $request->test['id'],
             'deck_id' => $request->deck_id
         ]);
+
+        $constituent = Constituent::with('deck', 'test')->find($constituent->id);
+
         return $constituent;
     }
 

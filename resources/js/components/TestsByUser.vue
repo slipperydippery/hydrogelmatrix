@@ -15,6 +15,7 @@
 
         mounted() {
             this.$eventBus.$on('addedTest', this.addTest);
+            this.$eventBus.$on('AddedDeckToTest', this.addedDeckToTest);
         },
 
         computed: {
@@ -26,27 +27,12 @@
                 this.$forceUpdate()
             },
 
-            addTestToTest(test){
-                console.log('adding ' + test.id + ' to test');
-                this.$eventBus.$emit('AddTestToTest', test)
-            },
-
-            deckCounter(test) {
-                if('decks' in test) {
-                    return test.decks.length
-                }
-                return 0
+            addedDeckToTest(response) {
+                this.tests.find(x => x.id === response.test_id).decks.push(response.deck)
             },
 
             fontSize(string) {
                 return ((Math.round((10 / Math.pow(string.length, 0.4)) * 10))/ 10)
-            },
-
-            stringLimit(str) {
-                if(str == null || str.length < 150) {
-                    return str
-                }
-                return str.substring(0,150) + '...'
             },
 
             startTest(test) {

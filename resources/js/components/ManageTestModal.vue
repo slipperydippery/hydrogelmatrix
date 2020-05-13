@@ -83,7 +83,7 @@
     export default {
         name: "ManageTestModal",
         props: [
-            // 'slugs'
+            'slugsInStorage'
         ],
 
         data() {
@@ -103,11 +103,13 @@
                     slug: null,
                     description: null
                 },
-                updating: false
+                updating: false,
+                slugs: []
             }
         },
 
         mounted() {
+            this.slugs = this.slugsInStorage
             // this.$eventBus.$on('editTestInModal', this.editTest)
             this.$eventBus.$on('newTestInModal', this.openModal)
         },

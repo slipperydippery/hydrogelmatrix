@@ -46,6 +46,8 @@ class TestController extends Controller
            $test->decks()->save($deck);
         }
 
+        $test = Test::with('decks')->find($test->id);
+
         return $test;
     }
 
