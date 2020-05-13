@@ -1,4 +1,4 @@
-<footer class="footer md:pb-5 bg-secondary-light">
+<footer class="footer md:pb-5 bg-secondary-light z-50">
     <div class="container mx-auto mt-3 md:flex md:justify-center md:items-center">
         <div class="w-full md:w-1/2 xl:w-2/3 text-white px-16 py-8">
             <h3 class="text-2xl text-center italic">"Welcome those big, sticky, complicated problems. In them are your most powerful opportunities."</h3>

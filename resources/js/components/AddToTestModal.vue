@@ -1,6 +1,6 @@
 <template>
     <portal to="addtotest">
-        <div class="fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100" v-show="show" ref="portal" @click.self="resetModal">
+        <div class="fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100" v-show="show" ref="portal">
             <div class="max-w-sm md:max-w-md lg:max-w-lg rounded-xl lg:shadow-lg lg:border mx-auto my-10 pt-2 pb-2 bg-white overflow-auto">
                 <div class="relative px-6 py-4">
                     <button class="absolute top-0 right-0 mr-4 text-gray-800 hover:text-red-800" @click="resetModal">

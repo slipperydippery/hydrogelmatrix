@@ -2293,7 +2293,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ['decks'],
   data: function data() {
     return {
-      decksToShow: 3
+      decksToShow: 3,
+      hoverElement: []
     };
   },
   mounted: function mounted() {
@@ -2336,6 +2337,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     showDefault: function showDefault() {
       this.decksToShow = 3;
+    },
+    mouseOn: function mouseOn(element) {
+      if (this.hoverElement.indexOf(element) >= 0) {
+        return;
+      }
+
+      this.hoverElement.push(element);
+    },
+    mouseOff: function mouseOff(element) {
+      if (this.hoverElement.indexOf(element) < 0) {
+        return;
+      }
+
+      this.hoverElement.splice(this.hoverElement.indexOf(element), 1);
     }
   }
 });
@@ -45310,15 +45325,7 @@ var render = function() {
         ],
         ref: "portal",
         staticClass:
-          "fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100",
-        on: {
-          click: function($event) {
-            if ($event.target !== $event.currentTarget) {
-              return null
-            }
-            return _vm.resetModal($event)
-          }
-        }
+          "fixed overflow-y-auto top-0 left-0 w-full h-full bg-gray-300 z-100"
       },
       [
         _c(
@@ -61704,8 +61711,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Code\hydrogelmatrix\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Code\hydrogelmatrix\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\zeronothingzero\Code\hydrogelmatrix\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\zeronothingzero\Code\hydrogelmatrix\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -10,13 +10,6 @@
         </h1>
 
         @include('partials.decksbyuser')
-
-        <add-to-test-modal
-            :tests="{{ json_encode($tests) }}"
-            :user="{{ json_encode(Auth::user()) }}"
-            :slugs-in-storage="{{ json_encode($testslugs) }}"
-        >
-        </add-to-test-modal>
     </div>
 
     <div class="container mx-auto">

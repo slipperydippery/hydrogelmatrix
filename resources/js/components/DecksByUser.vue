@@ -6,7 +6,8 @@
 
         data() {
             return {
-                decksToShow: 3
+                decksToShow: 3,
+                hoverElement: []
             }
         },
 
@@ -59,6 +60,22 @@
 
             showDefault() {
                 this.decksToShow = 3
+            },
+
+            mouseOn(element) {
+                if (this.hoverElement.indexOf(element) >= 0) {
+                    return
+                }
+
+                this.hoverElement.push(element)
+            },
+
+            mouseOff(element) {
+                if (this.hoverElement.indexOf(element) < 0) {
+                    return
+                }
+
+                this.hoverElement.splice(this.hoverElement.indexOf(element), 1)
             }
         }
     }

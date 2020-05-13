@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="md:flex pt-6">
+    <div class="md:flex pt-6 pb-8">
         <div class="hidden md:block absolute top-0 right-0 left-0 z-0 ">
             <img src="/img/herobackground.svg" class="w-full" alt="">
         </div>
