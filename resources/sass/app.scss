@@ -1,12 +1,18 @@
-// Fonts
+// Fonts and typeography
 @import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400&display=swap');
 @import "partials/materialicons";
-@import "partials/_elements";
-@import "partials/card";
 @import "partials/typography";
 
-@import "partials/switch";
 
+//Layout
+@import "partials/layout";
+@import "partials/card";
+@import "partials/switch";
+@import "partials/elements";
+
+
+
+// Tailwind
 @tailwind base;
 
 @tailwind components;

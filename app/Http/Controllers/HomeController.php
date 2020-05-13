@@ -11,8 +11,6 @@ class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -21,26 +19,30 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * Show the welcome screen.
      */
     public function index()
     {
-
         if( Auth::check() ){
             return redirect()->route('dashboard');
         }
+
         return view('welcome');
     }
 
+    /**
+     * Show the user dashboard.
+     */
     public function dashboard()
     {
-        $deckslugs = Deck::select('slug')->get();
-        $decks = Auth::user()->decks()->with('cards')->orderBy('updated_at', 'desc')->get();
-        $tests = Auth::user()->tests()->with('decks')->orderBy('updated_at', 'desc')->get();
-        $testslugs = Test::select('slug')->get();
-        return view('dashboard', compact('decks', 'tests', 'deckslugs', 'testslugs'));
+        $slugs = Deck::select('slug')->get();
+
+        $decks = Auth::user()->decks()
+            ->with('cards')
+            ->orderBy('updated_at', 'desc')
+            ->get();
+
+        return view('dashboard', compact('decks', 'slugs'));
     }
 
 }

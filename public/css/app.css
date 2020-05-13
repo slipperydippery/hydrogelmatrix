@@ -99,83 +99,15 @@
   top: 5px;
 }
 
-.clickable {
-  cursor: pointer;
+code {
+  font-size: 87.5%;
+  color: #f66d9b;
+  word-break: break-word;
 }
 
-.noselect {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-.hoverchild {
-  z-index: 100;
-  opacity: 0;
-  transition: all 0.5s;
-}
-
-.hoverparent:hover .hoverchild {
-  opacity: 1;
-}
-
-.abosolute-top-right {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-}
-
-.abosolute-top-left {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-}
-
-.abosolute-bottom-right {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-}
-
-.abosolute-bottom-left {
-  position: absolute;
-  bottom: 1rem;
-  left: 1rem;
-}
-
-.ratio-16-9 {
+html, body, #app, main {
+  height: 100%;
   width: 100%;
-  padding-bottom: 67%;
-  position: relative;
-}
-
-.ratio-content {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.transition-5 {
-  transition: all 0.5s;
-}
-
-.transition-3 {
-  transition: all 0.3s;
-}
-
-.z-100 {
-  z-index: 100;
-}
-
-.rounded-xl {
-  border-radius: 1rem;
-}
-
-.error {
-  box-shadow: 0 0 3px #CC0000;
 }
 
 .hydrocard-container {
@@ -322,12 +254,6 @@
   transform: rotateY(180deg);
 }
 
-code {
-  font-size: 87.5%;
-  color: #f66d9b;
-  word-break: break-word;
-}
-
 /* The switch - the box around the slider */
 
 .switch {
@@ -389,6 +315,85 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.noselect {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.hoverchild {
+  z-index: 100;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.hoverparent:hover .hoverchild {
+  opacity: 1;
+}
+
+.abosolute-top-right {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.abosolute-top-left {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.abosolute-bottom-right {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.abosolute-bottom-left {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+.ratio-16-9 {
+  width: 100%;
+  padding-bottom: 67%;
+  position: relative;
+}
+
+.ratio-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.transition-5 {
+  transition: all 0.5s;
+}
+
+.transition-3 {
+  transition: all 0.3s;
+}
+
+.z-100 {
+  z-index: 100;
+}
+
+.rounded-xl {
+  border-radius: 1rem;
+}
+
+.error {
+  box-shadow: 0 0 3px #CC0000;
 }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
