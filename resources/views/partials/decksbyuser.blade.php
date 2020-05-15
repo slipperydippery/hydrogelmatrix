@@ -3,6 +3,7 @@
     inline-template
 >
     <div class="flex flex-wrap -mx-4 justify-center sm:justify-start text-teal-700 select-none">
+
         <div class="w-full max-w-lg sm:w-1/2 md:w-1/2 xl:w-1/3 px-4 overflow-hidden" v-for="deck in decks.slice(0, Number(decksToShow ? decksToShow : 100))" :key="deck.id">
             <div class="relative bg-white rounded-lg shadow-lg shadow-lg border-gray-500 h-56 mb-4 p-5 hoverparent overflow-hidden clickable"
                 @click.self="startTest(deck)"
@@ -73,7 +74,9 @@
                 <span class="absolute right-0 py-2 px-4 text-white text-semibold bg-teal-600 hover:bg-teal-800 rounded-full mr-4"
                     @click="newDeckInModal"
                 >
-                    + Maak een nieuwe deck
+                    <i class="material-icons">
+                        add
+                    </i> Maak een nieuwe deck
                 </span>
             </new-deck-button>
             <manage-deck-modal

@@ -21,5 +21,23 @@
                 </div>
             </test-deck>
         </template>
+
+        <div class="w-full relative flex items-center justify-center">
+            <manage-test-button
+                inline-template
+            >
+                <span class="absolute right-0 py-2 px-4 text-white text-semibold bg-teal-600 hover:bg-teal-800 rounded-full mr-4"
+                     @click="openNewTestModal"
+                >
+                    <i class="material-icons">
+                        add
+                    </i> Maak een nieuwe test
+                </span>
+            </manage-test-button>
+            <manage-test-modal
+                :slugs-in-storage="{{ json_encode($testslugs) }}"
+            >
+            </manage-test-modal>
+        </div>
     </div>
 </tests-by-user>
