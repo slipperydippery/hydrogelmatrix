@@ -22,8 +22,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
 </head>
-<body class="font-sans leading-tight flex flex-col min-h-screen ">
-    <div id="app" class="bg-calmly-light flex-grow">
+<body class="font-sans leading-tight flex flex-col min-h-screen bg-calmly-light ">
+    <div id="app" class="flex-grow">
 
         @include('layouts.partials.nav')
 
